@@ -47,7 +47,7 @@
 
 
 ### 设计模式
-
+[设计模式](https://github.com/caoxinhui/Diary/issues/48)
 
 
 ### node
