@@ -36,7 +36,7 @@
 - [this](https://github.com/caoxinhui/Diary/issues/38)
 - [源码](https://github.com/caoxinhui/Diary/issues/40)
 - [promise](https://github.com/caoxinhui/Diary/issues/36)
-
+- [EventLoop](https://github.com/caoxinhui/Diary/issues/31)
 
 
 ### TS
