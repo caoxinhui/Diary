@@ -47,10 +47,12 @@
 
 
 ### 设计模式
-[设计模式](https://github.com/caoxinhui/Diary/issues/48)
+- [设计模式](https://github.com/caoxinhui/Diary/issues/48)
 
 
 ### node
 
 
+### HTTP
+- [HTTP](https://github.com/caoxinhui/Diary/issues/39)
 
