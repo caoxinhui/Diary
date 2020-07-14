@@ -26,6 +26,7 @@
 - [服务端渲染](https://github.com/caoxinhui/Diary/issues/17)
 - [生命周期](https://github.com/caoxinhui/Diary/issues/3)
 - [受控组件和非受控组件](https://github.com/caoxinhui/Diary/issues/6)
+- [react组件通信方式](https://github.com/caoxinhui/Diary/issues/76)
 
 
 ### JS
