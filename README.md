@@ -62,6 +62,7 @@
 
 ### 自我介绍
 - [英文自我介绍](https://github.com/caoxinhui/Diary/issues/74)
+- [项目介绍](https://github.com/caoxinhui/Diary/issues/65)
 
 ### webpack
 - [webpack](https://github.com/caoxinhui/Diary/issues/73)
