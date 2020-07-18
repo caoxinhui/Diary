@@ -39,6 +39,7 @@
 - [源码](https://github.com/caoxinhui/Diary/issues/40)
 - [promise](https://github.com/caoxinhui/Diary/issues/36)
 - [EventLoop](https://github.com/caoxinhui/Diary/issues/31)
+- [面向对象](https://github.com/caoxinhui/Diary/issues/52)
 
 
 ### TS
