@@ -7,6 +7,7 @@
 - [清除浮动](https://github.com/caoxinhui/Diary/issues/9)
 - [水平垂直居中](https://github.com/caoxinhui/Diary/issues/8)
 - [基础知识](https://github.com/caoxinhui/Diary/issues/4)
+- [外编剧](https://github.com/caoxinhui/Diary/issues/13)
 
 
 ### React
@@ -28,6 +29,11 @@
 - [受控组件和非受控组件](https://github.com/caoxinhui/Diary/issues/6)
 - [react组件通信方式](https://github.com/caoxinhui/Diary/issues/76)
 - [react16优化](https://github.com/caoxinhui/Diary/issues/77)
+- [react-router原理](https://github.com/caoxinhui/Diary/issues/35)
+- [react中this指向](https://github.com/caoxinhui/Diary/issues/43)
+- [react-imvc](https://github.com/caoxinhui/Diary/issues/57)
+- [fiber](https://github.com/caoxinhui/Diary/issues/68)
+- [diff](https://github.com/caoxinhui/Diary/issues/69)
 
 
 ### JS
@@ -40,6 +46,11 @@
 - [promise](https://github.com/caoxinhui/Diary/issues/36)
 - [EventLoop](https://github.com/caoxinhui/Diary/issues/31)
 - [面向对象](https://github.com/caoxinhui/Diary/issues/52)
+- [跨域](https://github.com/caoxinhui/Diary/issues/26)
+- [习题](https://github.com/caoxinhui/Diary/issues/29)
+- [ES6](https://github.com/caoxinhui/Diary/issues/30)
+- [源码](https://github.com/caoxinhui/Diary/issues/37)
+- [防抖和节流](https://github.com/caoxinhui/Diary/issues/47)
 
 
 ### TS
@@ -47,11 +58,13 @@
 
 
 ### 算法
-
+- [排序](https://github.com/caoxinhui/Diary/issues/55)
 
 ### 设计模式
 - [设计模式](https://github.com/caoxinhui/Diary/issues/48)
 
+### 数据结构
+- [arrayList vs linkList](https://github.com/caoxinhui/Diary/issues/25)
 
 ### node
 
@@ -59,7 +72,8 @@
 ### HTTP
 - [HTTP](https://github.com/caoxinhui/Diary/issues/39)
 - [页面渲染过程](https://github.com/caoxinhui/Diary/issues/21)
-
+- [缓存](https://github.com/caoxinhui/Diary/issues/50)
+- [TCP](https://github.com/caoxinhui/Diary/issues/51)
 ### 模块化
 - [模块化](https://github.com/caoxinhui/Diary/issues/78)
 
@@ -69,6 +83,7 @@
 
 ### webpack
 - [webpack](https://github.com/caoxinhui/Diary/issues/73)
+- [webpack](https://github.com/caoxinhui/Diary/issues/62)
 
 ### 浏览器
 - [浏览器原理](https://github.com/caoxinhui/Diary/issues/75)
