@@ -7,7 +7,7 @@
 - [清除浮动](https://github.com/caoxinhui/Diary/issues/9)
 - [水平垂直居中](https://github.com/caoxinhui/Diary/issues/8)
 - [基础知识](https://github.com/caoxinhui/Diary/issues/4)
-- [外编剧](https://github.com/caoxinhui/Diary/issues/13)
+- [外边距](https://github.com/caoxinhui/Diary/issues/13)
 
 
 ### React
@@ -41,7 +41,7 @@
 - [数组扁平化](https://github.com/caoxinhui/Diary/issues/15)
 - [proxy,defineProperty](https://github.com/caoxinhui/Diary/issues/19)
 - [深浅拷贝](https://github.com/caoxinhui/Diary/issues/46)
-- [this](https://github.com/caoxinhui/Diary/issues/38)
+- [原型、闭包、this](https://github.com/caoxinhui/Diary/issues/38)
 - [源码](https://github.com/caoxinhui/Diary/issues/40)
 - [promise](https://github.com/caoxinhui/Diary/issues/36)
 - [EventLoop](https://github.com/caoxinhui/Diary/issues/31)
