@@ -28,7 +28,7 @@
 - [生命周期](https://github.com/caoxinhui/Diary/issues/3)
 - [受控组件和非受控组件](https://github.com/caoxinhui/Diary/issues/6)
 - [react组件通信方式](https://github.com/caoxinhui/Diary/issues/76)
-- [react16优化](https://github.com/caoxinhui/Diary/issues/77)
+- [react优化](https://github.com/caoxinhui/Diary/issues/77)
 - [react-router原理](https://github.com/caoxinhui/Diary/issues/35)
 - [react中this指向](https://github.com/caoxinhui/Diary/issues/43)
 - [react-imvc](https://github.com/caoxinhui/Diary/issues/57)
