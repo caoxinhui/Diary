@@ -11,3 +11,5 @@ new TerserPlugin(
 通过 mini-css-extract-plugin 提取 Chunk 中的 CSS 代码到单独文件，通过optimize-css-assets-webpack-plugin插件 开启 cssnano 压缩 CSS。
 
 
+[webpack面试题](https://juejin.im/post/5e6f4b4e6fb9a07cd443d4a5)
+[webpack源码](https://juejin.im/post/5e1b2f77e51d454d5177a69d)
