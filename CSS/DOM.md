@@ -38,3 +38,17 @@ StartTag html -> StartTag body -> StartTag div -> 1 -> EndTag div -> StartTag di
 `<script defer type="text/javascript" src='foo.js'></script>
 `
 async 和 defer 虽然都是异步的，不过还有一些差异，使用 async 标志的脚本文件一旦加载完成，会立即执行；而使用了 defer 标记的脚本文件，需要在 DOMContentLoaded 事件之前执行。
+
+
+![含有CSS的页面渲染流水线](https://camo.githubusercontent.com/6beb7f68735c953b4d171f2387430269e7b1340e/687474703a2f2f626c6f672e706f6574726965732e746f702f696d672d7265706f2f323031392f31312f36352e706e67)
+
+### CSSOM
+和 HTML 一样，渲染引擎也是无法直接理解 CSS 文件内容的，所以需要将其解析成渲染引擎能够理解的结构，这个结构就是 CSSOM。和 DOM 一样，CSSOM 也具有两个作用，第一个是提供给 JavaScript 操作样式表的能力，第二个是为布局树的合成提供基础的样式信息。
+等 DOM 和 CSSOM 都构建好之后，渲染引擎就会构造布局树。布局树的结构基本上就是复制 DOM 树的结构，不同之处在于 DOM 树中那些不需要显示的元素会被过滤掉，如 display:none 属性的元素、head 标签、script 标签等。复制好基本的布局树结构之后，渲染引擎会为对应的 DOM 元素选择对应的样式信息，这个过程就是样式计算。样式计算完成之后，渲染引擎还需要计算布局树中每个元素对应的几何位置，这个过程就是计算布局。通过样式计算和计算布局就完成了最终布局树的构建。再之后，就该进行后续的绘制操作了。
+
+![含有JavaScript和CSS的页面渲染流水线](https://camo.githubusercontent.com/ac13bc6d9290df023840b71226c148522bb061b3/687474703a2f2f626c6f672e706f6574726965732e746f702f696d672d7265706f2f323031392f31312f36372e706e67)
+
+在接收到 HTML 数据之后的预解析过程中，HTML 预解析器识别出来了有 CSS 文件和 JavaScript 文件需要下载，然后就同时发起这两个文件的下载请求，需要注意的是，这两个文件的下载过程是重叠的，所以下载时间按照最久的那个文件来算。
+不管 CSS 文件和 JavaScript 文件谁先到达，都要先等到 CSS 文件下载完成并生成 CSSOM，然后再执行 JavaScript 脚本，最后再继续构建 DOM，构建布局树，绘制页面。
+
+
