@@ -8,12 +8,53 @@ const sub = new Sub();
 
 Sub.__proto__ === Super;
 ```
+
+```js
+class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y);
+        this.color = color
+    }
+
+    toString() {
+        return this.color + ' ' + super.toString()
+    }
+
+}
+```
+super指代父类的实例（父类的this对象)，子类必须在constructor中调用super方法，因为子类没有自己的this对象，而是继承了父类的this对象，然后对其进行加工。
+
+ES5的继承实质上是先创造子类的实例对象this，然后再将父类的方法添加到this上（Parent.apply(this)）。ES6的继承实质上是先创造父类的实例对象this,然后再用子类的构造函数修改this
+
+
+### 类的prototype属性和__proto__属性
+class作为构造函数的语法糖，同时有prototype属性和__proto__属性，因此同时存在两条继承链
+1. 子类的 __proto__ 属性表示构造函数的继承，总是指向父类
+2. 子类 prototype 属性 __proto__ 属性表示方法的继承，总是指向父类的prototype属性
+
+```js
+class B extends A {
+}
+
+B.__proto__ === A
+B.prototype.__proto__ === A.prototype
+
+
+Object.setPrototypeOf(B.prototype, A.prototype)
+Object.setPrototypeOf(B, A)
+Object.setPrototypeOf = function (obj, proto) {
+    obj.__proto__ = proto
+    return obj
+}
+```
+
+
 ```js
 // ES5
 function Super() {}
 function Sub() {}
 
-Sub.prototype = new Super();
+Sub.prototype = new Super(); 
 Sub.prototype.constructor = Sub;
 
 var sub = new Sub();
