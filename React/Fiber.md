@@ -7,6 +7,18 @@
 >旧版 React 通过递归的方式进行渲染，使用的是 JS 引擎自身的函数调用栈，它会一直执行到栈空为止。而Fiber实现了自己的组件调用栈，它以链表的形式遍历组件树，可以灵活的暂停、继续和丢弃执行的任务。实现方式是使用了浏览器的requestIdleCallback这一 API。
  Fiber 其实指的是一种数据结构，它可以用一个纯 JS 对象来表示
 
+### Scheduler
+scheduling(调度)是fiber reconciliation的一个过程，主要决定应该在何时做什么。在stack reconciler中，reconciliation是“一气呵成”，对于函数来说，这没什么问题，因为我们只想要函数的运行结果，但对于UI来说还需要考虑以下问题：
+- 并不是所有的state更新都需要立即显示出来，比如屏幕之外的部分的更新
+- 并不是所有的更新优先级都是一样的，比如用户输入的响应优先级要比通过请求填充内容的响应优先级更高
+- 理想情况下，对于某些高优先级的操作，应该是可以打断低优先级的操作执行的，比如用户输入时，页面的某个评论还在reconciliation，应该优先响应用户输入
+
+所以理想状况下reconciliation的过程应该是像下图所示一样，每次只做一个很小的任务，做完后，回到主线程看下有没有什么更高优先级的任务需要处理，如果有则先处理更高优先级的任务
+
+### 任务拆分 fiber-tree & fiber
+先看一下stack-reconciler下的react是怎么工作的。代码中创建（或更新）一些元素，react会根据这些元素创建（或更新）Virtual DOM，然后react根据更新前后virtual DOM的区别，去修改真正的DOM。注意，在stack reconciler下，DOM的更新是同步的，也就是说，在virtual DOM的比对过程中，发现一个instance有更新，会立即执行DOM操作。
+
+
 
 ```js
 const fiber = {
