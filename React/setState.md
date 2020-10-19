@@ -1,3 +1,61 @@
+## setState 使用方式
+
+### 通过setState第二个参数，设置count值
+
+```jsx harmony
+this.setState({ count: this.state.count + 1 }, () => {
+  this.setState({ count: this.state.count + 1 }, () => {
+    this.setState({ count: this.state.count + 1 }, () => {
+      console.log(this.state.count);
+    });
+  });
+});
+```
+
+
+### setState的参数
+ 第一个参数可以是对象，也可以是方法，方法的入参是前一个状态
+
+```jsx harmony
+this.setState((prevState) => {
+  return {
+    count: prevState + 1
+  };
+});
+console.log(this.state.count);
+```
+### 批量更新
+react的setState是一个异步方法，React 会将所有的 setState 方法打包成一次进行更新，每次修改 state 都会进行更新。这样的设计主要是为了提高 UI 更新的性能，
+
+我们知道 React 中 state 的改变会导致 UI 的更新。如果想要进行同步操作逻辑有两种方法。
+
+1. 通过异步实现
+```jsx harmony
+componentDidMount(){
+    setTimeout(() => {
+        this.setState({
+            value: this.state.value + 1
+        })
+        console.log('value', this.state.value)
+    }, 0)
+}
+```
+2. 通过回调函数实现
+```jsx harmony
+this.setState({
+      value: this.state.value + 1
+    }, () => {
+      console.log('value', this.state.value) 
+})
+```
+
+### 判断批量更新
+在更新逻辑的部分，可以看到 React 会通过 batchingStrategy.isBatchingUpdates 判断当前的逻辑状态下是否需要进行批量更新
+
+- 如果不是，那么就直接进行页面的批量更新，将之前累积的所有状态一次更新到组件上。
+- 如果是，那么所有的组件状态不进行立即更新，而是将组件状态存放在一个叫 dirtyComponents 的数组中去，等待下次更新时机的到来再进行更新
+
+
 #### 以下将一直渲染为5，即使他的父组件重新渲染
 ```jsx harmony
 import React from "react";
