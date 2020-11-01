@@ -1,4 +1,9 @@
 ![浏览器内核（渲染进程）.png](http://ww1.sinaimg.cn/large/92babc53gy1giulcnjkurj21pv0ilq6s.jpg)
+
+### why EventLoop
+各种浏览器事件同时触发时，肯定有一个先来后到的排队问题。决定这些事件如何排队触发的机制，就是事件循环。
+
+
 ### 进程线程
 进程：资源分配的最小单位
 线程：程序执行的最小单位
@@ -31,6 +36,7 @@ setImmediate 方法则是在当前"任务队列"的尾部添加事件。
 process.nextTick和setImmediate的一个重要区别：多个process.nextTick语句总是在当前"执行栈"一次执行完，多个setImmediate可能则需要多次loop才能执行完。
 
 ### 宏任务
+JavaScript外部的队列，外部队列主要是浏览器协调的各类事件的队列。
 JS 中，大部分任务都是在主线程上执行的，常见任务
 - setTimeout
 - setInterval 
@@ -38,8 +44,9 @@ JS 中，大部分任务都是在主线程上执行的，常见任务
 - I/O
 - setImmediate
 - 渲染事件
-- 用户交互事件
+- 用户交互事件(鼠标、键盘)
 - js脚本执行
+- History API 操作
 - 网络请求、文件读写完成事件等等。
 其中 setImmediate 只存在于node中，requestAnimationFrame 只存在于 浏览器中
 
@@ -50,6 +57,7 @@ JS引擎需要对之执行的顺序做一定的安排，V8 其实采用的是一
 
 
 ### 微任务
+JavaScript语言内部的事件队列
 微任务包括
 - Promise
 - MutationObserver
