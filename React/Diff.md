@@ -83,3 +83,57 @@ React通过先判断key是否相同，如果key相同则判断type是否相同�
 第一轮遍历：处理更新的节点。
 
 第二轮遍历：处理剩下的不属于更新的节点。
+
+
+### diff
+一个DOM节点在某一时刻最多会有4个节点和他相关。
+1. current Fiber。如果该DOM节点已在页面中，current Fiber代表该DOM节点对应的Fiber节点。
+2. workInProgress Fiber。如果该DOM节点将在本次更新中渲染到页面中，workInProgress Fiber代表该DOM节点对应的Fiber节点。
+3. DOM节点本身。
+4. JSX对象。即ClassComponent的render方法的返回结果，或FunctionComponent的调用结果。JSX对象中包含描述DOM节点的信息。
+
+
+为了降低算法复杂度，React的diff会预设三个限制：
+1. 只对同级元素进行Diff。如果一个DOM节点在前后两次更新中跨越了层级，那么React不会尝试复用他。
+2. 两个不同类型的元素会产生出不同的树。如果元素由div变为p，React会销毁div及其子孙节点，并新建p及其子孙节点。
+3. 开发者可以通过 key prop来暗示哪些子元素在不同的渲染下能保持稳定。
+
+
+#### diff实现
+我们从Diff的入口函数reconcileChildFibers出发，该函数会根据newChild（即JSX对象）类型调用不同的处理函数。
+
+我们可以从同级的节点数量将Diff分为两类：
+- 当newChild类型为object、number、string，代表同级只有一个节点
+- 当newChild类型为Array，同级有多个节点
+
+##### 单个节点
+对于单个节点，我们以类型object为例，会进入reconcileSingleElement
+React通过先判断key是否相同，如果key相同则判断type是否相同，只有都相同时一个DOM节点才能复用。
+
+##### FunctionComponent
+```jsx harmony
+function List () {
+  return (
+    <ul>
+      <li key="0">0</li>
+      <li key="1">1</li>
+      <li key="2">2</li>
+      <li key="3">3</li>
+    </ul>
+  )
+}
+```
+他的返回值JSX对象的children属性不是单一节点，而是包含四个对象的数组
+
+首先归纳下我们需要处理的情况:
+1. 节点更新
+2. 节点新增或者减少
+3. 节点位置发生变化
+
+在日常开发中，相较于新增和删除，更新组件发生的频率更高。所以Diff会优先判断当前节点是否属于更新。
+
+Diff算法的整体逻辑会经历两轮遍历：
+
+第一轮遍历：处理更新的节点。
+
+第二轮遍历：处理剩下的不属于更新的节点。
