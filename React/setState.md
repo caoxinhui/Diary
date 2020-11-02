@@ -131,3 +131,71 @@ function Child() {
 ```
 
 [参考文献](https://css-tricks.com/using-requestanimationframe-with-react-hooks/)
+
+
+#### 实现一个计时器
+<!-- 方法1 -->
+```js
+export default function App() {
+  const startTime = Date.now();
+  const [time, setTime] = useState(startTime);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(Date.now() - startTime);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+  return (
+    <div className="App">
+      <h1>{time}</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+```
+
+
+<!-- 方法2 -->
+也能实现计时，但是会不停地执行卸载
+```js
+export default function App() {
+  const [time, setTime] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(time + 1000);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [time]);
+  return (
+    <div className="App">
+      <h1>{time}</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+```
+
+<!-- 方法3 -->
+```js
+export default function App() {
+  const [time, setTime] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime((previousCount) => previousCount + 1);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+  return (
+    <div className="App">
+      <h1>{time}</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+```
