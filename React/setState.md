@@ -185,7 +185,7 @@ export default function App() {
   const [time, setTime] = useState(0);
   useEffect(() => {
     const id = setInterval(() => {
-      setTime((previousCount) => previousCount + 1);
+      setTime(previousCount => previousCount + 1);
     }, 1000);
     return () => {
       clearInterval(id);
