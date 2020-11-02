@@ -1,6 +1,6 @@
 [参考文献](http://47.98.159.95/my_blog/css/008.html)
 ### 什么是BFC
->W3C对BFC的定义如下： 浮动元素和绝对定位元素，非块级盒子的块级容器（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为"visiable"的块级盒子，都会为他们的内容创建新的BFC（Block Fromatting Context， 即块级格式上下文）
+> W3C对BFC的定义如下： 浮动元素和绝对定位元素，非块级盒子的块级容器（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为"visiable"的块级盒子，都会为他们的内容创建新的BFC（Block Fromatting Context， 即块级格式上下文）
 
 
 ### 触发条件
@@ -23,3 +23,12 @@
 3. BFC是一个独立的容器，外面的元素不会影响里面的元素
 
 4. 计算BFC高度的时候浮动元素也会参与计
+
+
+### 边距重叠
+块的上外边距(margin-top)和下外边距(margin-bottom)有时合并(折叠)为单个边距，其大小为单个边距的最大值(或如果它们相等，则仅为其中一个)，这种行为称为边距折叠。
+
+有三种情况会形成外边距重叠：
+
+1. 同一层相邻元素之间，相邻的两个元素之间的外边距重叠，除非后一个元素加上clear-fix清除浮动。
+2. 没有内容将父元素和后代元素分开
