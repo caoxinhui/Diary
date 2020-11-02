@@ -214,3 +214,7 @@ setTimeout(function () {
 ### process.nextTick
 process.nextTick 是一个独立于 eventLoop 的任务队列。
 在每一个 eventLoop 阶段完成后会去检查这个队列，如果里面有任务，会让这部分任务优先于微任务执行。
+
+
+### await 和 promise执行顺序
+async 返回一个promise，返回的promise会放到回调队列中等待
