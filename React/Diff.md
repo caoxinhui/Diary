@@ -1,63 +1,66 @@
-### Diff遍历算法
-#### 广度优先算法
+1. 调和阶段，DOM的diff算法
+2. 提交阶段，diff的内容体现在DOM上
+
+整个更新过程（不包括渲染）就是在反复寻找工作单元并运行它们。
 ```js
-function wideTraversal(vnode) {
-    if (!vnode) {
-        throw new Error('Empty Tree')
-    }
-    const nodeList = []
-    const queue = []
-    queue.push(vnode)
-    while (queue.length !== 0) {
-        const node = queue.shift()
-        nodeList.push(node)
-        if (node.children) {
-            const children = node.children
-            for (let i = 0; i < children.length; i++) {
-                queue.push(children[i])
-            }
-        }
-    }
-    return nodeList
-}
-```
-#### 深度优先算法
-```js
-function wideTraversal(vnode) {
-    if (!vnode) {
-        throw new Error('Empty Tree')
-    }
-    const nodeList = []
-    const stack = []
-    stack.push(vnode)
-    while (stack.length !== 0) {
-        const node = queue.pop()
-        nodeList.push(node)
-        if (node.children) {
-            const children = node.children
-            for (let i = children.length - 1; i >= 0; i--) {
-                stack.push(children[i])
-            }
-        }
-    }
-    return nodeList
+while (nextUnitOfWork !== null && !shouldYield()) {
+    nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
 }
 ```
 
-#### diff策略
-1. Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。
-2. 拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。
-3. 对于同一层级的一组子节点，它们可以通过唯一 id 进行区分（节点移动会导致 diff 开销较大，通过 key 进行优化）。
+我们可以把每个 fiber 认为是一个工作单元，执行更新任务的整个流程（不包括渲染）就是在反复寻找工作单元并运行它们，这样的方式就实现了拆分任务的功能。
 
-基于以上三个前提策略，React 分别对 tree diff、component diff 以及 element diff 进行算法优化，事实也证明这三个前提策略是合理且准确的，它保证了整体界面构建的性能。
+拆分成工作单元的目的就是为了让我们能控制 stack frame（调用栈中的内容），可以随时随地去执行它们。由此使得我们在每运行一个工作单元后都可以按情况继续执行或者中断工作（中断的决定权在于调度算法）。
 
-1. tree diff
->React 通过 updateDepth 对 Virtual DOM 树进行层级控制，只会对相同颜色方框内的 DOM 节点进行比较，即同一个父节点下的所有子节点。当发现节点已经不存在，则该节点及其子节点会被完全删除掉，不会用于进一步的比较。这样只需要对树进行一次遍历，便能完成整个 DOM 树的比较。
-2. component diff
->如果是同一类型的组件，按照原策略继续比较 virtual DOM tree。
- 如果不是，则将该组件判断为 dirty component，从而替换整个组件下的所有子节点。
- 对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算时间，因此 React 允许用户通过 shouldComponentUpdate() 来判断该组件是否需要进行 diff。
-3. element diff
+
+
+### 调度器
+每次有新任务发生的时候，调度器都会给任务分配一个优先级，比如说动画的优先级会高一点，离屏元素的更新优先级会低点。
+通过这个优先级我们可以获取一个该更新任务必须执行的截止时间。然后调度器通过requestIdleCallback函数来做在浏览器空闲的时候去执行这些更新任务。
+
+
+### React如何实现调度
+1. 计算任务的expirationTime
+2. 实现 requestIdleCallback
+
+当前时间 `performance.now()`
+
+React优先级
+
+var ImmediatePriority = 1;
+var UserBlockingPriority = 2;
+var NormalPriority = 3;
+var LowPriority = 4;
+var IdlePriority = 5;
+
+var maxSigned31BitInt = 1073741823;
+
+// Times out immediately
+var IMMEDIATE_PRIORITY_TIMEOUT = -1;
+// Eventually times out
+var USER_BLOCKING_PRIORITY = 250;
+var NORMAL_PRIORITY_TIMEOUT = 5000;
+var LOW_PRIORITY_TIMEOUT = 10000;
+// Never times out
+var IDLE_PRIORITY = maxSigned31BitInt;
+
+
+### requestIdleCallback
+该函数的回调方法会在浏览器的空闲时期依次调用， 可以让我们在事件循环中执行一些任务，并且不会对像动画和用户交互这样延迟敏感的事件产生影响。该回调方法是在渲染以后才执行的。
+requestAnimationFrame 的回调方法会在每次重绘前执行
+用requestAnimationFrame实现requestIdleCallback。
+```js
+rAFID = requestAnimationFrame(function(timestamp) {
+	// cancel the setTimeout
+	localClearTimeout(rAFTimeoutID);
+	callback(timestamp);
+});
+rAFTimeoutID = setTimeout(function() {
+	// 定时 100 毫秒是算是一个最佳实践
+	localCancelAnimationFrame(rAFID);
+	callback(getCurrentTime());
+}, 100);
+```
 
 
 ### diff
@@ -137,3 +140,67 @@ Diff算法的整体逻辑会经历两轮遍历：
 第一轮遍历：处理更新的节点。
 
 第二轮遍历：处理剩下的不属于更新的节点。
+
+
+### Diff遍历算法
+#### 广度优先算法
+```js
+function wideTraversal(vnode) {
+    if (!vnode) {
+        throw new Error('Empty Tree')
+    }
+    const nodeList = []
+    const queue = []
+    queue.push(vnode)
+    while (queue.length !== 0) {
+        const node = queue.shift()
+        nodeList.push(node)
+        if (node.children) {
+            const children = node.children
+            for (let i = 0; i < children.length; i++) {
+                queue.push(children[i])
+            }
+        }
+    }
+    return nodeList
+}
+```
+#### 深度优先算法
+```js
+function wideTraversal(vnode) {
+    if (!vnode) {
+        throw new Error('Empty Tree')
+    }
+    const nodeList = []
+    const stack = []
+    stack.push(vnode)
+    while (stack.length !== 0) {
+        const node = queue.pop()
+        nodeList.push(node)
+        if (node.children) {
+            const children = node.children
+            for (let i = children.length - 1; i >= 0; i--) {
+                stack.push(children[i])
+            }
+        }
+    }
+    return nodeList
+}
+```
+
+#### diff策略
+1. Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。
+2. 拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。
+3. 对于同一层级的一组子节点，它们可以通过唯一 id 进行区分（节点移动会导致 diff 开销较大，通过 key 进行优化）。
+
+基于以上三个前提策略，React 分别对 tree diff、component diff 以及 element diff 进行算法优化，事实也证明这三个前提策略是合理且准确的，它保证了整体界面构建的性能。
+
+1. tree diff
+>React 通过 updateDepth 对 Virtual DOM 树进行层级控制，只会对相同颜色方框内的 DOM 节点进行比较，即同一个父节点下的所有子节点。当发现节点已经不存在，则该节点及其子节点会被完全删除掉，不会用于进一步的比较。这样只需要对树进行一次遍历，便能完成整个 DOM 树的比较。
+2. component diff
+>如果是同一类型的组件，按照原策略继续比较 virtual DOM tree。
+ 如果不是，则将该组件判断为 dirty component，从而替换整个组件下的所有子节点。
+ 对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算时间，因此 React 允许用户通过 shouldComponentUpdate() 来判断该组件是否需要进行 diff。
+3. element diff
+
+
