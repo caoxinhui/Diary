@@ -27,3 +27,6 @@ minimum-scale=1.0: 允许用户的最小缩放值为1.0
 设备像素比DPR(devicePixelRatio)是默认缩放为100%的情况下，设备像素和CSS像素的比值
 DPR = 设备像素 / CSS像素(某一方向上)
 而对于设备像素比DPR也有对应的javascript属性window.devicePixelRatio
+
+
+### 图片格式对比
