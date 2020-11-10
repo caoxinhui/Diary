@@ -162,3 +162,6 @@ const foo = Foo(); // TypeError: Class constructor Foo cannot be invoked without
 
 ### es6类和继承的实现原理
 [es6类和继承的实现原理](https://cloud.tencent.com/developer/article/1500264)
+
+
+### ES5实现ES6的Class

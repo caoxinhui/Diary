@@ -199,3 +199,85 @@ export default function App() {
   );
 }
 ```
+
+### 合成事件中的setState
+react为了解决跨平台，兼容性问题，自己封装了一套事件机制，代理了原生事件，像在jsx中常见的onClick，onChange这些都是合成事件。
+
+#### 生命周期函数中的setState
+```jsx harmony
+class App extends Component {
+  state = { val: 0 }
+ componentDidMount() {
+    this.setState({ val: this.state.val + 1 })
+   console.log(this.state.val) // 输出的还是更新前的值 --> 0
+ }
+  render() {
+    return (
+      <div>
+        {`Counter is: ${this.state.val}`}
+      </div>
+    )
+  }
+}
+```
+当componentDidmount执行的时候，react内部并没有更新，执行完componentDidmount后才去commitUpdateQueue更新。这就导致你在componentDidmount中setState完去console.log拿的结果还是更新前的值。
+
+#### 原生事件中的setState
+```jsx harmony
+export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      val: 0
+    };
+  }
+
+  changeValue = () => {
+    this.setState({ val: this.state.val + 1 });
+    console.log(this.state.val);
+  };
+
+  componentDidMount() {
+    document.body.addEventListener("click", this.changeValue, false);
+  }
+
+  render() {
+    return <div>{`counter is :${this.state.val}`}</div>;
+  }
+}
+```
+原生事件是指非react合成事件，原生自带的事件监听 addEventListener ，或者也可以用原生js、jq直接 document.querySelector().onclick 这种绑定事件的形式都属于原生事件。
+原生事件中setState的调用栈
+
+
+#### setTimeout中的setState
+```jsx harmony
+export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      val: 0
+    };
+  }
+
+  batchUpdates = () => {
+    this.setState({ val: this.state.val + 1 });
+    console.log(this.state.val);
+    this.setState({ val: this.state.val + 1 });
+    console.log(this.state.val);
+    this.setState({ val: this.state.val + 1 });
+    console.log(this.state.val);
+  };
+
+  render() {
+    return (
+      <div onClick={this.batchUpdates}>{`counter is :${this.state.val}`}</div>
+    );
+  }
+}
+```
+上面的结果最终是1，在setState的时候react内部会创建一个updateQueue，通过firstUpdate、lastUpdate、lastUpdate.next去维护一个更新的队列，在最终的performWork中，相同的key会被覆盖，只会对最后一次的setState进行更新，
+
+1. setState只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。
+2. setState 的“异步”并不是说内部由异步代码实现，其实本身执行的过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前，导致在合成事件和钩子函数中没法立马拿到更新后的值，形成了所谓的“异步”，当然可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。
+3. setState 的批量更新优化也是建立在“异步”（合成事件、钩子函数）之上的，在原生事件和setTimeout 中不会批量更新，在“异步”中如果对同一个值进行多次setState，setState的批量更新策略会对其进行覆盖，取最后一次的执行，如果是同时setState多个不同的值，在更新时会对其进行合并批量更新。
