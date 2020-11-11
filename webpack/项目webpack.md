@@ -13,3 +13,10 @@ new TerserPlugin(
 
 [webpack面试题](https://juejin.im/post/5e6f4b4e6fb9a07cd443d4a5)
 [webpack源码](https://juejin.im/post/5e1b2f77e51d454d5177a69d)
+
+
+### 代码分离
+常用的代码分离方法有三种
+1. 入口起点：使用 entry 配置手动地分离代码。
+2. 防止重复：使用 SplitChunksPlugin 去重和分离 chunk。
+3. 动态导入：通过模块的内联函数调用来分离代码。

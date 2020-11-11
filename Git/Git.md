@@ -348,7 +348,7 @@ cat file.js 输入 file.js 文件内容
 
 #### 远程分支重命名（已经推送到远程）
 1. `git branch -m oldName newName`
-2. 删除远程分支
+2. 删除远程分支**
 `git push --delete origin oldName`
 3. 上传新命名的本地分支
 `git push origin newName`
