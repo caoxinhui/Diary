@@ -80,3 +80,27 @@ function useEffect(callback, depArray) {
   cursor++
 }
 ```
+
+### why hooks
+#### component非UI逻辑复用困难
+一些状态相关或者副作用相关的非UI逻辑在不同组件之间复用起来十分困难
+
+
+hooks相对于高阶组件和renderProps在复用代码逻辑方面有以下优势：
+- 写法简单
+- 组合简单
+- 容易扩展
+- 没有wrapper hell：hooks不会改变组件的层级结构，也不会有wrapper hell问题的产生
+
+
+#### 组件的生命周期函数不适合side effect逻辑的管理
+side effect的相关逻辑可能被分散到 `componentDidMount, componentWillMount, componentDidUpdate`三个生命周期中
+这些互相关联的逻辑被分散到不同的函数中会导致bug的发生和产生数据不一致的情况。我们还可能会在组件的同一个生命周期函数防止很多互不关联的side effect逻辑。
+由于每个hook都是一个函数，所以可以将和某个side effect相关的逻辑都放到同一个函数里面。
+
+
+#### 不友好的class component
+
+生命周期函数不适合side effect
+由于JS本身的原因，在Class Component中你要手动为注册的event listener绑定this
+
