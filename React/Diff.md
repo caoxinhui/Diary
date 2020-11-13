@@ -20,13 +20,13 @@ while (nextUnitOfWork !== null && !shouldYield()) {
 
 
 ### React如何实现调度
-1. 计算任务的expirationTime
-2. 实现 requestIdleCallback
+1. 计算任务的`expirationTime`
+2. 实现 `requestIdleCallback`
 
 当前时间 `performance.now()`
 
 React优先级
-
+```js
 var ImmediatePriority = 1;
 var UserBlockingPriority = 2;
 var NormalPriority = 3;
@@ -34,7 +34,6 @@ var LowPriority = 4;
 var IdlePriority = 5;
 
 var maxSigned31BitInt = 1073741823;
-
 // Times out immediately
 var IMMEDIATE_PRIORITY_TIMEOUT = -1;
 // Eventually times out
@@ -43,6 +42,7 @@ var NORMAL_PRIORITY_TIMEOUT = 5000;
 var LOW_PRIORITY_TIMEOUT = 10000;
 // Never times out
 var IDLE_PRIORITY = maxSigned31BitInt;
+```
 
 
 ### requestIdleCallback
