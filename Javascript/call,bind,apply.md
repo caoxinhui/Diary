@@ -70,3 +70,44 @@ let obj4 = {
 
 console.log(Array.prototype.slice.call(obj4)); // [1, "thomas", 13]
 ```
+
+
+### Array.toString()
+toString() 返回一个字符串，表示指定的数组及其元素。
+Array对象覆盖了Object的 toString 方法。对于数组对象，toString 方法连接数组并返回一个字符串，其中包含用逗号分隔的每个数组元素。
+
+#### Array方法
+- Array.from
+- Array.isArray
+- Array.of
+- concat
+- copyWithin
+- entries
+- every
+- fill
+- filter
+- find
+- findIndex
+- flat
+- flatMap
+- forEach
+- includes
+- indexOf
+- join
+- keys
+- lastIndexOf
+- map
+- pop
+- push
+- reduce
+- reduceRight
+- reverse
+- shift
+- slice
+- some
+- sort
+- splice
+- toLocaleString
+- toSource
+- unshift
+- values
