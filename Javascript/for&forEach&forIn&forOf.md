@@ -63,3 +63,7 @@ for, for/in, and for/of 的 this 和外部作用域的值保持一致，forEach�
 #### Async/Await and Generators
 
 在forEach内部不能使用await，且不能通过continue，break跳出循环
+
+
+### Generator的遍历
+for...of循环可以自动遍历Generator函数运行时生成的Iterator对象。除了for...of外，扩展运算符、解构赋值、Array.from方法内部调用的，都是遍历器接口
