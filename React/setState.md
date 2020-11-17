@@ -285,3 +285,18 @@ export default class App extends React.Component {
 
 ### react合成事件
 React 通过将事件 normalize 以让他们在不同浏览器中拥有一致的属性。
+
+
+### props 和 state区别
+- props 是传递给组件的（类似于函数的形参），而 state 是在组件内被组件自己管理的（类似于在一个函数内声明的变量）。
+- props 是不可修改的，所有 React 组件都必须像纯函数一样保护它们的 props 不被更改。 由于 props 是传入的，并且它们不能更改，因此我们可以将任何仅使用 props 的 React 组件视为 pureComponent，也就是说，在相同的输入下，它将始终呈现相同的输出。
+- state 是在组件中创建的，一般在 constructor中初始化 state
+- state 是多变的、可以修改，每次setState都异步更新的。
+
+### 1万个同属性子元素，react是如何做的（react事件机制）
+- 最大程度上解决了 IE 等浏览器的不兼容问题
+- 事件绑定到Document上，减少事件绑定的开销。
+- React 通过对象池的形式管理合成事件对象的创建和销毁，减少了垃圾的生成和新对象内存的分配，提高了性能。
+- 事件合成，即事件自定义，React 可以更加自由的定义事件，比如表单的一些onChange事件。
+- 抽象跨平台事件机制，这点和VirtualDOM的意义相似。
+- React打算干预事件的分发，不同类型的事件有不同的优先级，比如高优先级的事件可以中断渲染，让用户代码可以及时响应用户交互。
