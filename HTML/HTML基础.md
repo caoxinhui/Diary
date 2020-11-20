@@ -6,10 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 ```
 
-
-
 ### 媒体查询
-
 
 ### viewport meta 作用
 让浏览器帮我们把页面缩放，使得页面看起来好像是自适应。实际上这不是自适应，只是在中小屏设备上，看起来差距不大，问题不明显而已。
@@ -20,7 +17,6 @@ user-scalable=no: 禁止用户缩放
 initial-scale=1.0: 设置页面的初始缩放值为不缩放
 maximum-scale=1.0: 允许用户的最大缩放值为1.0
 minimum-scale=1.0: 允许用户的最小缩放值为1.0
-
 
 
 ### DPR
