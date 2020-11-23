@@ -204,3 +204,121 @@ function wideTraversal(vnode) {
 3. element diff
 
 
+### DIFF是如何实现的
+我们从Diff的入口函数reconcileChildFibers出发，该函数会根据newChild（即JSX对象）类型调用不同的处理函数。
+```js
+// 根据newChild类型选择不同diff函数处理
+function reconcileChildFibers(
+  returnFiber: Fiber,
+  currentFirstChild: Fiber | null,
+  newChild: any,
+): Fiber | null {
+
+  const isObject = typeof newChild === 'object' && newChild !== null;
+
+  if (isObject) {
+    // object类型，可能是 REACT_ELEMENT_TYPE 或 REACT_PORTAL_TYPE
+    switch (newChild.$$typeof) {
+      case REACT_ELEMENT_TYPE:
+        // 调用 reconcileSingleElement 处理
+      // // ...省略其他case
+    }
+  }
+
+  if (typeof newChild === 'string' || typeof newChild === 'number') {
+    // 调用 reconcileSingleTextNode 处理
+    // ...省略
+  }
+
+  if (isArray(newChild)) {
+    // 调用 reconcileChildrenArray 处理
+    // ...省略
+  }
+
+  // 一些其他情况调用处理函数
+  // ...省略
+
+  // 以上都没有命中，删除节点
+  return deleteRemainingChildren(returnFiber, currentFirstChild);
+}
+```
+
+我们可以从同级的节点数量将Diff分为两类：
+1. 当newChild类型为object、number、string，代表同级只有一个节点
+2. 当newChild类型为Array，同级有多个节点
+
+
+对于单个节点，我们以类型object为例，会进入reconcileSingleElement
+```js
+ const isObject = typeof newChild === 'object' && newChild !== null;
+
+  if (isObject) {
+    // 对象类型，可能是 REACT_ELEMENT_TYPE 或 REACT_PORTAL_TYPE
+    switch (newChild.$$typeof) {
+      case REACT_ELEMENT_TYPE:
+        // 调用 reconcileSingleElement 处理
+      // ...其他case
+    }
+  }
+```
+
+[diff](https://react.iamkasong.com/img/diff.png)
+
+
+**判断DOM节点是否可以复用如何实现**
+```js
+function reconcileSingleElement(
+  returnFiber: Fiber,
+  currentFirstChild: Fiber | null,
+  element: ReactElement
+): Fiber {
+  const key = element.key;
+  let child = currentFirstChild;
+  
+  // 首先判断是否存在对应DOM节点
+  while (child !== null) {
+    // 上一次更新存在DOM节点，接下来判断是否可复用
+
+    // 首先比较key是否相同
+    if (child.key === key) {
+
+      // key相同，接下来比较type是否相同
+
+      switch (child.tag) {
+        // ...省略case
+        
+        default: {
+          if (child.elementType === element.type) {
+            // type相同则表示可以复用
+            // 返回复用的fiber
+            return existing;
+          }
+          
+          // type不同则跳出循环
+          break;
+        }
+      }
+      // 代码执行到这里代表：key相同但是type不同
+      // 将该fiber及其兄弟fiber标记为删除
+      deleteRemainingChildren(returnFiber, child);
+      break;
+    } else {
+      // key不同，将该fiber标记为删除
+      deleteChild(returnFiber, child);
+    }
+    child = child.sibling;
+  }
+
+  // 创建新Fiber，并返回 ...省略
+}
+```
+
+从代码可以看出，React通过先判断key是否相同，如果key相同则判断type是否相同，只有都相同时一个DOM节点才能复用。
+这里有个细节需要关注下：
+当child !== null且key相同且type不同时执行deleteRemainingChildren将child及其兄弟fiber都标记删除。
+当child !== null且key不同时仅将child标记删除。
+在reconcileSingleElement中遍历之前的3个fiber（对应的DOM为3个li），寻找本次更新的p是否可以复用之前的3个fiber中某个的DOM。
+
+当key相同且type不同时，代表我们已经找到本次更新的p对应的上次的fiber，但是p与li type不同，不能复用。既然唯一的可能性已经不能复用，则剩下的fiber都没有机会了，所以都需要标记删除。
+
+当key不同时只代表遍历到的该fiber不能被p复用，后面还有兄弟fiber还没有遍历到。所以仅仅标记该fiber删除。
