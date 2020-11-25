@@ -28,3 +28,5 @@ new TerserPlugin(
 - 对于多个loader而言，从 右到左 依次调用
 
 
+[学习文档](https://wangtunan.github.io/blog/webpack/core.html#entry%E5%92%8Coutput%E7%9A%84%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE)
+
