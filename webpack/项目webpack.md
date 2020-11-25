@@ -20,3 +20,11 @@ new TerserPlugin(
 1. 入口起点：使用 entry 配置手动地分离代码。
 2. 防止重复：使用 SplitChunksPlugin 去重和分离 chunk。
 3. 动态导入：通过模块的内联函数调用来分离代码。
+
+
+`loader`有如下几种固定的运用规则：
+- 使用test正则来匹配相应的文件
+- 使用use来添加文件对应的loader
+- 对于多个loader而言，从 右到左 依次调用
+
+
