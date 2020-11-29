@@ -27,10 +27,11 @@ super指代父类的实例（父类的this对象)，子类必须在constructor�
 ES5的继承实质上是先创造子类的实例对象this，然后再将父类的方法添加到this上（Parent.apply(this)）。ES6的继承实质上是先创造父类的实例对象this,然后再用子类的构造函数修改this
 
 
-### 类的prototype属性和__proto__属性
-class作为构造函数的语法糖，同时有prototype属性和__proto__属性，因此同时存在两条继承链
-1. 子类的 __proto__ 属性表示构造函数的继承，总是指向父类
-2. 子类 prototype 属性 __proto__ 属性表示方法的继承，总是指向父类的prototype属性
+### 类的`prototype`属性和`__proto__`属性
+class作为构造函数的语法糖，同时有`prototype`属性和`__proto__`属性，因此同时存在两条继承链
+1. 子类的 `__proto__` 属性表示构造函数的继承，总是指向父类
+2. 子类 prototype 属性 `__proto__` 属性表示方法的继承，总是指向父类的`prototype`属性
+
 
 ```js
 class B extends A {
