@@ -21,6 +21,28 @@ for (const v of arr) {
 }
 ```
 
+#### for
+当在循环满足特定条件时跳出循环体，或跳出本次循环直接进行下一次循环。
+```js
+for (let i = 0; i < arr.length; i++) {
+    if (i === 3) continue
+    if (i > 7) break
+}
+
+```
+
+#### forEach
+`arr.forEach(callback[,thisArg])` thisArg 用来改变this指向。
+for，map 由于是通过回调函数的方式对遍历到的元素进行操作，即使在回调函数中 return ，也仅能够跳出当前的回调函数，无法阻止遍历本身的暂停。
+```js
+const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+arr.forEach(item => {
+    console.log(item)
+    if (item > 3) return
+})
+
+```
+
 #### 非数字属性
 JavaScript数组是对象，可以给数组添加字符串属性
 ```js
@@ -30,7 +52,7 @@ console.log(arr.test)
 arr[1] === arr['1']
 ```
 
-for/in 将打印出bad，其他的3个会忽略非数字属性
+for/in 将打印出bad，其他的3个会忽略非数字属性。for/in 包含数组的原型属性，方法以及索引
 ```js
 const arr = ['a', 'b', 'c']
 arr.test = 'bad'
