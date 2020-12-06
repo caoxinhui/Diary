@@ -27,21 +27,21 @@ while (nextUnitOfWork !== null && !shouldYield()) {
 
 React优先级
 ```js
-var ImmediatePriority = 1;
-var UserBlockingPriority = 2;
-var NormalPriority = 3;
-var LowPriority = 4;
-var IdlePriority = 5;
+const ImmediatePriority = 1;
+const UserBlockingPriority = 2;
+const NormalPriority = 3;
+const LowPriority = 4;
+const IdlePriority = 5;
 
-var maxSigned31BitInt = 1073741823;
+const maxSigned31BitInt = 1073741823;
 // Times out immediately
-var IMMEDIATE_PRIORITY_TIMEOUT = -1;
+const IMMEDIATE_PRIORITY_TIMEOUT = -1;
 // Eventually times out
-var USER_BLOCKING_PRIORITY = 250;
-var NORMAL_PRIORITY_TIMEOUT = 5000;
-var LOW_PRIORITY_TIMEOUT = 10000;
+const USER_BLOCKING_PRIORITY = 250;
+const NORMAL_PRIORITY_TIMEOUT = 5000;
+const LOW_PRIORITY_TIMEOUT = 10000;
 // Never times out
-var IDLE_PRIORITY = maxSigned31BitInt;
+const IDLE_PRIORITY = maxSigned31BitInt;
 ```
 
 
@@ -146,9 +146,6 @@ Diff算法的整体逻辑会经历两轮遍历：
 #### 广度优先算法
 ```js
 function wideTraversal(vnode) {
-    if (!vnode) {
-        throw new Error('Empty Tree')
-    }
     const nodeList = []
     const queue = []
     queue.push(vnode)
@@ -168,9 +165,6 @@ function wideTraversal(vnode) {
 #### 深度优先算法
 ```js
 function wideTraversal(vnode) {
-    if (!vnode) {
-        throw new Error('Empty Tree')
-    }
     const nodeList = []
     const stack = []
     stack.push(vnode)
@@ -202,7 +196,7 @@ function wideTraversal(vnode) {
  如果不是，则将该组件判断为 dirty component，从而替换整个组件下的所有子节点。
  对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算时间，因此 React 允许用户通过 shouldComponentUpdate() 来判断该组件是否需要进行 diff。
 3. element diff
-
+当节点处于同一层级时，React diff 提供了三种节点操作，分别为：INSERT_MARKUP（插入）、MOVE_EXISTING（移动）、TEXT_CONTENT（文本内容）、REMOVE_NODE（删除）。
 
 ### DIFF是如何实现的
 我们从Diff的入口函数reconcileChildFibers出发，该函数会根据newChild（即JSX对象）类型调用不同的处理函数。
@@ -322,3 +316,424 @@ function reconcileSingleElement(
 当key相同且type不同时，代表我们已经找到本次更新的p对应的上次的fiber，但是p与li type不同，不能复用。既然唯一的可能性已经不能复用，则剩下的fiber都没有机会了，所以都需要标记删除。
 
 当key不同时只代表遍历到的该fiber不能被p复用，后面还有兄弟fiber还没有遍历到。所以仅仅标记该fiber删除。
+
+
+
+### Diff算法实现
+1. 创建VirtualDOM
+```js
+// virtual-dom
+function createElement(tagName, props = {}, ...children) {
+  let vnode = {}
+  if(props.hasOwnProperty('key')){
+    vnode.key = props.key
+    delete props.key
+  }
+  return Object.assign(vnode, {
+    tagName,
+    props,
+    children,
+  })
+}
+```
+2. 渲染VirtualDOM
+```js
+function render (vNode) {
+  const element = document.createElement(vNode.tagName)
+  const props = vNode.props
+
+  for (const key in props) {
+    const value = props[key]
+    node.setAttribute(key, value)
+  }
+
+  vNode.children && vNode.children( child => {
+    const childElement = typeof child === 'string' ? document.createTextNode(child) : render(child)
+    element.appendChild(childElement)
+  })
+
+  return element
+}
+
+export default render
+```
+3. DOM diff
+- 根据节点变更类型，定义几种变化类型
+  - 节点移除
+  - 节点替换
+  - 文本替换
+  - 节点属性变更
+  - 插入节点
+  - 节点移动
+```js
+const vpatch = {}
+vpatch.REMOVE = 0
+vpatch.REPLACE = 1  // node replace
+vpatch.TEXT = 2  // text replace
+vpatch.PROPS = 3
+vpatch.INSERT = 4
+vpatch.REORDER = 5
+
+export default vpatch
+```
+
+- diff virtual Dom
+```js
+/**
+ * 二叉树 diff
+ * @param lastVNode
+ * @param newVNode
+ */
+function diff (lastVNode, newVNode) {
+  let index = 0
+  const patches = {}
+  // patches.old = lastVNode
+  dftWalk(lastVNode, newVNode, index, patches)
+  return patches
+}
+
+/**
+ * 深入优先遍历算法 (depth-first traversal，DFT)
+ * @param {*} lastVNode
+ * @param {*} newVNode
+ * @param {*} index
+ * @param {*} patches
+ */
+function dftWalk(lastVNode, newVNode, index, patches) {
+  if (lastVNode === newVNode) {
+    return
+  }
+
+  const currentPatch = []
+
+  // Node is removed
+  if (newVNode === null) {
+    currentPatch.push({ type: patch.REMOVE })
+
+  // diff text
+  } else if (_.isString(lastVNode) && _.isString(newVNode)) {
+    if (newVNode !== lastVNode) {
+      currentPatch.push({ type: patch.TEXT, text: newVNode })
+    }
+
+  // same node  此处会出行，parentNode 先 moves 处理，childnode 再做一次处理（替换或修改属性）
+  } else if (
+    newVNode.tagName === lastVNode.tagName
+    // && newVNode.key === lastVNode.key
+  ) {
+    // newVNode.key === lastVNode.key 才会执行 diffChildren
+    if (newVNode.key === lastVNode.key) {
+      const propsPatches = diffProps(lastVNode.props, newVNode.props)
+      if (Object.keys(propsPatches).length > 0) {
+        currentPatch.push({ type: patch.PROPS, props: propsPatches })
+      }
+
+      diffChildren(
+        lastVNode.children,
+        newVNode.children,
+        currentPatch,
+        index,
+        patches,
+      )
+    } else {
+      currentPatch.push({ type: patch.REPLACE, node: newVNode })
+    }
+
+  // Nodes are not the same
+  } else {
+    currentPatch.push({ type: patch.REPLACE, node: newVNode })
+  }
+
+  if (currentPatch.length) {
+    patches[index] = currentPatch
+  }
+}
+
+function diffChildren (lastChildren, newChildren, apply, index, patches) {
+  const orderedSet = reorder(lastChildren, newChildren)
+  let len = lastChildren.length > newChildren.length ? lastChildren.length : newChildren.length
+  for (var i = 0; i < len; i++) {
+    if (!lastChildren[i]) {
+
+      // insert node
+      if (newChildren[i] && !orderedSet.moves) {
+        apply.push({ type: patch.INSERT, node: newChildren[i] })
+      }
+
+    } else {
+      dftWalk(lastChildren[i], newChildren[i], ++index, patches)
+    }
+  }
+  console.error('orderedSet.moves', orderedSet.moves)
+  if (orderedSet.moves) {
+    apply.push(orderedSet)
+  }
+}
+
+/**
+ * diff vnode props
+ * @param {*} lastProps
+ * @param {*} newProps
+ */
+function diffProps (lastProps, newProps) {
+  const propsPatches = {}
+
+  // Find out diff props
+  for (const key in lastProps) {
+    if (newProps[key] !== lastProps[key]) {
+      propsPatches[key] = newProps[key]
+    }
+  }
+
+
+  // Find out new props
+  for (const key in newProps) {
+    if (!lastProps.hasOwnProperty(key)) {
+      propsPatches[key] = newProps[key]
+    }
+  }
+  return propsPatches
+}
+
+/**
+ * List diff, naive left to right reordering
+ * @param {*} lastChildren
+ * @param {*} newChildren
+ *
+ * 原理利用中间数组 simulate， remove得到子集、insert 插入操作完成
+ * 例 oldList [1,4,6,8,9] newList [0,1,3,5,6]
+ * 转换拿到中间数组按老数组索引 [1, null, 6, null, null ]
+ * remove null 得到子集 [1, 6]
+ * insert 插入完成
+ */
+function reorder(lastChildren, newChildren) {
+  const lastMap = keyIndex(lastChildren)
+  const lastKeys = lastMap.keys
+  const lastFree = lastMap.free
+
+  if(lastFree.length === lastChildren.length){
+    return {
+      moves: null
+    }
+  }
+
+
+  const newMap = keyIndex(newChildren)
+  const newKeys = newMap.keys
+  const newFree = newMap.free
+
+  if(newFree.length === newChildren.length){
+    return {
+      moves: null
+    }
+  }
+
+  // simulate list to manipulate
+  const children = []
+  let freeIndex = 0
+
+  for (let i = 0 ; i < lastChildren.length; i++) {
+    const item = lastChildren[i]
+    if(item.key){
+      if(newKeys.hasOwnProperty('key')){
+        const itemIndex = newKeys[item.key]
+        children.push(newChildren[itemIndex])
+      } else {
+        children.push(null)
+      }
+    } else {
+      const itemIndex = newFree[freeIndex++]
+      children.push(newChildren[itemIndex] || null)
+    }
+  }
+
+  const simulate = children.slice()
+  const removes = []
+  const inserts = []
+
+  let j = 0
+
+  // remove  value is null and  no key property
+  while (j < simulate.length) {
+    if (simulate[j] === null || !simulate[j].hasOwnProperty('key')) {
+      const patch = remove(simulate, j)
+      removes.push(patch)
+    } else {
+      j++
+    }
+  }
+
+  console.error('simulate', simulate)
+  for (let i = 0 ; i < newChildren.length; i++) {
+    const wantedItem = newChildren[i]
+    const simulateItem = simulate[i]
+
+    if(wantedItem.key){
+      if(simulateItem && wantedItem.key !== simulateItem.key){
+        // key property is not equal, insert, simulateItem add placeholder
+        inserts.push({
+          type: patch.INSERT,
+          index: i,
+          node: wantedItem,
+        })
+        simulateItem.splice(i, 1)
+      }
+    } else {
+      // no key property, insert, simulateItem add placeholder
+      inserts.push({
+        type: patch.INSERT,
+        index: i,
+        node: wantedItem,
+      })
+      simulateItem && simulateItem.splice(i, 1)
+    }
+  }
+
+  return {
+    type: patch.REORDER,
+    moves: {
+      removes: removes,
+      inserts: inserts
+    }
+  }
+}
+
+function remove(arr, index) {
+  arr.splice(index, 1)
+
+  return {
+    type: patch.REMOVE,
+    index,
+  }
+}
+
+
+/**
+ * Convert list to key-item keyIndex object.
+ * @param {*} children
+ * convert [{id: "a", key: 'a'}, {id: "b", key: 'b'}, {id: "a"}]
+ * result { keys: { a: 0, b: 1}, free: [ 2 ] }
+ */
+function keyIndex(children) {
+  var keys = {}
+  var free = []
+  var length = children.length
+
+  for (var i = 0; i < length; i++) {
+      var child = children[i]
+
+      if (child.key) {
+          keys[child.key] = i
+      } else {
+          free.push(i)
+      }
+  }
+
+  return {
+      keys: keys,     // A hash of key name to index
+      free: free      // An array of unkeyed item indices
+  }
+}
+
+export default diff
+```
+
+4. 收集patchs
+5. 更新patchs，把差异应用到真正的DOM树上
+```js
+import patch from './vpatch.js'
+import render from './render.js'
+
+/**
+ * 真实的 Dom 打补钉
+ * @param {*} rootNode 实际的 DOM
+ * @param {*} patches
+ */
+function patch (rootNode, patches) {
+  const walker = { index: 0 }
+  dftWalk(rootNode, walker, patches)
+}
+
+/**
+ * 深入优先遍历算法 (depth-first traversal，DFT)
+ * @param {*} node
+ * @param {*} walker
+ * @param {*} patches
+ */
+function dftWalk (node, walker, patches) {
+  const currentPatches = patches[walker.index] || {}
+  node.childNodes && node.childNodes.forEach(child => {
+    walker.index++
+    dftWalk(child, walker, patches)
+  })
+  if (currentPatches) {
+    applyPatches(node, currentPatches)
+  }
+}
+
+
+function applyPatches (node, currentPatches) {
+  currentPatches.forEach(currentPatch => {
+    switch (currentPatch.type) {
+      case patch.REMOVE:
+        node.parentNode.removeChild(node)
+        break
+      case patch.REPLACE:
+        const newNode = currentPatch.node
+        node.parentNode.replaceChild(render(newNode), node)
+        break
+      case patch.TEXT:
+        node.textContent = currentPatch.text
+        break
+      case patch.PROPS:
+        const props = currentPatch.props
+        setProps(node, props)
+        break
+      case patch.INSERT:
+        // parentNode.insertBefore(newNode, referenceNode)
+        const newNode = currentPatch.node
+        node.appendChild(render(newNode))
+        break
+      case patch.REORDER:
+        reorderChildren(node, currentPatch.moves)
+        break
+    }
+  })
+
+}
+
+/**
+ * 设置真实 Dom 属性值
+ * @param {*} node
+ * @param {*} props
+ */
+function setProps (node, props) {
+  for (const key in props) {
+    // void 666 is undefined
+    if (props[key] === void 666) {
+      node.removeAttribute(key)
+    } else {
+      const value = props[key]
+      node.setAttribute(key, value)
+    }
+  }
+}
+
+/**
+ * reorderChildren 处理 list diff render
+ * @param {*} domNode
+ * @param {*} moves
+ */
+function reorderChildren(domNode, moves) {
+  for (const i = 0; i < moves.removes.length; i++) {
+    const { index } = moves.removes[i]
+    const node = domNode.childNodes[index]
+    domNode.removeChild(node)
+  }
+
+  for (const j = 0; j < moves.inserts.length; j++) {
+    const { index, node } = moves.inserts[j]
+    domNode.insertBefore(node, index === domNode.childNodes.length ? null : childNodes[index])
+  }
+}
+```
