@@ -737,3 +737,12 @@ function reorderChildren(domNode, moves) {
   }
 }
 ```
+### why VDOM
+在 MVVM 开发方式中，页面的变化都是用数据去驱动的，而数据更新后，到底要去改那一块的 DOM 哪？ 虽然可以先删除那个部分再按照当前新的数据去重新生成一个新的页面或生成那一个部分（jQuery 做法），但是这样肯定非常耗费性能的。 而且 JS 操作 DOM 是非常复杂，JS 操作 DOM 越多，控制与页面的耦合度就越高，代码越难以维护。
+
+描述一个 DOM 节点
+- tag 标签名
+- attrs DOM 属性键值对
+- childen DOM 字节点数组 或 文本内容
+
+
