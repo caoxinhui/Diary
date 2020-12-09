@@ -300,3 +300,106 @@ React 通过将事件 normalize 以让他们在不同浏览器中拥有一致的
 - 事件合成，即事件自定义，React 可以更加自由的定义事件，比如表单的一些onChange事件。
 - 抽象跨平台事件机制，这点和VirtualDOM的意义相似。
 - React打算干预事件的分发，不同类型的事件有不同的优先级，比如高优先级的事件可以中断渲染，让用户代码可以及时响应用户交互。
+
+
+### setState内部实现
+```jsx harmony
+onClick = () => {
+  this.setState({ index: this.state.index + 1 });
+  this.setState({ index: this.state.index + 1 });
+};
+```
+在react眼里，变成
+```jsx harmony
+Object.assign(previousState, { index: state.index + 1 }, { index: state.index + 1 });
+```
+
+由于后面的数据会覆盖前面的更改，所以最终只加了一次
+
+**setState流程图**
+![setState流程图](http://imweb-io-1251594266.file.myqcloud.com/Fm4JuXvwxmtZ_1RNpYnVvlZrSMdk)
+
+
+#### ReactBaseClasses.js
+```js
+ReactComponent.prototype.setState = function(partialState, callback) {
+  this.updater.enqueueSetState(this, partialState);
+  if (callback) {
+    this.updater.enqueueCallback(this, callback, 'setState');
+  }
+};
+```
+这里的partialState可以传object,也可以传function,它会产生新的state以一种Object.assgine（）的方式跟旧的state进行合并。
+
+#### enqueueSetState
+enqueueSetState 做了两件事： 1、将新的state放进数组里 2、用enqueueUpdate来处理将要更新的实例对象
+```js
+enqueueSetState:function(publicInstance, partialState) {
+  // 获取当前组件的instance
+  var internalInstance = getInternalInstanceReadyForUpdate(publicInstance, 'setState');
+  // 将要更新的state放入一个数组里
+  var queue = internalInstance._pendingStateQueue || (internalInstance._pendingStateQueue = []);
+  queue.push(partialState);
+  //  将要更新的component instance也放在一个队列里
+  enqueueUpdate(internalInstance);
+}
+```
+#### enqueueUpdate
+##### ReactUpdates.js
+```js
+function enqueueUpdate(component) {
+  // 如果没有处于批量创建/更新组件的阶段，则处理update state事务
+  if (!batchingStrategy.isBatchingUpdates) {
+    batchingStrategy.batchedUpdates(enqueueUpdate, component);
+    return;
+  }
+  // 如果正处于批量创建/更新组件的过程，将当前的组件放在dirtyComponents数组中
+  dirtyComponents.push(component);
+}
+```
+
+#### batchingStrategy
+##### ReactDefaultBatchingStrategy.js
+```js
+var ReactDefaultBatchingStrategy = {
+  // 用于标记当前是否出于批量更新
+  isBatchingUpdates: false,
+  // 当调用这个方法时，正式开始批量更新
+  batchedUpdates: function(callback, a, b, c, d, e) {
+    var alreadyBatchingUpdates = ReactDefaultBatchingStrategy.isBatchingUpdates;
+    ReactDefaultBatchingStrategy.isBatchingUpdates = true;
+    // 如果当前事务正在更新过程在中，则调用callback，既enqueueUpdate
+    if (alreadyBatchingUpdates) {
+      return callback(a, b, c, d, e);
+    } else {
+      // 否则执行更新事务
+      return transaction.perform(callback, null, a, b, c, d, e);
+    }
+  }
+};
+```
+1. 如果当前事务正在更新过程中，则使用enqueueUpdate将当前组件放在dirtyComponent里。 
+2. 如果当前不在更新过程的话，则执行更新事务。
+
+
+#### transaction
+transaction对象，它暴露了一个perform的方法，用来执行anyMethod，在anyMethod执行的前，需要先执行所有wrapper的initialize方法，在执行完后，要执行所有wrapper的close方法，就辣么简单。
+
+在ReactDefaultBatchingStrategy.js,tranction 的 wrapper有两个 FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATES
+
+````js
+var RESET_BATCHED_UPDATES = {
+  initialize: emptyFunction,
+  close: function () {
+    ReactDefaultBatchingStrategy.isBatchingUpdates = false;
+  }
+};
+
+var FLUSH_BATCHED_UPDATES = {
+  initialize: emptyFunction,
+  close: ReactUpdates.flushBatchedUpdates.bind(ReactUpdates)
+};
+
+var TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATES];
+````
+这两个wrapper的initialize都没有做什么事情，但是在callback执行完之后，RESET_BATCHED_UPDATES 的作用是将isBatchingUpdates置为false, FLUSH_BATCHED_UPDATES 的作用是执行flushBatchedUpdates,然后里面会循环所有dirtyComponent,调用updateComponent来执行所有的生命周期方法，componentWillReceiveProps, shouldComponentUpdate, componentWillUpdate, render, componentDidUpdate 最后实现组件的更新。
