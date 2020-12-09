@@ -1,6 +1,1 @@
-isNaN
-Number.isNaN
-
-## too many things to do
-- Tree shaking原理
-- 
+[待整理](https://mp.weixin.qq.com/s/YPL2hiQP4v3vcvRZCaotog)
