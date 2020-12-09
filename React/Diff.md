@@ -141,63 +141,6 @@ Diff算法的整体逻辑会经历两轮遍历：
 
 第二轮遍历：处理剩下的不属于更新的节点。
 
-
-### Diff遍历算法
-#### 广度优先算法
-```js
-function wideTraversal(vnode) {
-    const nodeList = []
-    const queue = []
-    queue.push(vnode)
-    while (queue.length !== 0) {
-        const node = queue.shift()
-        nodeList.push(node)
-        if (node.children) {
-            const children = node.children
-            for (let i = 0; i < children.length; i++) {
-                queue.push(children[i])
-            }
-        }
-    }
-    return nodeList
-}
-```
-#### 深度优先算法
-```js
-function wideTraversal(vnode) {
-    const nodeList = []
-    const stack = []
-    stack.push(vnode)
-    while (stack.length !== 0) {
-        const node = queue.pop()
-        nodeList.push(node)
-        if (node.children) {
-            const children = node.children
-            for (let i = children.length - 1; i >= 0; i--) {
-                stack.push(children[i])
-            }
-        }
-    }
-    return nodeList
-}
-```
-
-#### diff策略
-1. Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。
-2. 拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。
-3. 对于同一层级的一组子节点，它们可以通过唯一 id 进行区分（节点移动会导致 diff 开销较大，通过 key 进行优化）。
-
-基于以上三个前提策略，React 分别对 tree diff、component diff 以及 element diff 进行算法优化，事实也证明这三个前提策略是合理且准确的，它保证了整体界面构建的性能。
-
-1. tree diff
->React 通过 updateDepth 对 Virtual DOM 树进行层级控制，只会对相同颜色方框内的 DOM 节点进行比较，即同一个父节点下的所有子节点。当发现节点已经不存在，则该节点及其子节点会被完全删除掉，不会用于进一步的比较。这样只需要对树进行一次遍历，便能完成整个 DOM 树的比较。
-2. component diff
->如果是同一类型的组件，按照原策略继续比较 virtual DOM tree。
- 如果不是，则将该组件判断为 dirty component，从而替换整个组件下的所有子节点。
- 对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算时间，因此 React 允许用户通过 shouldComponentUpdate() 来判断该组件是否需要进行 diff。
-3. element diff
-当节点处于同一层级时，React diff 提供了三种节点操作，分别为：INSERT_MARKUP（插入）、MOVE_EXISTING（移动）、TEXT_CONTENT（文本内容）、REMOVE_NODE（删除）。
-
 ### DIFF是如何实现的
 我们从Diff的入口函数reconcileChildFibers出发，该函数会根据newChild（即JSX对象）类型调用不同的处理函数。
 ```js
@@ -256,7 +199,7 @@ function reconcileChildFibers(
   }
 ```
 
-[diff](https://react.iamkasong.com/img/diff.png)
+![diff](https://react.iamkasong.com/img/diff.png)
 
 
 **判断DOM节点是否可以复用如何实现**
