@@ -1,4 +1,166 @@
-### diff
+### 为什么需要 VDOM
+在 MVVM 开发方式中，页面的变化都是用数据去驱动的，而数据更新后，到底要去改那一块的 DOM 哪？ 虽然可以先删除那个部分再按照当前新的数据去重新生成一个新的页面或生成那一个部分（jQuery 做法），但是这样肯定非常耗费性能的。 而且 JS 操作 DOM 是非常复杂，JS 操作 DOM 越多，控制与页面的耦合度就越高，代码越难以维护。
+
+描述一个 DOM 节点
+- tag 标签名
+- attrs DOM 属性键值对
+- childen DOM 字节点数组 或 文本内容
+
+
+### diff策略
+1. Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。
+2. 拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。
+3. 对于同一层级的一组子节点，它们可以通过唯一 id 进行区分。
+
+#### tree diff (DOM)
+```js
+updateChildren:function(nextNestedChildrenElements, transaction, context) {
+  updateDepth++;
+  var errorThrown = true;
+  try {
+    this._updateChildren(nextNestedChildrenElements, transaction, context);
+    errorThrown = false;
+  } finally {
+    updateDepth--;
+    if (!updateDepth) {
+      if (errorThrown) {
+        clearQueue();
+      } else {
+        processQueue();
+      }
+    }
+  }
+}
+```
+#### component diff
+- 如果是同一类型的组件，按照原策略继续比较 virtual DOM tree。
+- 如果不是，则将该组件判断为 dirty component，从而替换整个组件下的所有子节点。
+- 对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算时间，因此 React 允许用户通过 shouldComponentUpdate() 来判断该组件是否需要进行 diff。
+
+#### element diff
+- 当节点处于同一层级时，React diff 提供了三种节点操作，分别为：**INSERT_MARKUP**（插入）、**MOVE_EXISTING**（移动）和 **REMOVE_NODE**（删除）。
+- **INSERT_MARKUP**，新的 component 类型不在老集合里， 即是全新的节点，需要对新节点执行插入操作。
+- **MOVE_EXISTING**，在老集合有新 component 类型，且 element 是可更新的类型，generateComponentChildren 已调用 receiveComponent，这种情况下 prevChild=nextChild，就需要做移动操作，可以复用以前的 DOM 节点。 
+- **REMOVE_NODE**，老 component 类型，在新集合里也有，但对应的 element 不同则不能直接复用和更新，需要执行删除操作，或者老 component 不在新集合里的，也需要执行删除操作。
+```js
+function enqueueInsertMarkup(parentInst, markup, toIndex) {
+  updateQueue.push({
+    parentInst: parentInst,
+    parentNode: null,
+    type: ReactMultiChildUpdateTypes.INSERT_MARKUP,
+    markupIndex: markupQueue.push(markup) - 1,
+    content: null,
+    fromIndex: null,
+    toIndex: toIndex
+  });
+}
+
+
+function enqueueMove(parentInst, fromIndex, toIndex) {
+  updateQueue.push({
+    parentInst: parentInst,
+    parentNode: null,
+    type: ReactMultiChildUpdateTypes.MOVE_EXISTING,
+    markupIndex: null,
+    content: null,
+    fromIndex: fromIndex,
+    toIndex: toIndex
+  });
+}
+
+function enqueueRemove(parentInst, fromIndex) {
+  updateQueue.push({
+    parentInst: parentInst,
+    parentNode: null,
+    type: ReactMultiChildUpdateTypes.REMOVE_NODE,
+    markupIndex: null,
+    content: null,
+    fromIndex: fromIndex,
+    toIndex: null
+  });
+}
+```
+
+```js
+_updateChildren:function(nextNestedChildrenElements, transaction, context) {
+  var prevChildren = this._renderedChildren;
+  var nextChildren = this._reconcilerUpdateChildren(prevChildren, nextNestedChildrenElements, transaction, context);
+  if (!nextChildren && !prevChildren) return;
+  var name;
+  var lastIndex = 0;
+  var nextIndex = 0;
+  for (name in nextChildren) {
+    if (!nextChildren.hasOwnProperty(name)) {
+      continue;
+    }
+    var prevChild = prevChildren && prevChildren[name];
+    var nextChild = nextChildren[name];
+    if (prevChildren === nextChildren) {
+      this.moveChild(prevChild, nextIndex, lastIndex);
+      lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+      prevChild._mountIndex = nextIndex;
+    } else {
+      if (prevChild) {
+        lastIndex = Math.max(prevChild._mountIndex, lastIndex);
+        this._unmountChild(prevChild);
+      }
+      this._mountChildAtIndex(nextChild, nextIndex, transaction, context);
+    }
+  }
+  nextIndex++;
+  for (name in prevChildren) {
+    if (prevChildren.hasOwnProperty(name) && !(nextChildren && nextChildren.hasOwnProperty(name))) {
+      this._unmountChild(prevChildren[name]);
+    }
+  }
+  this._renderedChildren = nextChildren;
+}
+,
+moveChild:function(child, toIndex, lastIndex) {
+  if (child._mountIndex < lastIndex) {
+    this.prepareToManageChildren();
+    enqueueMove(this, child._mountIndex, toIndex);
+  }
+}
+,
+createChild:function(child, mountImage) {
+  this.prepareToManageChildren();
+  enqueueInsertMarkup(this, mountImage, child._mountIndex);
+}
+,
+removeChild:function(child) {
+  this.prepareToManageChildren();
+  enqueueRemove(this, child._mountIndex);
+}
+,
+_unmountChild:function(child) {
+  this.removeChild(child);
+  child._mountIndex(null);
+}
+,
+_mountChildAtIndex: function(
+  child,
+  index,
+  transaction,
+  context) {
+  var mountImage = ReactReconciler.mountComponent(
+    child,
+    transaction,
+    this,
+    this._nativeContainerInfo,
+    context
+  );
+  child._mountIndex = index;
+  this.createChild(child, mountImage);
+},
+```
+### 总结
+- React 通过制定大胆的 diff 策略，将 O(n3) 复杂度的问题转换成 O(n) 复杂度的问题；
+- React 通过分层求异的策略，对 tree diff 进行算法优化；
+- React 通过相同类生成相似树形结构，不同类生成不同树形结构的策略，对 component diff 进行算法优化；
+- React 通过设置唯一 key的策略，对 element diff 进行算法优化；
+- 建议，在开发组件时，保持稳定的 DOM 结构会有助于性能的提升；
+- 建议，在开发过程中，尽量减少类似将最后一个节点移动到列表首部的操作，当节点数量过大或更新操作过于频繁时，在一定程度上会影响 React 的渲染性能。
 #### 对于单个节点，进入 reconcileSingleElement 
 React通过先判断key是否相同，如果key相同则判断type是否相同，只有都相同时一个DOM节点才能复用
 
@@ -8,7 +170,6 @@ React通过先判断key是否相同，如果key相同则判断type是否相同�
 1. 如果是新增，执行新增逻辑
 2. 如果是删除，执行删除逻辑
 3. 如果是更新，执行更新逻辑
-
 
 虽然本次更新的JSX对象 newChildren为数组形式，但是和newChildren中每个组件进行比较的是current fiber，同级的Fiber节点是由sibling指针链接形成的单链表，即不支持双指针遍历。
 
@@ -29,13 +190,6 @@ React通过先判断key是否相同，如果key相同则判断type是否相同�
 2. workInProgress Fiber。如果该DOM节点将在本次更新中渲染到页面中，workInProgress Fiber代表该DOM节点对应的Fiber节点。
 3. DOM节点本身。
 4. JSX对象。即ClassComponent的render方法的返回结果，或FunctionComponent的调用结果。JSX对象中包含描述DOM节点的信息。
-
-
-为了降低算法复杂度，React的diff会预设三个限制：
-1. 只对同级元素进行Diff。如果一个DOM节点在前后两次更新中跨越了层级，那么React不会尝试复用他。
-2. 两个不同类型的元素会产生出不同的树。如果元素由div变为p，React会销毁div及其子孙节点，并新建p及其子孙节点。
-3. 开发者可以通过 key prop来暗示哪些子元素在不同的渲染下能保持稳定。
-
 
 #### diff实现
 我们从Diff的入口函数reconcileChildFibers出发，该函数会根据newChild（即JSX对象）类型调用不同的处理函数。
@@ -62,19 +216,6 @@ function List () {
 }
 ```
 他的返回值JSX对象的children属性不是单一节点，而是包含四个对象的数组
-
-首先归纳下我们需要处理的情况:
-1. 节点更新
-2. 节点新增或者减少
-3. 节点位置发生变化
-
-在日常开发中，相较于新增和删除，更新组件发生的频率更高。所以Diff会优先判断当前节点是否属于更新。
-
-Diff算法的整体逻辑会经历两轮遍历：
-
-第一轮遍历：处理更新的节点。
-
-第二轮遍历：处理剩下的不属于更新的节点。
 
 ### DIFF是如何实现的
 我们从Diff的入口函数reconcileChildFibers出发，该函数会根据newChild（即JSX对象）类型调用不同的处理函数。
@@ -615,12 +756,3 @@ function reorderChildren(domNode, moves) {
   }
 }
 ```
-### why VDOM
-在 MVVM 开发方式中，页面的变化都是用数据去驱动的，而数据更新后，到底要去改那一块的 DOM 哪？ 虽然可以先删除那个部分再按照当前新的数据去重新生成一个新的页面或生成那一个部分（jQuery 做法），但是这样肯定非常耗费性能的。 而且 JS 操作 DOM 是非常复杂，JS 操作 DOM 越多，控制与页面的耦合度就越高，代码越难以维护。
-
-描述一个 DOM 节点
-- tag 标签名
-- attrs DOM 属性键值对
-- childen DOM 字节点数组 或 文本内容
-
-
