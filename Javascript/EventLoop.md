@@ -218,3 +218,31 @@ process.nextTick 是一个独立于 eventLoop 的任务队列。
 
 ### await 和 promise执行顺序
 async 返回一个promise，返回的promise会放到回调队列中等待
+
+
+### Tips
+then中的微任务和return new Promise优先级不一样 👈
+```js
+async function async1() {
+  console.log('async1 start');
+  async2().then(()=>{
+    console.log('async1 end');
+  });
+}
+
+async function async2() {
+  console.log('async2');
+  return new Promise(((resolve, reject) => resolve()))
+}
+
+
+async1()
+new Promise(function(resolve) {
+  console.log('promisea');
+  resolve();
+}).then(function() {
+  return new Promise((resolve, reject) => resolve())
+}).then(function() {
+  console.log('promisec')
+})
+```
