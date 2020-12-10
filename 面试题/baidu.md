@@ -1,6 +1,5 @@
 ### const 和 var 区别
 
-
 ### tree shaking 如何处理副作用，window对象上挂载方法，并不想要摇树
 
 ### HTTP 缓存
