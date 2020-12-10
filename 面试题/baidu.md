@@ -12,3 +12,13 @@ cache-control 和 Etag 配合使用
 
 ### 白屏时间处理方法
 
+### map 和 weakmap 区别
+
+### 笔试题
+```js
+creatObj('a,b,c')
+// {a:{b:{c:null}}}
+
+repeat('s',1) // s
+repeat('s',2) // ss
+```
