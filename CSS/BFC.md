@@ -26,11 +26,55 @@
 
 
 ### 边距重叠
-块的上外边距(margin-top)和下外边距(margin-bottom)有时合并(折叠)为单个边距，其大小为单个边距的最大值(或如果它们相等，则仅为其中一个)，这种行为称为边距折叠。
+相邻的两个盒子（可能是兄弟关系也可能是祖先关系）的外边距可以结合成一个单独的外边距。 这种合并外边距的方式被称为折叠，结合而成的外边距称为折叠外边距。
+#### 折叠结果遵循下列计算原则：
+- 两个相邻的外面边距是正数时，折叠结果就是他们之中的较大值；
+- 两个相邻的外边距都是负数时，折叠结果是两者绝对值的较大值；
+- 两个外边距一正一负时，折叠结果是两者的相加的和；
 
 有三种情况会形成外边距重叠：
 
 1. 同一层相邻元素之间，相邻的两个元素之间的外边距重叠，除非后一个元素加上clear-fix清除浮动。
 2. 没有内容将父元素和后代元素分开
 
-
+```html
+<div class="container">
+  <div class="inner"></div>
+  <div class="inner"></div>
+</div>
+.container{
+  display: inline-block;
+  border: 1px solid grey;
+}
+.inner{
+  width: 20px;
+  height: 20px;
+  margin: 20px;
+  border: 1px solid grey;
+  background: lightblue;
+}
+```
+👇通过设置container为 display: inline-block使其产生BFC，这样，两个inner就在不同的BFC下，边距就不会重叠
+```html
+<div class="container">
+  <div class="inner"></div>
+  <div class="container1">
+     <div class="inner"></div>
+  </div>
+</div>
+.container{
+  display: inline-block;
+  border: 1px solid grey;
+}
+.container1{
+  display: inline-block;
+}
+.inner{
+  width: 20px;
+  height: 40px;
+  margin: 40px;
+  border: 1px solid grey;
+  background: orange;
+  overflow: hidden;
+}
+```
