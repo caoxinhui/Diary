@@ -69,18 +69,30 @@ bar.call(obj2); //>> 2         不是 3 ！
 
 
 - 方法1
+使用箭头函数
 ```jsx harmony
 class ProfilePage extends React.Component {
-  showMessage = () => {
-    console.log("Followed ");
-  };
-
   handleClick = () => {
-    setTimeout(this.showMessage, 0);
+    console.log(this)
   };
 
   render() {
     return <button onClick={this.handleClick}>Follow</button>;
+  }
+}
+```
+
+使用箭头函数
+```jsx harmony
+class Contacts extends React.Component {
+  handleClick() {
+    console.log(this);
+  }
+
+  render() {
+    return (
+      <div onClick={() => this.handleClick}></div>
+    );
   }
 }
 ```
@@ -89,15 +101,10 @@ class ProfilePage extends React.Component {
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
-    this.showMessage = this.showMessage.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-  showMessage() {
-    console.log("Followed ");
-  }
-
   handleClick() {
-    setTimeout(this.showMessage, 0);
+    console.log(this)
   }
 
   render() {
@@ -108,33 +115,19 @@ class ProfilePage extends React.Component {
 
 - 方法3
 ```jsx harmony
-export default class ProfilePage extends React.Component {
+class Contacts extends React.Component {
+  handleClick() {
+    console.log(this);
+  }
   render() {
-    const showMessage = () => {
-      console.log("Followed ");
-    };
-    const handleClick = () => {
-      setTimeout(showMessage, 0);
-    };
-    return <button onClick={handleClick}>Follow</button>;
+    return (
+      <div onClick={this.handleClick.bind(this)}></div>
+    );
   }
 }
+
 ```
 
-- 方法4
-```jsx harmony
-export default class ProfilePage extends React.Component {
-  showMessage() {
-    console.log("Followed ");
-  }
-  render() {
-    const handleClick = () => {
-      setTimeout(this.showMessage, 0);
-    };
-    return <button onClick={handleClick}>Follow</button>;
-  }
-}
-```
 
 
 ### 为什么要在React类组件中为事件处理函数绑定this
