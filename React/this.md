@@ -171,3 +171,46 @@ obj.display()
 事件处理程序方法会丢失其隐式绑定的上下文。当事件被触发并且处理程序被调用时，this的值会回退到默认绑定，即值为 undefined，这是因为类声明和原型方法是以严格模式运行。
 当我们将事件处理程序的 this 绑定到构造函数中的组件实例时，我们可以将它作为回调传递，而不用担心会丢失它的上下文。
 箭头函数可以免除这种行为，因为它使用的是词法 this 绑定，会将其自动绑定到定义他们的函数上下文。
+
+
+### this指向 （ES6）
+类的方法内部如果含有this，它默认指向类的实例。但是，必须非常小心，一旦单独使用该方法，很可能报错。
+```js
+class Logger {
+  printName(name = 'there') {
+    this.print(`Hello ${name}`);
+  }
+
+  print(text) {
+    console.log(text);
+  }
+}
+
+const logger = new Logger();
+const { printName } = logger;
+printName(); // TypeError: Cannot read property 'print' of undefined
+```
+printName方法中的this，默认指向Logger类的实例。但是，如果将这个方法提取出来单独使用，this会指向该方法运行时所在的环境（由于 class 内部是严格模式，所以 this 实际指向的是undefined），从而导致找不到print方法而报错。
+
+
+一个比较简单的解决方法是，在构造方法中绑定this，这样就不会找不到print方法了。
+```js
+class Logger {
+  constructor() {
+    this.printName = this.printName.bind(this);
+  }
+
+  // ...
+}
+```
+另一种解决方法是使用箭头函数。
+```js
+class Obj {
+  constructor() {
+    this.getThis = () => this;
+  }
+}
+
+const myObj = new Obj();
+myObj.getThis() === myObj // true
+```
