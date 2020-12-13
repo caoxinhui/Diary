@@ -163,6 +163,135 @@ const foo = Foo(); // TypeError: Class constructor Foo cannot be invoked without
 
 ### es6类和继承的实现原理
 [es6类和继承的实现原理](https://cloud.tencent.com/developer/article/1500264)
+#### 类的实现
+转换前：
+```js
+class Parent {
+  constructor(a) {
+    this.filed1 = a;
+  }
+
+  filed2 = 2;
+  func1 = function() {
+  };
+}
+```
+转换后：
+```js
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function');
+  }
+}
+
+var Parent = function Parent(a) {
+  _classCallCheck(this, Parent);
+  this.filed2 = 2;
+  this.func1 = function() {
+
+  };
+  this.filed1 = a;
+};
+```
+可见class的底层依然是构造函数
+1. 调用_classCallCheck方法判断当前函数调用前是否有new关键字
+> 构造函数执行前有new关键字，会在构造函数内部创建一个空对象，将构造函数的proptype指向这个空对象的proto,并将this指向这个空对象。如上，_classCallCheck中：this instanceof Parent 返回true。
+  若构造函数前面没有new则构造函数的proptype不会不出现在this的原型链上，返回false。
+
+2. 将class内部的变量和函数赋给this。
+3. 执行constuctor内部的逻辑。
+4. return this (构造函数默认在最后我们做了)。
+
+#### 继承的实现
+转换前：
+```js
+class Child extends Parent {
+  constructor(a, b) {
+    super(a);
+    this.filed3 = b;
+  }
+
+  filed4 = 1;
+  func2 = function() {
+
+  };
+}
+```
+转换后：
+```js
+var Child = function(_Parent) {
+  //调用_inherits函数继承父类的proptype。
+  _inherits(Child, _Parent);
+
+  function Child(a, b) {
+    _classCallCheck(this, Child);
+    // 这里的Child.proto || Object.getPrototypeOf(Child)实际上是父构造函数(_inherits最后的操作)，然后通过call将其调用方改为当前this，并传递参数。
+    var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, a));
+    _this.filed4 = 1;
+    _this.func2 = function() {
+    };
+    _this.filed3 = b;
+    return _this;
+  }
+
+  return Child;
+}(Parent);
 
 
+/**
+ *
+ * (1) 校验父构造函数。
+ * (2) 典型的寄生继承：用父类构造函数的proptype创建一个空对象，并将这个对象指向子类构造函数的proptype。
+ * (3) 将父构造函数指向子构造函数的proto（这步是做什么的不太明确，感觉没什么意义。）
+ */
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== 'function' && superClass !== null) {
+    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: { value: subClass, enumerable: false, writable: true, configurable: true }
+  });
+  if (superClass)
+    Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+
+//校验this是否被初始化，super是否调用，并返回父类已经赋值完的this。
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError('this hasn\'t been initialised - super() hasn\'t been called');
+  }
+  return call && (typeof call === 'object' || typeof call === 'function') ? call : self;
+}
+
+```
+1. 调用_inherits函数继承父类的proptype。
+2. 用一个闭包保存父类引用，在闭包内部做子类构造逻辑。
+3. new检查。
+4. 用当前this调用父类构造函数。
+5. 将行子类class内部的变量和函数赋给this。
+6. 执行子类constuctor内部的逻辑。
+可见，es6实际上是为我们提供了一个“组合寄生继承”的简单写法。
+
+### super
+super代表父类构造函数。
+super.fun1() 等同于 Parent.fun1() 或 Parent.prototype.fun1()。
+super() 等同于Parent.prototype.construtor()
+当我们没有写子类构造函数时：
+```js
+var Child = function (_Parent) {
+  _inherits(Child, _Parent);
+
+  function Child() {
+    _classCallCheck(this, Child);
+
+    return _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).apply(this, arguments));
+  }
+
+  return Child;
+}(Parent);
+```
+可见默认的构造函数中会主动调用父类构造函数，并默认把当前constructor传递的参数传给了父类。
+所以当我们声明了constructor后必须主动调用super(),否则无法调用父构造函数，无法完成继承。
+典型的例子就是Reatc的Component中，我们声明constructor后必须调用super(props)，因为父类要在构造函数中对props做一些初始化操作。
 ### ES5实现ES6的Class
