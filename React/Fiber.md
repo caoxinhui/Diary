@@ -66,3 +66,382 @@ render阶段开始于performSyncWorkOnRoot或performConcurrentWorkOnRoot方法�
 
 
 一旦reconciliation过程得到时间片，就开始进入work loop。work loop机制可以让react在计算状态和等待状态之间进行切换。为了达到这个目的，对于每个loop而言，需要追踪两个东西：下一个工作单元（下一个待处理的fiber）;当前还能占用主线程的时间。第一个loop，下一个待处理单元为根节点。
+
+
+
+### Fiber源码解析
+#### Stack Reconciler 和  Fiber Reconciler
+
+Stack Reconciler 的实现使用了同步递归模型，该模型依赖于内置堆栈来遍历。如果只依赖内置调用堆栈，那么它将一直工作，直到堆栈为空。
+
+
+#### Work
+在 React Reconciliation 过程中出现的各种必须执行计算的活动，比如 state update，props update 或 refs update 等，这些活动我们可以统一称之为 work。
+```js
+Fiber = {
+  // 标识 fiber 类型的标签，详情参看下述 WorkTag
+  tag: WorkTag,
+  // 指向父节点
+  return: Fiber | null,
+  // 指向子节点
+  child: Fiber | null,
+  // 指向兄弟节点
+  sibling: Fiber | null,
+  // 在开始执行时设置 props 值
+  pendingProps: any,
+  // 在结束时设置的 props 值
+  memoizedProps: any,
+  // 当前 state
+  memoizedState: any,
+  // Effect 类型，详情查看以下 effectTag
+  effectTag: SideEffectTag,
+  // effect 节点指针，指向下一个 effect
+  nextEffect: Fiber | null,
+  // effect list 是单向链表，第一个 effect
+  firstEffect: Fiber | null,
+  // effect list 是单向链表，最后一个 effect
+  lastEffect: Fiber | null,
+  // work 的过期时间，可用于标识一个 work 优先级顺序
+  expirationTime: ExpirationTime
+};
+```
+
+从react元素创建一个fiber对象
+```js
+export function createFiberFromElement(element: ReactElement, mode: TypeOfMode, expirationTime: ExpirationTime): Fiber {
+    const fiber = createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, expirationTime);
+    return fiber;
+}
+```
+
+#### workTag
+workTag用于标志一个React元素的类型
+```js
+export const FunctionComponent = 0;
+export const ClassComponent = 1;
+export const IndeterminateComponent = 2; // Before we know whether it is function or class
+export const HostRoot = 3; // Root of a host tree. Could be nested inside another node.
+export const HostPortal = 4; // A subtree. Could be an entry point to a different renderer.
+export const HostComponent = 5;
+export const HostText = 6;
+export const Fragment = 7;
+export const Mode = 8;
+export const ContextConsumer = 9;
+export const ContextProvider = 10;
+export const ForwardRef = 11;
+export const Profiler = 12;
+export const SuspenseComponent = 13;
+export const MemoComponent = 14;
+export const SimpleMemoComponent = 15;
+export const LazyComponent = 16;
+export const IncompleteClassComponent = 17;
+export const DehydratedSuspenseComponent = 18;
+export const EventComponent = 19;
+export const EventTarget = 20;
+export const SuspenseListComponent = 21;
+```
+
+#### EffectTag
+
+#### Reconciliation 和 Scheduling
+协调（Reconciliation）：
+简而言之，根据 diff 算法来比较虚拟 DOM，从而可以确认哪些部分的 React 元素需要更改。
+
+调度（Scheduling）：
+可以简单理解为是一个确定在什么时候执行 work 的过程。
+
+#### Render 阶段
+##### enqueueSetState
+```js
+// Component函数
+function Component(props, context, updater) {
+    this.props = props;
+    this.context = context;
+    this.updater = updater || ReactNoopUpdateQueue;
+}
+
+// Component原型对象挂载 setState
+Component.prototype.setState = function (partialState, callback) {
+    this.updater.enqueueSetState(this, partialState, callback, 'setState');
+};
+```
+```js
+const classComponentUpdater = {
+    enqueueSetState(inst, payload, callback) {
+        // 获取 fiber 对象
+        const fiber = getInstance(inst);
+        const currentTime = requestCurrentTime();
+
+        // 计算到期时间 expirationTime
+        const expirationTime = computeExpirationForFiber(currentTime, fiber, suspenseConfig);
+
+        const update = createUpdate(expirationTime, suspenseConfig);
+        // 插入 update 到队列
+        enqueueUpdate(fiber, update);
+        // 调度 work 方法
+        scheduleWork(fiber, expirationTime);
+    },
+};
+```
+```js
+export const NoPriority = 0;
+export const ImmediatePriority = 1;
+export const UserBlockingPriority = 2;
+export const NormalPriority = 3;
+export const LowPriority = 4;
+export const IdlePriority = 5;
+```
+##### renderRoot
+```js
+function renderRoot(
+  root: FiberRoot,
+  expirationTime: ExpirationTime,
+  isSync: boolean,
+) | null {
+  do {
+    // 优先级最高，走同步分支
+    if (isSync) {
+      workLoopSync();
+    } else {
+      workLoop();
+    }
+  } while (true);
+}
+
+// 所有的fiber节点都在workLoop 中被处理
+function workLoop() {
+  while (workInProgress !== null && !shouldYield()) {
+    workInProgress = performUnitOfWork(workInProgress);
+  }
+}
+```
+##### performUnitOfWork
+```js
+function performUnitOfWork(unitOfWork: Fiber): Fiber | null {
+    const current = unitOfWork.alternate;
+
+    let next;
+    next = beginWork(current, unitOfWork, renderExpirationTime);
+
+    // 如果没有新的 work，则认为已完成当前工作
+    if (next === null) {
+        next = completeUnitOfWork(unitOfWork);
+    }
+
+    return next;
+}
+```
+##### completeUnitOfWork
+```js
+function completeUnitOfWork(unitOfWork: Fiber): Fiber | null {
+    // 深度优先搜索算法
+    workInProgress = unitOfWork;
+    do {
+        const current = workInProgress.alternate;
+        const returnFiber = workInProgress.return;
+
+        /*
+    	构建 effect-list部分
+    */
+        if (returnFiber.firstEffect === null) {
+            returnFiber.firstEffect = workInProgress.firstEffect;
+        }
+        if (workInProgress.lastEffect !== null) {
+            if (returnFiber.lastEffect !== null) {
+                returnFiber.lastEffect.nextEffect = workInProgress.firstEffect;
+            }
+            returnFiber.lastEffect = workInProgress.lastEffect;
+        }
+
+        if (returnFiber.lastEffect !== null) {
+            returnFiber.lastEffect.nextEffect = workInProgress;
+        } else {
+            returnFiber.firstEffect = workInProgress;
+        }
+        returnFiber.lastEffect = workInProgress;
+
+        const siblingFiber = workInProgress.sibling;
+        if (siblingFiber !== null) {
+            // If there is more work to do in this returnFiber, do that next.
+            return siblingFiber;
+        }
+        // Otherwise, return to the parent
+        workInProgress = returnFiber;
+    } while (workInProgress !== null);
+}
+```
+#### Commit 阶段
+##### commitRootImpl
+commit 阶段实质上被分为如下三个子阶段：
+- before mutation
+- mutation phase
+- layout phase
+
+```js
+function commitRootImpl(root) {
+    if (firstEffect !== null) {
+        // before mutation 阶段，遍历 effect list
+        do {
+            try {
+                commitBeforeMutationEffects();
+            } catch (error) {
+                nextEffect = nextEffect.nextEffect;
+            }
+        } while (nextEffect !== null);
+
+        // the mutation phase 阶段，遍历 effect list
+        nextEffect = firstEffect;
+        do {
+            try {
+                commitMutationEffects();
+            } catch (error) {
+                nextEffect = nextEffect.nextEffect;
+            }
+        } while (nextEffect !== null);
+
+        // 将 work-in-progress 树替换为 current 树
+        root.current = finishedWork;
+
+        // layout phase 阶段，遍历 effect list
+        nextEffect = firstEffect;
+        do {
+            try {
+                commitLayoutEffects(root, expirationTime);
+            } catch (error) {
+                captureCommitPhaseError(nextEffect, error);
+                nextEffect = nextEffect.nextEffect;
+            }
+        } while (nextEffect !== null);
+
+        nextEffect = null;
+    } else {
+        // No effects.
+        root.current = finishedWork;
+    }
+}
+```
+
+##### commitBeforeMutationEffects
+```js
+function commitBeforeMutationLifeCycles(
+  current: Fiber | null,
+  finishedWork: Fiber,
+): void {
+  switch (finishedWork.tag) {
+    case FunctionComponent:
+    case ForwardRef:
+    case SimpleMemoComponent:
+    ...
+    // 属性 stateNode 表示对应组件的实例
+    // 在这里 class 组件实例执行 instance.getSnapshotBeforeUpdate()
+    case ClassComponent: {
+      if (finishedWork.effectTag & Snapshot) {
+        if (current !== null) {
+          const prevProps = current.memoizedProps;
+          const prevState = current.memoizedState;
+          const instance = finishedWork.stateNode;
+          const snapshot = instance.getSnapshotBeforeUpdate(
+            finishedWork.elementType === finishedWork.type
+              ? prevProps
+              : resolveDefaultProps(finishedWork.type, prevProps),
+            prevState,
+          );
+
+          instance.__reactInternalSnapshotBeforeUpdate = snapshot;
+        }
+      }
+      return;
+    }
+    case HostRoot:
+    case HostComponent:
+    case HostText:
+    case HostPortal:
+    case IncompleteClassComponent:
+      ...
+  }
+}
+```
+##### commitMutationEffects
+```js
+function commitMutationEffects() {
+  while (nextEffect !== null) {
+    const effectTag = nextEffect.effectTag;
+
+    let primaryEffectTag = effectTag & (Placement | Update | Deletion);
+    switch (primaryEffectTag) {
+      case Placement:
+        ...
+      case PlacementAndUpdate:
+        ...
+      case Update: {
+        const current = nextEffect.alternate;
+        commitWork(current, nextEffect);
+        break;
+      }
+      case Deletion: {
+        commitDeletion(nextEffect);
+        break;
+      }
+    }
+  }
+}
+```
+##### commitLayoutEffects
+```js
+function commitLifeCycles(
+  finishedRoot: FiberRoot,
+  current: Fiber | null,
+  finishedWork: Fiber,
+  committedExpirationTime: ExpirationTime,
+): void {
+  switch (finishedWork.tag) {
+    case FunctionComponent:
+    case ForwardRef:
+    case SimpleMemoComponent:
+      ...
+    case ClassComponent: {
+      // 属性 stateNode 表示对应组件的实例
+      // 在这里 class 组件实例执行 componentDidMount/DidUpdate
+      const instance = finishedWork.stateNode;
+      if (finishedWork.effectTag & Update) {
+        // 首次渲染时，还没有 current 树
+        if (current === null) {
+          instance.componentDidMount();
+        } else {
+          const prevProps =
+            finishedWork.elementType === finishedWork.type
+              ? current.memoizedProps
+              : resolveDefaultProps(finishedWork.type, current.memoizedProps);
+          const prevState = current.memoizedState;
+          instance.componentDidUpdate(
+            prevProps,
+            prevState,
+            instance.__reactInternalSnapshotBeforeUpdate,
+          );
+        }
+      }
+      const updateQueue = finishedWork.updateQueue;
+      if (updateQueue !== null) {
+        commitUpdateQueue(
+          finishedWork,
+          updateQueue,
+          instance,
+          committedExpirationTime,
+        );
+      }
+      return;
+    }
+    case HostRoot:
+    case HostComponent:
+    case HostText:
+    case HostPortal:
+    case Profiler:
+    case SuspenseComponent:
+    case SuspenseListComponent:
+      ...
+  }
+}
+```
+
+### 调用链路
+![调用链路](https://p1.music.126.net/VU37zHp-6hAUfNaZbu3HRw==/109951165071751567.jpg)
