@@ -28,5 +28,31 @@ new TerserPlugin(
 - 对于多个loader而言，从 右到左 依次调用
 
 
+### 图片webpack配置
+将小于限制值的资源转为base64格式
+好处：
+1. 减少网络请求次数、提前加载图片
+缺点：
+1. 图片太大，数据太大，加载过慢
+2. base64资源不会有缓存
+```json
+{
+        test: /\.(jpe?g|png|svg|gif|ico)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              fallback: "file-loader",
+              name: "[name].[ext]",
+              outputPath: "file",
+              publicPath: `../file`
+            }
+          }
+        ]
+      }
+```
+
+
 [学习文档](https://wangtunan.github.io/blog/webpack/core.html#entry%E5%92%8Coutput%E7%9A%84%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE)
 
