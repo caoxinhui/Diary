@@ -78,6 +78,10 @@ Array对象覆盖了Object的 toString 方法。对于数组对象，toString �
 
 #### Array方法
 - Array.from
+```js
+// 创建二维数组
+Array.from(new Array(5),()=> (new Array(5)).fill(0))
+```
 - Array.isArray
 - Array.of
 - concat
