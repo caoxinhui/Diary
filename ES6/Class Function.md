@@ -160,6 +160,9 @@ class Foo {
 }
 const foo = Foo(); // TypeError: Class constructor Foo cannot be invoked without 'new'
 ```
+### class静态方法
+类相当于原型的实例，所有在类中定义的方法都会被实例继承，如果在一个方法前加上static关键字，就表示该方法不会被实例继承，而是直接通过类调用，称为静态方法。
+父类的静态方法可以被子类继承。静态方法也可以从super对象上调用。
 
 ### es6类和继承的实现原理
 [es6类和继承的实现原理](https://cloud.tencent.com/developer/article/1500264)
