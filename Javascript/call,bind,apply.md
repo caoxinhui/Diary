@@ -85,6 +85,31 @@ Array.from(new Array(5),()=> (new Array(5)).fill(0))
 - Array.isArray
 - Array.of
 - concat
+> concat 传参可传arguments，可以传数组
+
+
+##### 连接两个数组 
+```js
+const alpha = ['a', 'b', 'c'];
+const numeric = [1, 2, 3];
+alpha.concat(numeric);
+// result in ['a', 'b', 'c', 1, 2, 3]
+```
+
+##### 连接三个数组 
+```js
+const alpha = ['a', 'b', 'c'];
+const numeric = [1, 2, 3];
+const num3 = [7, 8, 9];
+const nums = alpha.concat(numeric, num3);
+//results in [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+##### 将值连接到数组
+```js
+const alpha = ['a', 'b', 'c'];
+const nums = alpha.concat(1, [2, 3]);
+// results in ['a', 'b', 'c', 1, 2, 3]
+```
 - copyWithin
 - entries
 - every
