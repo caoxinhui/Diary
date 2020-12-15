@@ -1,4 +1,4 @@
-HTTP报文头部
+## HTTP报文头部
 1. Accept：告诉服务器自己能接收什么媒体类型，*/*表示能接收任何类型，type/*表示接收该类型下的所有子类型
 2. Accept-Charset: 浏览器接收内容的字符集，通常是utf-8
 3. Accept-Encoding: 浏览器接收内容的编码方式，例如指定是否支持压缩。若支持压缩的话支持什么压缩方式，gzip，deflate，sdch
@@ -8,12 +8,13 @@ HTTP报文头部
 7. Allow: 该参数头部可以设置服务端支持接收哪些可用的HTTP请求方法
 8. Authorization：当客户接收到来自Web服务器的WWW-Authenticate响应时，后面可以用该头部来携带自己的身份验证信息给Web服务器直接进行认证。
 9. Cache-Control: 用来声明服务器端缓存控制的指令，包括请求设置指令和响应请求指令。
-请求控制指令
+
+## 请求控制指令
 no-cache: 不使用缓存实体，要求从Web服务器去请求内容
 max-age: 只接受Age值小于max-age值的内容，没有过期的请求对象
 max-stale: 可以接收过去的对象，但是过期时间必须小于max-stale值
 
-响应控制指令
+## 响应控制指令
 public: 可以用Cache中内容回应任何用户
 private: 只能用缓存内容回应先前请求该内容的具体用户
 no-cache: 可以设置哪些内容不被缓存
