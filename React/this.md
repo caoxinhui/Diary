@@ -214,3 +214,41 @@ class Obj {
 const myObj = new Obj();
 myObj.getThis() === myObj // true
 ```
+
+
+### 示例扩展
+```html
+<button id="button">点击变色</button>
+<script>
+    function Button(id) {
+        this.element = document.getElementById(id);
+        this.bindEvent()
+    }
+
+    Button.prototype.bindEvent = function () {
+        this.element.addEventListener('click', this.setBgColor, false)
+    };
+
+    Button.prototype.setBgColor = function () {
+        this.element.style.backgroundColor = '#1abc9c'
+    };
+    new Button('button')
+</script>
+```
+
+报错
+这是因为当使用 `addEventListener()` 为一个元素注册事件的时候，事件函数里的 this 值是该元素的引用。
+所以如果我们在 `setBgColor` 中 `console.log(this)`，`this` 指向的是按钮元素，那 `this.element` 就是 `undefined`，报错自然就理所当然了。
+
+```js
+Button.prototype.bindEvent = function () {
+    this.element.addEventListener('click', this.setBgColor.bind(this), false)
+};
+```
+
+```js
+Button.prototype.bindEvent = () => {
+    this.element.addEventListener('click', this.setBgColor.bind(this), false)
+};
+```
+由于箭头函数没有 `this`，所以会向外层查找 `this` 的值，即 `bindEvent` 中的 `this`，此时 `this` 指向实例对象，所以可以正确的调用 `this.setBgColor` 方法， 而 `this.setBgColor` 中的 `this` 也会正确指向实例对象。
