@@ -1,5 +1,23 @@
 ### for、 forEach 、 for/in、 for/of
 
+
+for..of和for..in均可迭代一个列表；但是用于迭代的值却不同，for..in迭代的是对象的 键 的列表，而for..of则迭代对象的键对应的值。
+
+for...of循环、扩展运算符、解构赋值、Array.from方法内部调用的都是遍历器接口。这意味着，它们可以将Generator函数返回的Iterator对象作为参数
+```js
+function* numbers() {
+    yield 1
+    yield 2
+    return 3
+    yield 4
+}
+
+[...numbers()]
+Array.from(numbers())
+let [x, y] = numbers()
+```
+
+
 #### 语义概览
 for 和 for/in 获得数组的 index
 ```js
