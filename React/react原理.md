@@ -9,19 +9,19 @@ useImperativeHandle
 组件解决
 
 ### 渲染劫持
+渲染劫持的概念是控制组件从另一个组件输出的能力，当然这个概念一般和react中的高阶组件（HOC）放在一起解释比较有明了。
+高阶组件可以在render函数中做非常多的操作，从而控制原组件的渲染输出，只要改变了原组件的渲染，我们都将它称之为一种渲染劫持。
 
-
-React做了什么
+### React做了什么
 - Virtual Dom模型
 - 生命周期管理
 - setState机制
 - Diff算法
 - React patch、事件系统
-- React的 Virtual Dom模型
-
 
 
 **JSX 如何生成Element**
+
 React 为了方便 View 层组件化，承载了构建 html 结构化页面的职责。将 html 语法直接加入到 javascript 代码中，再通过翻译器转换到纯 javascript 后由浏览器执行。
 这里调用了 React 和 createElement 方法，这个方法就是用于创建虚拟元素 Virtual Dom 的。React 把真实的 DOM 树转换成 Javascript 对象树，也就是 Virtual Dom。 每次数据更新后，重新计算 Virtual Dom ，并和上一次生成的 virtual dom 做对比，对发生变化的部分做批量更新。而 React 是通过创建与更新虚拟元素 Virtual Element 来管理整个Virtual Dom 的。虚拟元素可以理解为真实元素的对应，它的构建与更新都是在内存中完成的，并不会真正渲染到 dom 中去。
                                          

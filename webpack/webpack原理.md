@@ -41,8 +41,7 @@
 
 |事件名|解释|
 | ---- |---- |
-|build-module|
-使用对应的 Loader 去转换一个模块。|
+|build-module|使用对应的 Loader 去转换一个模块。|
 |normal-module-loader|在用 Loader 对一个模块转换完后，使用 acorn 解析转换后的内容，输出对应的抽象语法树（AST），以方便 Webpack 后面对代码的分析。|
 |program|从配置的入口模块开始，分析其 AST，当遇到 require 等导入其它模块语句时，便将其加入到依赖的模块列表，同时对新找出的依赖模块递归分析，最终搞清所有模块的依赖关系。|
 |seal|所有模块及其依赖的模块都通过 Loader 转换完成后，根据依赖关系开始生成 Chunk|
