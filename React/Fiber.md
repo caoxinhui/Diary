@@ -5,6 +5,9 @@
 - 树节点庞大时，会导致递归调用执行栈越来越深
 - 不能中断执行，页面会等待递归执行完成才重新渲染
 
+
+
+
 ### 背景
 - react在进行组件渲染时，从setState开始到渲染完成整个过程是同步的（“一气呵成”）。如果需要渲染的组件比较庞大，js执行会占据主线程时间较长，会导致页面响应度变差，使得react在动画、手势等应用中效果比较差。
 - 页面卡顿：Stack reconciler的工作流程很像函数的调用过程。父组件里调子组件，可以类比为函数的递归；对于特别庞大的vDOM树来说，reconciliation过程会很长(x00ms)，超过16ms,在这期间，主线程是被js占用的，因此任何交互、布局、渲染都会停止，给用户的感觉就是页面被卡住了。
@@ -67,6 +70,10 @@ render阶段开始于performSyncWorkOnRoot或performConcurrentWorkOnRoot方法�
 
 一旦reconciliation过程得到时间片，就开始进入work loop。work loop机制可以让react在计算状态和等待状态之间进行切换。为了达到这个目的，对于每个loop而言，需要追踪两个东西：下一个工作单元（下一个待处理的fiber）;当前还能占用主线程的时间。第一个loop，下一个待处理单元为根节点。
 
+
+### react为何要使用深度优先遍历
+1. 递归渲染的不可暂停的性质，而为了实现在 reconcile 阶段的暂停功能，必须要重新将虚拟 dom 转换为一种易暂停的数据结构——树结构
+2. 如果树结构使用广度优先遍历，那么组件的生命周期将会乱套，因为生命周期的顺序是父componentWillMount-子componentWillMount-子componentDidMount-父componentDidMount，深度优先遍历可完美复现 react 15 的生命周期顺序；且一个虚拟 dom 的渲染要暂停，一般是得把最底层的虚拟 dom 给渲染完之后再暂停，没有道理先渲染组件的 sibling 组件
 
 
 ### Fiber源码解析
