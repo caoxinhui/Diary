@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Diary.iml" filepath="$PROJECT_DIR$/.idea/Diary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../react-infinite-scroller/.idea/react-infinite-scroller.iml" filepath="$PROJECT_DIR$/../react-infinite-scroller/.idea/react-infinite-scroller.iml" />
     </modules>
   </component>
 </project>
