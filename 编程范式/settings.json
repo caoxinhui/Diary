@@ -1,0 +1,36 @@
+{
+    "window.zoomLevel": 2,
+    "explorer.confirmDelete": false,
+    "[plaintext]": {},
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "workbench.colorTheme": "Monokai Pro",
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "eslint.runtime": "",
+    "eslint.nodeEnv": "",
+    "eslint.codeAction.showDocumentation": {
+        "enable": true
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "typescript",
+            "autoFix": true
+        },
+        {
+            "language": "typescriptreact",
+            "autoFix": true
+        },
+    ],
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "editor.renderIndentGuides": false,
+    "leetcode.endpoint": "leetcode-cn",
+}
