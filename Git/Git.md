@@ -352,3 +352,23 @@ cat file.js 输入 file.js 文件内容
 `git push --delete origin oldName`
 3. 上传新命名的本地分支
 `git push origin newName`
+   
+### 区分大小写
+设置大小写敏感
+`git config --global core.ignorecase false`
+
+修改文件较少的情况
+```js
+git mv -f [你想要删掉的文件] [你想要留下的文件]
+git mv -f a.js A.js
+
+等同于：
+
+git rm a.js
+git add A.js
+```
+
+修改文件较多的情况
+- 在 github 删除该分支
+- 本地执行 `git rm -r --cached .` 
+- `git push`
