@@ -78,6 +78,9 @@ A^ = A^1= A~1
 
 <!-- more -->
 
+### git 筛选
+git log  --author="username" --oneline ./app.ts
+
 ### 本机权限问题
 
 `git pull` 的时候 ` error: cannot open .git/FETCH_HEAD: Permission denied ` , 因为没有当前目录的修改权限
