@@ -84,3 +84,65 @@ then中返回的结果会作为入参
 ```js
 const p1 = new Promise((resolve, reject) => (resolve('hello'))).then(result=>result).then(result=>console.log({result}))
 ```
+
+
+## Promise 模拟实现红绿灯
+```js
+function red() {
+  console.log("red");
+}
+function green() {
+  console.log("green");
+}
+function yellow() {
+  console.log("yellow");
+}
+const light = function (timer, cb) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      cb()
+      resolve()
+    }, timer)
+  })
+}
+
+const step = function () {
+  Promise.resolve().then(() => {
+    return light(1000, red)
+  }).then(() => {
+    return light(1000, green)
+  }).then(() => {
+    return light(1000, yellow)
+  }).then(() => {
+    return step()
+  })
+}
+
+step();
+```
+
+## 实现Promise.all
+```js
+function promiseAll(promises) {
+    return new Promise(function (resolve, reject) {
+        if (!Array.isArray(promises)) {
+            return reject(new TypeError('arguments must be an array'))
+        }
+        let resolvedCounter = 0
+        let promiseNum = promises.length
+        let resolvedValues = new Array(promiseNum)
+        for (let i = 0; i < promiseNum; i++) {
+            Promise.resolve(promises[i]).then(function (value) {
+                resolvedCounter++
+                resolvedValues[i] = value
+                if (resolvedCounter === promiseNum) {
+                    return resolve(resolvedValues)
+                }
+            }, function (reason) {
+                return reject(reason)
+            })
+        }
+    })
+
+}
+```
