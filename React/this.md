@@ -5,7 +5,7 @@ const obj = {
     b:  () => {console.log(this)}
 }
 obj.a()   //没有使用箭头函数打出的是obj
-obj.b.c()  //打出的是window对象！！
+obj.b()  //打出的是window对象！！
 ```
 obj.a调用后打出来的是obj对象，而obj.b.c调用后打出的是window对象而非obj，这表示多层对象嵌套里箭头函数里this是和最最外层保持一致的。
 
