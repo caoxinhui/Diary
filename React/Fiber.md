@@ -1,23 +1,176 @@
-### 为什么需要fiber
+### 为什么需要 Fiber
 
-原因是大量的同步计算任务阻塞了浏览器的UI渲染。因为在默认情况下，JS运算、页面布局、页面绘制都是运行在浏览器的主线程当中，他们之间是互斥的关系。如果JS运算持续占用主线程，页面就没法得到及时的更新。当我们调用setState更新页面的时候，React会遍历应用的所有节点，计算出差异，然后再更新UI。整个过程是不能被打断的。如果页面元素很多，整个过程占用的时机就可能超过16ms，就容易出现掉帧的现象。
+一句话：**React 15 的更新过程是「一个不可中断的同步长任务」，它会长时间霸占渲染进程主线程，导致这期间的输入、动画、绘制全部停摆。Fiber 的目的不是让计算变快，而是让这个长任务变得「可以被打断」，从而把主线程及时还给浏览器。**
 
-- 树节点庞大时，会导致递归调用执行栈越来越深
-- 不能中断执行，页面会等待递归执行完成才重新渲染
+#### 1. 前置：主线程的时间预算只有 16.6ms
+
+屏幕以 60Hz 刷新时，浏览器每 16.6ms 要输出一帧。这一帧里，渲染进程的主线程要依次完成：
+
+```
+处理输入事件 → 执行 JS（含 timer、微任务）→ rAF 回调 → 样式计算 → 布局 → 分层 → 生成绘制指令 → 提交给合成线程
+```
+
+关键在于 **JS 执行、样式计算、布局、绘制都挤在渲染进程的同一条主线程上，彼此互斥**。JS 不交出主线程，后面的排版和绘制就没机会跑。所以只要一段 JS 连续执行超过约 16ms，这一帧就来不及产出，表现为掉帧；连续占用几百毫秒，就是「页面卡死」。
+
+#### 2. React 15 的问题出在哪
+
+React 15 的协调器叫 **Stack Reconciler**，遍历方式是**递归**：父组件的 render 里递归处理子组件，靠的是 JS 引擎自带的函数调用栈。这带来两个致命特性：
+
+- **不可中断**。递归一旦开始，就会一路执行到调用栈清空为止。中间没有任何「暂停点」—— 调用栈由 JS 引擎自己管理，React 无法在递归到一半时把栈帧存下来、下一帧再恢复。
+- **栈深度随组件树增长**。层级深时执行栈越来越深，既有性能开销，也有爆栈风险。
+
+于是 `setState` 之后是这样一气呵成的：
+
+```
+setState → 从根节点递归遍历 vDOM → diff 出全部差异 → 交给 Renderer → 操作真实 DOM → 屏幕更新
+         └───────────── 全程同步，主线程被独占，无法插入任何其他工作 ─────────────┘
+```
+
+对一棵几千节点的组件树，这个过程轻松跑到几百毫秒。这期间：
+
+- 用户敲键盘 → 输入事件堆在队列里，光标不动，输入框「没反应」
+- 主线程驱动的动画 → 直接冻住（只有 `transform`/`opacity` 这类走合成线程的还能动）
+- 用户点击 → 事件回调要等 diff 结束才执行，感觉「点了没用」
+
+#### 3. 为什么「优化 diff 算法」解决不了
+
+问题的本质不是**算得慢**，而是**不肯让**。
+
+即使把 diff 优化到原来的十分之一，它仍然是一个「开始了就必须做完」的同步任务。只要单次任务时长超过一帧的预算，就一定会阻塞渲染和交互。而组件树规模由业务决定，React 无法假设它一定小。
+
+那能不能把计算丢进 Web Worker？也不行：
+
+- 协调过程要读写组件实例、闭包、context，这些无法结构化克隆传给 Worker
+- 结果最终仍要操作 DOM，而 Worker 没有 DOM 访问权
+
+所以唯一的出路是：**留在主线程，但把任务切碎，并交出调度权。**
+
+#### 4. Fiber 做的三件事
+
+**① 递归改循环：自己实现一套调用栈**
+
+Fiber 把 vDOM 树换成**链表结构的 Fiber 树**，每个节点靠三个指针连接：
+
+```js
+const fiber = {
+  stateNode, // 节点实例
+  child,     // 第一个子节点
+  sibling,   // 下一个兄弟节点
+  return,    // 父节点（处理完后返回的目标）
+};
+```
+
+这三个指针本质上是**手写的栈帧**。有了它们，遍历就从「递归」变成了 `while` 循环：任意时刻中断，只要记住当前处理到哪个 fiber（`workInProgress`），下次从这个节点继续往下走即可。递归做不到这件事，因为现场存在引擎的调用栈里，React 拿不到。
+
+**② 时间切片：每做完一个工作单元就抬头看一眼**
+
+一个 fiber 节点就是一个**最小工作单元**。work loop 的逻辑是：
+
+```js
+function workLoopConcurrent() {
+  // 每处理完一个 fiber，就检查时间片是否用完
+  while (workInProgress !== null && !shouldYield()) {
+    workInProgress = performUnitOfWork(workInProgress);
+  }
+}
+```
+
+`shouldYield()` 判断这一片（约 5ms）时间是否耗尽。耗尽就退出循环，把主线程还给浏览器去处理输入、排版、绘制；浏览器空下来后再调度 React 从 `workInProgress` 继续。**一个长任务由此被切成一串短任务。**
+
+**③ 优先级调度：让紧急的事插队**
+
+有了中断能力，才谈得上调度。Scheduler 给不同来源的更新分配优先级：用户输入 > 动画 > 网络数据填充 > 屏幕外内容。高优先级更新进来时，可以打断正在进行的低优先级协调，先响应用户，之后低优先级任务再从头重做。
+
+#### 5. 中断了，会不会看到画一半的界面？
+
+不会。Fiber 把更新拆成两个阶段：
+
+| 阶段 | 做什么 | 能否中断 |
+|---|---|---|
+| **render（协调）** | 构建 workInProgress 树、diff、标记 effect | ✅ 可中断、可丢弃、可重做 |
+| **commit（提交）** | 按 effect list 一次性批量操作真实 DOM | ❌ 同步执行，不可中断 |
+
+render 阶段的工作全部做在内存里的 workInProgress 树上，屏幕显示的仍是 current 树，中断时用户看到的是上一个完整状态；只有 render 全部完成才进入 commit 一次性提交。这就是双缓存的思路。
+
+代价是：**如果 DOM 变更本身数量巨大，commit 阶段依然会卡。** Fiber 优化的是计算阶段，不是 DOM 操作阶段。
+
+#### 6. Fiber 带来了哪些新能力
+
+Fiber 真正交付的是三个原语：**可中断、可丢弃、可重做**。掉帧只是它最早、最好讲，但收益最小的那个用例。React 16 之后所有让人眼前一亮的能力，本质都是这三个原语的下游消费者。
+
+回答时按「是否真的依赖 Fiber」分档，比罗列版本号更有说服力。
+
+**① 强依赖：没有 Fiber 就做不出来**
+
+| 能力 | 版本 | 依赖 Fiber 的哪一点 |
+|---|---|---|
+| **Error Boundary**（`componentDidCatch`） | 16.0 | 自己的调用栈：沿 `return` 指针向上 unwind 找到最近的 boundary，把该子树换成 fallback 重渲染 |
+| **render 可返回数组 / 字符串 / Fragment** | 16.0 / 16.2 | `child` + `sibling` 链表：一个节点天然可以有多个子节点，不再要求「一个组件 → 一个子实例」 |
+| **Portal**（`createPortal`） | 16.0 | fiber 树（逻辑父子）与宿主树（真实 DOM 位置）解耦，commit 时才决定挂到哪 |
+| **Suspense + `React.lazy`** | 16.6 | 可丢弃 + 可重做：render 中 throw Promise，扔掉这棵 WIP 树，resolve 后重来 |
+| **DevTools Profiler / `<Profiler>`** | 16.5 | fiber 上有 `actualDuration` / `treeBaseDuration`，有显式工作单元才谈得上测量 |
+| **并发特性**（`startTransition`、`useTransition`、`useDeferredValue`） | 18 | 可中断 + 优先级 + 丢弃过时的中间结果 |
+| **自动批处理**（automatic batching） | 18 | Lane 模型统一收敛所有来源的更新 |
+| **`useSyncExternalStore`** | 18 | 反向产物：并发渲染会 tearing，外部 store 必须强制同步读取 |
+| **Suspense SSR / `renderToPipeableStream`** | 18 | 服务端也能挂起某棵子树，先把别的发出去 |
+| **Selective Hydration** | 18 | 按用户交互优先级决定先 hydrate 哪一块，可插队 |
+| **`<Activity>`**（原 Offscreen） | 19.2 | 双缓存：保留一棵不 commit 的树连同 state 和 DOM，之后原样恢复 |
+| **RSC / Actions / `use()` / `useOptimistic`** | 19 | 建在 Suspense + transition 基础设施之上，属于传递依赖 |
+
+**② 间接依赖：实现建在 Fiber 上，但不是 Fiber 的必然产物**
+
+**Hooks（16.8）**——state 存在 `fiber.memoizedState` 上的一条链表里，靠 `current` / `alternate` 这对树区分「上一次的值」和「这一次的值」，被丢弃的渲染因此不会污染已提交的状态。实现上确实吃了 Fiber 的红利。
+
+但 Hooks 不是 Fiber 逼出来的：class 组件也有实例可以挂 state，Hooks 解决的是逻辑复用和 class 的心智负担，属于独立动机。**只有 `useTransition` / `useDeferredValue` / `useSyncExternalStore` / `useInsertionEffect` 是强依赖 Fiber 的那几个。**
+
+**新 Context API（`createContext`，16.3）**——旧 context 会被 `shouldComponentUpdate` 的 bailout 截断。新实现用 `fiber.dependencies` 记录哪些 fiber 消费了这个 context，更新时由 `propagateContextChange` 遍历 fiber 树精确标记它们，从而能穿透 bailout。这套依赖收集需要一棵可遍历、可标记的持久化树。
+
+**③ Fiber 带来的约束，而不是能力**
+
+这一档容易被忽略，但主动提到会显得真读过源码：
+
+- **`componentWillMount` / `componentWillReceiveProps` / `componentWillUpdate` 被标记 `UNSAFE_`**（16.3）：render 阶段可中断、可重做，意味着这些钩子**可能被调用多次**，在里面发请求或改外部状态就会出 bug。替代品 `getDerivedStateFromProps`（静态纯函数，拿不到 `this`）和 `getSnapshotBeforeUpdate`（挪到不可中断的 commit 前）正是为此设计。
+- **`StrictMode` 双调用**（16.3 引入，18 加强为 effect 也双调）：故意跑两遍来暴露不纯的 render。
+- **render 必须是纯函数**——从「最佳实践」变成了硬性要求，因为一次 render 随时可能被丢弃重来。
+
+#### 7. 面试常见误区
+
+- **Fiber 不会让更新变快。** 拆分任务、维护链表和优先级都有额外开销，总耗时反而略有增加。它优化的是**响应性**（长任务不再阻塞交互），不是**吞吐量**。
+- **diff 算法本身没有变快。** 同层比较 + `key` 的策略 React 15 就是这样，Fiber 改的是**遍历方式**（递归→循环），不是比较策略。
+- **React 16 的 SSR 重写和 `renderToNodeStream` 不是 Fiber 的功劳。** 那是独立重写的一条代码路径，服务端渲染在 16 里根本不走 Fiber reconciler；真正吃 Fiber 的是 18 的 Suspense SSR + Selective Hydration。
+- **Fiber 架构 ≠ 并发特性。** React 16 只是把架构换成了 Fiber，具备了「可中断」这个基础设施，但默认的 Legacy 模式下更新依然同步不可中断。真正用上时间切片和优先级要到 React 18 的 `createRoot` + `startTransition` / `useDeferredValue`。所以「升到 16 就不卡了」是错的。
+- **Fiber 不是多线程。** 全程仍是渲染进程那一条主线程，只是把独占改成了分时复用。
+- **「Fiber」一词有三义**：新架构（Fiber Reconciler）、最小工作单元、描述节点的那个纯 JS 对象。回答时最好点明在说哪一个。
+
+#### 8. 一句话版本
+
+> React 15 用递归遍历 vDOM，借用 JS 引擎的调用栈，更新过程同步且不可中断；组件树大时单次更新耗时几百毫秒，独占渲染进程主线程，造成掉帧和输入无响应。Fiber 把树改成链表、递归改成循环，用 `child`/`sibling`/`return` 指针自己实现了可保存现场的调用栈，从而能在每个工作单元结束后检查时间片并让出主线程，并在此基础上支持优先级插队。render 阶段可中断，commit 阶段同步提交，保证用户不会看到不完整的 UI。
+
+> 更进一步：Fiber 的价值远不止「不掉帧」。它真正交付的是**可中断、可丢弃、可重做**这三个原语，而 Error Boundary、Fragment、Portal、Suspense、并发特性、Selective Hydration、RSC 全都是这三个原语的下游产物——这也是 React 愿意为它付出巨大实现复杂度的原因。
 
 
 
 
-### 背景
-- react在进行组件渲染时，从setState开始到渲染完成整个过程是同步的（“一气呵成”）。如果需要渲染的组件比较庞大，js执行会占据主线程时间较长，会导致页面响应度变差，使得react在动画、手势等应用中效果比较差。
-- 页面卡顿：Stack reconciler的工作流程很像函数的调用过程。父组件里调子组件，可以类比为函数的递归；对于特别庞大的vDOM树来说，reconciliation过程会很长(x00ms)，超过16ms,在这期间，主线程是被js占用的，因此任何交互、布局、渲染都会停止，给用户的感觉就是页面被卡住了。
 
-### 卡顿原因
-在setState后，react会立即开始reconciliation过程，从父节点（Virtual DOM）开始遍历，以找出不同。将所有的Virtual DOM遍历完成后，reconciler才能给出当前需要修改真实DOM的信息，并传递给renderer，进行渲染，然后屏幕上才会显示此次更新内容。对于特别庞大的vDOM树来说，reconciliation过程会很长(x00ms)，在这期间，主线程是被js占用的，因此任何交互、布局、渲染都会停止，给用户的感觉就是页面被卡住了。
+
+
 
 ### 实现原理
-> 旧版 React 通过递归的方式进行渲染，使用的是 JS 引擎自身的函数调用栈，它会一直执行到栈空为止。而Fiber实现了自己的组件调用栈，它以链表的形式遍历组件树，可以灵活的暂停、继续和丢弃执行的任务。实现方式是使用了浏览器的requestIdleCallback这一 API。
- Fiber 其实指的是一种数据结构，它可以用一个纯 JS 对象来表示
+> 旧版 React 通过递归的方式进行渲染，使用的是 JS 引擎自身的函数调用栈，它会一直执行到栈空为止。而 Fiber 实现了自己的组件调用栈，它以链表的形式遍历组件树，可以灵活地暂停、继续和丢弃执行的任务。
+
+Fiber 同时也指一种数据结构，可以用一个纯 JS 对象来表示。
+
+**⚠️ 注意：让出主线程靠的不是 `requestIdleCallback`。** 这是流传很广的说法，但 React 从未使用该 API，而是自己实现了一套 Scheduler（`scheduler` 包）。原因：
+
+- **调用频率太低且不稳定**。`requestIdleCallback` 只在一帧还有空闲时才触发，低负载下约 20Hz，达不到 60fps 需要的节奏；页面繁忙时可能长时间不触发，更新会被无限期推迟。
+- **触发时机不可控**。它由浏览器决定何时算「空闲」，React 需要的是「我说了算」的可控让出点，还要能按优先级区分同步/插队/延后。
+- **兼容性差**。Safari 长期不支持。
+
+React 的实际做法：用 **`MessageChannel`** 的 `port.postMessage` 产生一个**宏任务**，把执行权交回事件循环——浏览器得以在这个间隙处理输入、样式计算、布局和绘制，随后宏任务回调再让 React 从 `workInProgress` 继续。不支持 `MessageChannel` 时降级到 `setTimeout(fn, 0)`。
+
+为什么用宏任务而不是微任务：微任务会在当前任务末尾立刻清空，浏览器根本没有机会插入渲染，等于没让。为什么不用 `requestAnimationFrame`：它在渲染前触发，页面不可见（切到后台标签页）时会被暂停。
+
+时间片长度是 React 自己定的固定值（约 5ms，见 `frameYieldMs`），不依赖浏览器给的 `deadline`；`shouldYield()` 就是拿当前时间和这个截止点比较。
 
 ### Scheduler
 scheduling(调度)是fiber reconciliation的一个过程，主要决定应该在何时做什么。在stack reconciler中，reconciliation是“一气呵成”，对于函数来说，这没什么问题，因为我们只想要函数的运行结果，但对于UI来说还需要考虑以下问题：
@@ -60,12 +213,15 @@ const fiber = {
 ### Fiber节点是如何被创建并构建Fiber树的
 render阶段开始于performSyncWorkOnRoot或performConcurrentWorkOnRoot方法的调用。这取决于本次更新是同步更新还是异步更新。
 
-总的来讲，通常，客户端线程执行任务时会以帧的形式划分，大部分设备控制在30-60帧是不会影响用户体验；在两个执行帧之间，主线程通常会有一小段空闲时间，requestIdleCallback可以在这个空闲期（Idle Period）调用空闲期回调（Idle Callback），执行一些任务
+客户端执行任务时以帧为单位划分，大部分设备维持在 30-60 帧就不会影响体验。所以 React 需要的能力是：**在一帧的预算内做一小段工作，然后主动把主线程交还给浏览器，让它有机会完成排版绘制和响应输入。**
 
-- 低优先级任务由requestIdleCallback处理；
-- 高优先级任务，如动画相关的由requestAnimationFrame处理；
-- requestIdleCallback可以在多个空闲期调用空闲期回调，执行任务；
-- requestIdleCallback方法提供deadline，即任务执行限制时间，以切分任务，避免长时间执行，阻塞UI渲染而导致掉帧；
+浏览器原生的空闲期 API `requestIdleCallback` 看起来正是为此设计的（在两帧之间的空闲期回调，并提供 `deadline` 用于切分任务），**但 React 没有采用它**——频率太低、时机不可控、Safari 不支持，详见上文「实现原理」。React 用 `MessageChannel` 宏任务自己实现让出，时间片固定约 5ms。
+
+面试时如果被问到 `requestIdleCallback`，正确的回答是：「它是理解 Fiber 时间切片思路的最佳类比，也是 React 早期的探索方向，但最终实现没有用它，React 自己写了 Scheduler。」
+
+- 高优先级任务，如动画相关的仍由 `requestAnimationFrame` 处理；
+- `shouldYield()` 检查的是 React 自己设定的 5ms 截止时间，不是浏览器给的 `deadline`；
+- 切分任务的目的都是一样的：避免单个任务长时间执行，阻塞 UI 渲染导致掉帧。
 
 
 一旦reconciliation过程得到时间片，就开始进入work loop。work loop机制可以让react在计算状态和等待状态之间进行切换。为了达到这个目的，对于每个loop而言，需要追踪两个东西：下一个工作单元（下一个待处理的fiber）;当前还能占用主线程的时间。第一个loop，下一个待处理单元为根节点。
