@@ -13,6 +13,8 @@
 | 作用域污染 | `var` 全挂在 `window` 上，防冲突只能靠 IIFE + 命名空间约定 | 每个模块包一层函数作用域，对外只暴露 `exports` |
 | 只认 JS | ES6+ / TS / SCSS / 图片浏览器都不认 | loader 把任意类型的文件转成合法的 JS 模块 |
 
+它和 Vite / esbuild / Rspack / Rolldown / Turbopack 的分层关系与取舍，见 [打包工具对比.md](打包工具对比.md)。
+
 ### 一次构建的数据流
 
 ```

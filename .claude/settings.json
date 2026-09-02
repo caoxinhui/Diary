@@ -26,7 +26,12 @@
       "Bash(grep -n '```' \"webpack/webpack原理.md\")",
       "Bash(grep -n '^#\\\\{1,4\\\\} ' CSS预处理器与loader原理.md)",
       "WebSearch",
-      "Bash(grep -n \"^#\\\\{2,3\\\\} \" 原理.md)"
+      "Bash(grep -n \"^#\\\\{2,3\\\\} \" 原理.md)",
+      "WebFetch(domain:vite.dev)",
+      "WebFetch(domain:rspack.dev)",
+      "WebFetch(domain:voidzero.dev)",
+      "WebFetch(domain:rspack.rs)",
+      "Bash(awk -F'|' '/^\\\\|/ {print NR\": \"NF-2}' 打包工具对比.md)"
     ]
   }
 }
