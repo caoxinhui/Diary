@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/usr/bin/curl -sL --max-time 60 -o u2.js \"https://app.unpkg.com/create-app@2.1.0/files/client/index.js\")",
+      "Bash(/usr/bin/head -c 400 u2.js)",
+      "Bash(/usr/bin/curl -sL --max-time 60 -o jd.js \"https://cdn.jsdelivr.net/npm/create-app@2.1.0/client/index.js\")",
+      "Bash(/usr/bin/grep -n \"raw:\" jd.js)",
+      "Bash(/usr/bin/grep -n \"require\\(\\\\\"create-history\\\\\"\\)\\\\|create_history\" jd.js)",
+      "Bash(/usr/bin/curl -sL --max-time 60 \"https://data.jsdelivr.com/v1/packages/npm/create-app@2.1.0\" -o files.json)",
+      "Bash(python3 -c ' *)",
+      "Bash(/usr/bin/curl -sL --max-time 60 -o pub_client_createApp.js \"https://cdn.jsdelivr.net/npm/create-app@2.1.0/lib/client/createApp.js\")",
+      "Bash(/usr/bin/curl -sL --max-time 60 -o pub_client_defaultSettings.js \"https://cdn.jsdelivr.net/npm/create-app@2.1.0/lib/client/defaultSettings.js\")",
+      "Bash(/usr/bin/grep -n \"raw:\" pub_client_createApp.js)",
+      "Bash(/usr/bin/sed -n '1,40p' pub_client_createApp.js)",
+      "Bash(/usr/bin/grep -n \"createHistory\\\\|useBeforeUnload\\\\|useQueries\\\\|useBasename\")",
+      "Bash(/usr/bin/grep -n \"create_history_1.default\\\\[\\\\|useBeforeUnload\" pub_client_createApp.js)",
+      "Bash(/usr/bin/grep -n \"__SYMBOL\\\\|static.*SYMBOL\" src_controller_index.tsx)",
+      "Bash(/usr/bin/grep -n \"^export\" src_index.ts)",
+      "Bash(/usr/bin/grep -n \"^#\\\\|^###\" doc_Config_detail.md)",
+      "Bash(/usr/bin/grep -rn \"replaceState\\\\|store.publish\\\\|store.dispatch\" .)",
+      "Bash(grep -c '^```' React-imvc/原理.md)",
+      "Bash(grep -c '^```' webpack/webpack原理.md)",
+      "Bash(grep -c '^```' webpack/babel原理.md)",
+      "Bash(grep -n '^#\\\\{1,4\\\\} ' webpack原理.md)",
+      "Bash(grep -n '^#\\\\{1,4\\\\} ' 项目webpack.md)",
+      "Bash(grep -n '```' \"webpack/webpack原理.md\")",
+      "Bash(grep -n '^#\\\\{1,4\\\\} ' CSS预处理器与loader原理.md)",
+      "WebSearch",
+      "Bash(grep -n \"^#\\\\{2,3\\\\} \" 原理.md)"
+    ]
+  }
+}
