@@ -31,7 +31,24 @@
       "WebFetch(domain:rspack.dev)",
       "WebFetch(domain:voidzero.dev)",
       "WebFetch(domain:rspack.rs)",
-      "Bash(awk -F'|' '/^\\\\|/ {print NR\": \"NF-2}' 打包工具对比.md)"
+      "Bash(awk -F'|' '/^\\\\|/ {print NR\": \"NF-2}' 打包工具对比.md)",
+      "Bash(grep -n \"^#\\\\{1,4\\\\} \" \"模块化/模块化.md\")",
+      "Bash(grep -n \"^#\\\\{1,3\\\\} \" \"模块化/模块化.md\")",
+      "WebFetch(domain:endoflife.date)",
+      "WebFetch(domain:www.mysql.com)",
+      "WebFetch(domain:valkey.io)",
+      "Bash(curl -sL --max-time 40 \"https://raw.githubusercontent.com/mongodb/mongo/master/LICENSE-Community.txt\")",
+      "Bash(curl -sL --max-time 40 \"https://api.github.com/repos/mongodb/mongo/tags?per_page=20\")",
+      "Bash(curl -sL --max-time 30 \"https://redis.io/docs/latest/develop/data-types/vector-sets/\")",
+      "Bash(curl -sL --max-time 30 \"https://redis.io/docs/latest/operate/oss_and_stack/stack-with-enterprise/release-notes/redisce/redisos-8.2-release-notes/\")",
+      "Bash(curl -sL --max-time 30 \"https://redis.io/docs/latest/operate/rs/databases/auto-tiering/\")",
+      "Bash(curl -sL --max-time 30 \"https://redis.io/docs/latest/operate/rs/databases/flash/\")",
+      "Bash(curl -sL --max-time 30 \"https://valkey.io/blog/\")",
+      "Bash(curl -sL --max-time 30 \"https://raw.githubusercontent.com/valkey-io/valkey/unstable/LICENSE\")",
+      "Bash(curl -sL --max-time 30 \"https://raw.githubusercontent.com/valkey-io/valkey/unstable/README.md\")",
+      "Bash(curl -sL --max-time 20 \"https://raw.githubusercontent.com/valkey-io/valkey/unstable/COPYING\")",
+      "Bash(curl -sL --max-time 40 \"https://dev.mysql.com/doc/relnotes/mysql/9.0/en/news-9-0-0.html\")",
+      "Bash(curl -sL --max-time 40 \"https://dev.mysql.com/doc/refman/9.7/en/vector-functions.html\")"
     ]
   }
 }
