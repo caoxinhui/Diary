@@ -48,7 +48,12 @@
       "Bash(curl -sL --max-time 30 \"https://raw.githubusercontent.com/valkey-io/valkey/unstable/README.md\")",
       "Bash(curl -sL --max-time 20 \"https://raw.githubusercontent.com/valkey-io/valkey/unstable/COPYING\")",
       "Bash(curl -sL --max-time 40 \"https://dev.mysql.com/doc/relnotes/mysql/9.0/en/news-9-0-0.html\")",
-      "Bash(curl -sL --max-time 40 \"https://dev.mysql.com/doc/refman/9.7/en/vector-functions.html\")"
+      "Bash(curl -sL --max-time 40 \"https://dev.mysql.com/doc/refman/9.7/en/vector-functions.html\")",
+      "Bash(timeout 120 npx -y typescript@5.6.3 --version)",
+      "Bash(npx -y typescript@5.6.3 --version)",
+      "Bash(mkdir -p /tmp/ts-check)",
+      "Bash(npm i *)",
+      "Bash(./node_modules/.bin/tsc --version)"
     ]
   }
 }
