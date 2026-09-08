@@ -485,7 +485,7 @@ type Tag = User['tags'][number]   // string，取数组元素类型
 const conf = { port: 80, host: 'a' }
 type Conf = typeof conf           // { port: number; host: string }
 
-// 条件类型 + infer 提取类型
+// 条件类型 + infer 提取类型（infer 的详细说明见 9.1）
 type ElementOf<T> = T extends (infer U)[] ? U : never
 type Unwrap<T> = T extends Promise<infer U> ? U : T
 
@@ -497,6 +497,77 @@ type Getters<T> = { [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K]
 // 模板字面量类型
 type EventName = `on${'Click' | 'Focus'}`   // 'onClick' | 'onFocus'
 ```
+
+### 9.1 infer 是什么
+
+`infer` 只能出现在条件类型 `T extends U ? X : Y` 中 `U` 的位置（即 extends 右侧那个「模式」），意思是：**在这里声明一个类型变量，让 TS 在做结构匹配时，把匹配到的那部分类型捕获进来**，然后在 true 分支 `X` 里使用它。
+
+一句话理解：**infer 是类型层面的「解构赋值」/ 正则捕获组**。正则里 `/(\d+)/` 用括号把一段抓出来，类型里就用 `infer U` 把一段抓出来。
+
+三条硬性规则：
+
+- 只能写在 `extends` 右侧，`type A = infer U` 这种写法非法
+- 捕获到的变量只能在 true 分支使用，false 分支里不可见
+- 结构匹配不上就走 false 分支
+
+```ts
+// 读法：如果 T 长得像「某种东西的数组」，就把元素类型抓出来命名为 U，并返回 U
+type ElementOf<T> = T extends (infer U)[] ? U : never
+
+type E1 = ElementOf<string[]>   // string
+type E2 = ElementOf<number>     // never，匹配失败，走了 false 分支
+```
+
+**常见的捕获位置**（内置的 `ReturnType` / `Parameters` / `Awaited` 就是这么实现的）
+
+```ts
+type MyReturnType<T> = T extends (...args: any) => infer R ? R : never
+type MyParameters<T> = T extends (...args: infer P) => any ? P : never
+type MyInstanceType<T> = T extends abstract new (...args: any) => infer I ? I : never
+type Unwrap<T> = T extends Promise<infer U> ? U : T
+
+// 一个模式里可以同时捕获多个不同变量
+type Swap<T> = T extends [infer A, infer B] ? [B, A] : never
+type S1 = Swap<[string, number]>   // [number, string]
+```
+
+注意：取对象属性类型不需要 infer，直接索引访问 `T['name']` 即可；infer 是用来「拆开一个自己写不出来的位置」的。
+
+**同名 infer 出现多次：位置决定合并方式**
+
+```ts
+// 协变位置（属性、返回值）→ 合并为联合
+type Cov<T> = T extends { a: infer U; b: infer U } ? U : never
+type C1 = Cov<{ a: string; b: number }>   // string | number
+
+// 逆变位置（函数参数）→ 合并为交叉
+type Contra<T> = T extends { a: (x: infer U) => void; b: (x: infer U) => void } ? U : never
+type C2 = Contra<{ a: (x: string) => void; b: (x: number) => void }>   // string & number → never
+```
+
+**配合模板字面量 + 递归，可以在类型层面拆字符串**
+
+```ts
+type Split<S extends string, D extends string> =
+  S extends `${infer H}${D}${infer R}` ? [H, ...Split<R, D>] : [S]
+
+type S2 = Split<'a,b,c', ','>   // ['a', 'b', 'c']
+
+type TrimLeft<S extends string> = S extends ` ${infer R}` ? TrimLeft<R> : S
+type S3 = TrimLeft<'   ab'>     // 'ab'
+```
+
+**给 infer 加约束**（TS 4.8+），可以省掉一层嵌套条件类型：
+
+```ts
+// 4.8 之前：先捕获，再套一层条件判断
+type FirstStrOld<T> = T extends [infer S, ...unknown[]] ? (S extends string ? S : never) : never
+
+// 4.8 之后：捕获的同时就限制类型
+type FirstStr<T> = T extends [infer S extends string, ...unknown[]] ? S : never
+```
+
+
 ## 10. 常用内置工具类型
 
 ```ts
@@ -606,6 +677,177 @@ namespace Utils { export const noop = () => {} }
 | `skipLibCheck` | 跳过 `.d.ts` 检查，明显加快编译 |
 | `declaration` | 输出 `.d.ts`，写库必开 |
 | `noUncheckedIndexedAccess` | 索引访问结果自动带上 `undefined` |
+
+---
+
+# TypeScript 关键字总览
+
+TypeScript 在 JS 之上新增的关键字，绝大多数是**上下文关键字**（contextual keyword）：只在特定位置才有特殊含义，其它场景仍可当普通标识符使用。
+
+```ts
+const type = 1        // 合法：type 只在声明类型别名的位置才是关键字
+const as = 2          // 合法
+const satisfies = 3   // 合法
+// const enum = 4     // 非法：enum 是 JS 的未来保留字
+```
+
+## 15.1 声明类型
+
+| 关键字 | 作用 |
+| --- | --- |
+| `type` | 类型别名，也用于 `import type` / `export type` |
+| `interface` | 接口声明，同名自动合并 |
+| `enum` / `const enum` | 枚举；`const enum` 编译期内联，不产生运行时对象 |
+| `namespace` | 命名空间，旧式模块组织方式 |
+| `declare` | 环境声明：只描述类型，不生成任何代码 |
+| `global` | 仅用于 `declare global { }`，向全局作用域补类型 |
+
+## 15.2 类相关
+
+| 关键字 | 作用 | 版本 |
+| --- | --- | --- |
+| `public` / `private` / `protected` | 访问修饰符，仅编译期生效 | — |
+| `readonly` | 只读属性，也用于 `readonly T[]` | — |
+| `abstract` | 抽象类与抽象成员，还可写抽象构造签名 | 4.2 |
+| `implements` | 声明实现某接口，只做检查不带来实现 | — |
+| `override` | 显式标注覆盖父类成员 | 4.3 |
+| `accessor` | 自动存取器，自动生成私有字段 + getter/setter | 4.9 |
+
+```ts
+interface Named { name: string }
+
+abstract class Animal implements Named {
+  abstract kind: string                    // 抽象属性，子类必须给
+  constructor(public readonly name: string) {}
+  speak() { console.log('...') }
+  protected log(msg: string) { console.log(msg) }
+}
+
+class Dog extends Animal {
+  kind = 'dog'
+  accessor age = 1                         // 等价于私有字段 + get/set
+  override speak() { this.log('wof') }     // 父类没有该成员时报错
+}
+
+type AnimalCtor = abstract new (name: string) => Animal   // 抽象构造签名
+```
+
+## 15.3 类型运算符
+
+只在类型位置有意义的关键字。
+
+```ts
+interface User { id: number; name: string; tags: string[] }
+
+type K = keyof User                                // 取键名联合
+type C = typeof console                            // 取值的类型（值位置的 typeof 是 JS 的）
+type Cond<T> = T extends string ? 'str' : 'other'  // 条件类型（extends 也用于约束、继承）
+type Opt<T> = { [P in keyof T]?: T[P] }            // in：映射类型遍历键
+type El<T> = T extends (infer U)[] ? U : never     // infer：在模式中捕获类型
+
+declare const token: unique symbol                 // unique symbol：独一无二的 symbol 类型
+type TokenKey = typeof token                       // 只能用于 const 和 static readonly
+
+// intrinsic：编译器内建实现，只出现在 TS 自带的 lib.d.ts 里，业务代码不能用
+// type Uppercase<S extends string> = intrinsic
+```
+
+## 15.4 断言与收窄
+
+| 关键字 | 作用 | 版本 |
+| --- | --- | --- |
+| `as` | 类型断言、`as const`、映射类型键重映射、import 重命名 | — |
+| `satisfies` | 校验是否符合类型，同时保留最精确的推断 | 4.9 |
+| `is` | 类型谓词：返回 boolean，并同时收窄参数类型 | — |
+| `asserts` | 断言函数：调用之后对后续代码生效 | 3.7 |
+
+```ts
+const el = document.body as HTMLElement
+const cfg = { port: 80 } as const
+type Getters<T> = { [K in keyof T as `get${string & K}`]: () => T[K] }   // as 键重映射
+
+const theme = { dark: '#000' } satisfies Record<string, `#${string}`>
+
+function isStr(v: unknown): v is string { return typeof v === 'string' }
+
+function assertOk(v: unknown): asserts v is { ok: true } {
+  if (!v || (v as { ok?: unknown }).ok !== true) throw new Error('bad')
+}
+
+class Box {
+  value?: string
+  assertLoaded(): asserts this is Box & { value: string } {   // asserts this is
+    if (this.value === undefined) throw new Error('empty')
+  }
+}
+```
+
+## 15.5 泛型上的修饰
+
+```ts
+// in / out：显式型变注解（4.7），让编译器的可赋值性检查更快也更准确
+interface Producer<out T> { get(): T }          // 协变：T 只出现在输出位置
+interface Consumer<in T> { set(v: T): void }    // 逆变：T 只出现在输入位置
+interface Store<in out T> { get(): T; set(v: T): void }   // 不变
+
+// const 类型参数（5.0）：调用方不写 as const 也能推断出字面量
+function route<const T extends readonly string[]>(paths: T): T { return paths }
+const r = route(['/a', '/b'])   // readonly ['/a', '/b']
+```
+
+## 15.6 模块与资源管理
+
+```ts
+import type { User } from './types'   // 纯类型导入，编译后完全擦除
+export type { User }
+```
+
+```ts
+// CommonJS 互操作，需要 module 设为 commonjs
+import fs = require('fs')
+export = fs
+```
+
+```ts
+// using / await using（5.2）：离开作用域自动调用 Symbol.dispose
+function open(path: string) {
+  return { path, [Symbol.dispose]() { console.log('closed', path) } }
+}
+
+{
+  using file = open('a.txt')
+  console.log(file.path)
+}   // 这里自动 closed；异步资源用 await using + Symbol.asyncDispose
+```
+
+## 15.7 内置类型名
+
+严格说不是关键字，而是全局可用的类型名：`any`、`unknown`、`never`、`void`、`object`、`string`、`number`、`boolean`、`bigint`、`symbol`、`undefined`、`null`，以及类型位置的 `this`（多态 this，表示「当前这个子类的类型」）。
+
+```ts
+class Builder {
+  private steps: string[] = []
+  add(s: string): this { this.steps.push(s); return this }   // 返回 this 类型
+}
+class SubBuilder extends Builder { done() { return 'ok' } }
+
+new SubBuilder().add('a').done()   // 因为是 this 类型，链式调用后仍然是 SubBuilder
+```
+
+## 15.8 版本速查
+
+| 版本 | 新增 |
+| --- | --- |
+| 3.7 | `asserts` 断言函数 |
+| 4.2 | `abstract new` 抽象构造签名 |
+| 4.3 | `override` |
+| 4.7 | `in` / `out` 型变注解 |
+| 4.8 | `infer ... extends` |
+| 4.9 | `satisfies`、`accessor` |
+| 5.0 | `const` 类型参数 |
+| 5.2 | `using` / `await using` |
+| 5.4 | `NoInfer<T>`（工具类型，非关键字） |
+
 
 
 
