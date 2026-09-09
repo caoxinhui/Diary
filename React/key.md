@@ -94,5 +94,5 @@ class Home extends React.Component {
 
 <!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
 ### 相关内容
-- **相关**：[Diff](./Diff.md)、[VirtualDOM](./VirtualDOM.md)、[React 性能优化](./性能优化.md)
+- **相关**：[Slate 原理](../React-imvc/slate.md)、[Diff](./Diff.md)、[VirtualDOM](./VirtualDOM.md)、[React 性能优化](./性能优化.md)
 <!-- KG:AUTO-END -->

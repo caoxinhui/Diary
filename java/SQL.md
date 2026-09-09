@@ -459,4 +459,5 @@ WINDOW w AS (PARTITION BY user_id ORDER BY amount DESC);
 <!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
 ### 相关内容
 - **相关**：[MySQL / Redis / MongoDB 对比](./数据库.md)
+- **被引用**：[InnoDB 四大件：索引 / MVCC / 锁 / Buffer Pool](./InnoDB.md)
 <!-- KG:AUTO-END -->

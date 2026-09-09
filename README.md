@@ -10,7 +10,7 @@
 <!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
 ## 目录索引
 
-共 109 篇，155 条关联。
+共 110 篇，159 条关联。
 按标签检索、关系图、待连接清单见 [GRAPH.md](GRAPH.md)。
 
 > 维护方式：关系写在每个文件的 frontmatter（`prereq` 前置 / `related` 相关 / `deep` 深入 / `dup` 待合并，值用仓库根目录相对路径），
@@ -63,7 +63,7 @@
 <details><summary><b>Javascript</b>（17）</summary>
 
 - [call,bind,apply](Javascript/call,bind,apply.md) <sub>· 2 关联</sub>
-- [EventLoop](Javascript/EventLoop.md) <sub>· 8 关联</sub>
+- [EventLoop](Javascript/EventLoop.md) <sub>· 9 关联</sub>
 - [for&forEach&forIn&forOf](Javascript/for&forEach&forIn&forOf.md) <sub>· 1 关联</sub>
 - [let,const,var区别](Javascript/let,const,var区别.md) <sub>· 1 关联</sub>
 - [事件代理](Javascript/事件代理.md) <sub>· 2 关联</sub>
@@ -89,7 +89,7 @@
 - [Diff](React/Diff.md) <sub>· 3 关联</sub>
 - [Fiber](React/Fiber.md) <sub>· 5 关联</sub>
 - [Hooks](React/Hooks.md) <sub>· 4 关联</sub>
-- [React key](React/key.md) <sub>· 3 关联</sub>
+- [React key](React/key.md) <sub>· 4 关联</sub>
 - [React 原理：Hooks 与 HOC](React/react原理.md) <sub>· 3 关联</sub>
 - [Redux](React/Redux.md) <sub>· 1 关联</sub>
 - [React render 阶段（beforeMutation / mutation）](React/render.md) <sub>· 2 关联</sub>
@@ -110,7 +110,7 @@
 
 <details><summary><b>React-imvc</b>（3）</summary>
 
-- [slate](React-imvc/slate.md)
+- [Slate 原理](React-imvc/slate.md) <sub>· 2 关联</sub>
 - [react-imvc 原理](React-imvc/原理.md) <sub>· 4 关联</sub>
 - [react-imvc vs Next.js](React-imvc/对比-Next.js.md) <sub>· 3 关联</sub>
 
@@ -135,10 +135,11 @@
 
 </details>
 
-<details><summary><b>java</b>（2）</summary>
+<details><summary><b>java</b>（3）</summary>
 
-- [MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md) <sub>· 1 关联</sub>
-- [MySQL / Redis / MongoDB 对比](java/数据库.md) <sub>· 3 关联</sub>
+- [InnoDB 四大件：索引 / MVCC / 锁 / Buffer Pool](java/InnoDB.md) <sub>· 2 关联</sub>
+- [MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md) <sub>· 2 关联</sub>
+- [MySQL / Redis / MongoDB 对比](java/数据库.md) <sub>· 4 关联</sub>
 
 </details>
 

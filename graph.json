@@ -335,8 +335,11 @@
     },
     {
       "id": "React-imvc/slate.md",
-      "title": "slate",
-      "tags": [],
+      "title": "Slate 原理",
+      "tags": [
+        "React",
+        "富文本"
+      ],
       "dir": "React-imvc"
     },
     {
@@ -557,6 +560,15 @@
         "浏览器"
       ],
       "dir": "iframe"
+    },
+    {
+      "id": "java/InnoDB.md",
+      "title": "InnoDB 四大件：索引 / MVCC / 锁 / Buffer Pool",
+      "tags": [
+        "后端",
+        "MySQL"
+      ],
+      "dir": "java"
     },
     {
       "id": "java/SQL.md",
@@ -1265,6 +1277,26 @@
       "kind": "deep"
     },
     {
+      "from": "React-imvc/slate.md",
+      "to": "React/key.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/key.md",
+      "to": "React-imvc/slate.md",
+      "kind": "related"
+    },
+    {
+      "from": "React-imvc/slate.md",
+      "to": "Javascript/EventLoop.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/EventLoop.md",
+      "to": "React-imvc/slate.md",
+      "kind": "related"
+    },
+    {
       "from": "React-imvc/原理.md",
       "to": "React-imvc/对比-Next.js.md",
       "kind": "related"
@@ -1572,6 +1604,21 @@
     {
       "from": "微前端/原理.md",
       "to": "iframe/iframe跨端通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "java/InnoDB.md",
+      "to": "java/SQL.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "java/InnoDB.md",
+      "to": "java/数据库.md",
+      "kind": "related"
+    },
+    {
+      "from": "java/数据库.md",
+      "to": "java/InnoDB.md",
       "kind": "related"
     },
     {

@@ -2,10 +2,10 @@
 
 > 本文件由 `node scripts/kg.mjs build` 生成，请勿手改。关系维护在各文件的 frontmatter 里。
 
-- 文件：109 篇
-- 关联：155 对
-- 已接入图谱：99 篇；孤立：10 篇
-- 标签：25 个
+- 文件：110 篇
+- 关联：159 对
+- 已接入图谱：101 篇；孤立：9 篇
+- 标签：26 个
 
 ## 关系图
 
@@ -83,6 +83,7 @@ graph LR
     N64["React 高阶组件（HOC）"]
   end
   subgraph D5["React-imvc"]
+    N41["Slate 原理"]
     N42["react-imvc 原理"]
     N43["react-imvc vs Next.js"]
   end
@@ -97,62 +98,63 @@ graph LR
     N68["iframe跨端通信"]
   end
   subgraph D9["java"]
-    N69["MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数"]
-    N70["MySQL / Redis / MongoDB 对比"]
+    N69["InnoDB 四大件：索引 / MVCC / 锁 / Buffer Pool"]
+    N70["MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数"]
+    N71["MySQL / Redis / MongoDB 对比"]
   end
   subgraph D10["webpack"]
-    N71["CSS 预处理器与 loader 原理"]
-    N72["TreeShaking"]
-    N73["Babel 原理"]
-    N74["imvc的webpack配置"]
-    N75["Webpack 原理"]
-    N76["打包工具对比（webpack / Rollup / esbuild / Vite / Rspack / Rolldown / Turbopack）"]
-    N77["项目webpack"]
+    N72["CSS 预处理器与 loader 原理"]
+    N73["TreeShaking"]
+    N74["Babel 原理"]
+    N75["imvc的webpack配置"]
+    N76["Webpack 原理"]
+    N77["打包工具对比（webpack / Rollup / esbuild / Vite / Rspack / Rolldown / Turbopack）"]
+    N78["项目webpack"]
   end
   subgraph D11["微前端"]
-    N78["SPA 与路由切换原理"]
-    N79["微前端 原理"]
+    N79["SPA 与路由切换原理"]
+    N80["微前端 原理"]
   end
   subgraph D12["性能"]
-    N80["性能指标与 Performance Timing"]
-    N81["浏览器的进程、线程与事件循环全景"]
-    N82["项目介绍"]
-    N83["项目性能优化"]
-    N84["高并发：Node.js 与 Java 的两条路"]
+    N81["性能指标与 Performance Timing"]
+    N82["浏览器的进程、线程与事件循环全景"]
+    N83["项目介绍"]
+    N84["项目性能优化"]
+    N85["高并发：Node.js 与 Java 的两条路"]
   end
   subgraph D13["成长路线"]
-    N85["高级前后端能力地图（AI 时代）"]
+    N86["高级前后端能力地图（AI 时代）"]
   end
   subgraph D14["操作系统"]
-    N87["进程、线程、纤程"]
+    N88["进程、线程、纤程"]
   end
   subgraph D15["数据结构"]
-    N88["ArrayList＆LinkList"]
-    N89["数据结构：前缀树 Trie"]
+    N89["ArrayList＆LinkList"]
+    N90["数据结构：前缀树 Trie"]
   end
   subgraph D16["模块化"]
-    N90["JS 模块化"]
-    N91["运行时动态执行 JS 代码"]
+    N91["JS 模块化"]
+    N92["运行时动态执行 JS 代码"]
   end
   subgraph D17["浏览器"]
-    N92["浏览器引擎与渲染原理"]
-    N93["浏览器插件与 CDP：两种「操纵浏览器」的方式"]
-    N94["浏览器调试"]
+    N93["浏览器引擎与渲染原理"]
+    N94["浏览器插件与 CDP：两种「操纵浏览器」的方式"]
+    N95["浏览器调试"]
   end
   subgraph D18["算法"]
-    N95["堆"]
-    N96["算法题合集（左程云）"]
-    N97["排序算法"]
-    N98["深度广度优先"]
+    N96["堆"]
+    N97["算法题合集（左程云）"]
+    N98["排序算法"]
+    N99["深度广度优先"]
   end
   subgraph D19["编程范式"]
-    N99["函数式编程"]
+    N100["函数式编程"]
   end
   subgraph D20["面试题"]
-    N101["h5与APP通信"]
-    N104["批量插入 DOM"]
-    N107["计时器"]
-    N108["计算服务器的时间戳对应中国时区的今天、明天还是其他"]
+    N102["h5与APP通信"]
+    N105["批量插入 DOM"]
+    N108["计时器"]
+    N109["计算服务器的时间戳对应中国时区的今天、明天还是其他"]
   end
   N0 ---|相关| N9
   N1 ---|相关| N4
@@ -164,7 +166,7 @@ graph LR
   N6 ---|相关| N0
   N8 -->|前置| N3
   N10 -->|前置| N2
-  N10 ---|相关| N83
+  N10 ---|相关| N84
   N12 ---|相关| N32
   N12 ---|相关| N13
   N16 -->|前置| N19
@@ -174,14 +176,14 @@ graph LR
   N19 -->|深入| N20
   N21 -->|前置| N18
   N21 ---|相关| N34
-  N21 ---|相关| N83
+  N21 ---|相关| N84
   N22 ---|相关| N38
   N23 ---|相关| N16
   N24 -->|前置| N29
-  N24 -->|前置| N87
+  N24 -->|前置| N88
   N24 ---|相关| N12
-  N24 ---|相关| N107
-  N24 -->|深入| N81
+  N24 ---|相关| N108
+  N24 -->|深入| N82
   N28 ---|相关| N2
   N29 ---|相关| N27
   N29 ---|相关| N25
@@ -192,11 +194,13 @@ graph LR
   N35 ---|相关| N65
   N38 -->|前置| N16
   N38 ---|相关| N68
-  N38 ---|相关| N101
+  N38 ---|相关| N102
   N39 ---|相关| N32
-  N39 ---|相关| N83
+  N39 ---|相关| N84
   N40 ---|相关| N11
   N40 -->|深入| N33
+  N41 ---|相关| N51
+  N41 ---|相关| N24
   N42 ---|相关| N43
   N42 --> N43
   N42 --> N60
@@ -222,116 +226,118 @@ graph LR
   N54 ---|相关| N53
   N55 -->|前置| N25
   N56 -->|前置| N28
-  N57 ---|相关| N78
+  N57 ---|相关| N79
   N58 ---|相关| N50
   N58 -.-|重叠| N52
   N59 ---|相关| N46
   N59 ---|相关| N51
-  N59 ---|相关| N83
+  N59 ---|相关| N84
   N60 ---|相关| N42
   N60 ---|相关| N23
   N62 ---|相关| N49
   N62 ---|相关| N64
   N63 -->|前置| N24
   N67 ---|相关| N66
-  N68 ---|相关| N79
-  N69 ---|相关| N70
-  N71 ---|相关| N5
-  N71 --> N73
-  N71 --> N75
-  N72 -->|前置| N90
-  N73 --> N75
-  N73 --> N72
-  N74 -->|前置| N75
-  N74 ---|相关| N42
-  N75 -->|前置| N90
-  N75 ---|相关| N76
-  N75 ---|相关| N77
-  N75 -->|深入| N73
-  N75 -->|深入| N72
-  N75 -->|深入| N71
-  N75 --> N76
-  N75 --> N72
+  N68 ---|相关| N80
+  N69 -->|前置| N70
+  N69 ---|相关| N71
+  N70 ---|相关| N71
+  N72 ---|相关| N5
+  N72 --> N74
+  N72 --> N76
+  N73 -->|前置| N91
+  N74 --> N76
+  N74 --> N73
+  N75 -->|前置| N76
+  N75 ---|相关| N42
+  N76 -->|前置| N91
+  N76 ---|相关| N77
+  N76 ---|相关| N78
+  N76 -->|深入| N74
+  N76 -->|深入| N73
+  N76 -->|深入| N72
+  N76 --> N77
   N76 --> N73
-  N76 --> N72
-  N76 --> N71
-  N77 ---|相关| N74
-  N78 --> N79
-  N79 -->|前置| N78
-  N79 ---|相关| N91
-  N79 --> N91
-  N81 -.-|重叠| N23
-  N81 --> N84
-  N81 --> N94
-  N81 --> N92
-  N83 -->|前置| N80
-  N83 ---|相关| N72
-  N83 ---|相关| N82
-  N84 -->|前置| N24
-  N84 ---|相关| N70
-  N84 --> N87
-  N85 ---|相关| N92
-  N85 ---|相关| N47
-  N85 ---|相关| N84
-  N85 ---|相关| N70
-  N85 ---|相关| N75
-  N85 --> N24
-  N85 --> N29
-  N85 --> N12
-  N85 --> N67
-  N85 --> N92
-  N85 --> N23
-  N85 --> N10
-  N85 --> N107
-  N85 --> N47
-  N85 --> N63
-  N85 --> N52
-  N85 --> N59
-  N85 --> N75
-  N85 --> N72
-  N85 --> N76
-  N85 --> N90
-  N85 --> N80
-  N85 --> N81
-  N85 --> N83
-  N85 --> N93
-  N85 --> N16
-  N85 --> N22
-  N85 --> N21
-  N85 --> N19
-  N85 --> N79
-  N85 --> N37
-  N85 --> N91
-  N85 --> N84
-  N85 --> N70
-  N85 --> N34
-  N87 ---|相关| N81
-  N89 ---|相关| N88
-  N89 ---|相关| N98
-  N90 -->|深入| N91
-  N90 --> N91
-  N90 --> N79
-  N92 ---|相关| N23
-  N92 ---|相关| N2
-  N92 -->|深入| N81
-  N93 -->|前置| N92
-  N93 --> N94
-  N93 --> N92
-  N94 ---|相关| N80
-  N97 ---|相关| N95
-  N97 ---|相关| N96
+  N77 --> N74
+  N77 --> N73
+  N77 --> N72
+  N78 ---|相关| N75
+  N79 --> N80
+  N80 -->|前置| N79
+  N80 ---|相关| N92
+  N80 --> N92
+  N82 -.-|重叠| N23
+  N82 --> N85
+  N82 --> N95
+  N82 --> N93
+  N84 -->|前置| N81
+  N84 ---|相关| N73
+  N84 ---|相关| N83
+  N85 -->|前置| N24
+  N85 ---|相关| N71
+  N85 --> N88
+  N86 ---|相关| N93
+  N86 ---|相关| N47
+  N86 ---|相关| N85
+  N86 ---|相关| N71
+  N86 ---|相关| N76
+  N86 --> N24
+  N86 --> N29
+  N86 --> N12
+  N86 --> N67
+  N86 --> N93
+  N86 --> N23
+  N86 --> N10
+  N86 --> N108
+  N86 --> N47
+  N86 --> N63
+  N86 --> N52
+  N86 --> N59
+  N86 --> N76
+  N86 --> N73
+  N86 --> N77
+  N86 --> N91
+  N86 --> N81
+  N86 --> N82
+  N86 --> N84
+  N86 --> N94
+  N86 --> N16
+  N86 --> N22
+  N86 --> N21
+  N86 --> N19
+  N86 --> N80
+  N86 --> N37
+  N86 --> N92
+  N86 --> N85
+  N86 --> N71
+  N86 --> N34
+  N88 ---|相关| N82
+  N90 ---|相关| N89
+  N90 ---|相关| N99
+  N91 -->|深入| N92
+  N91 --> N92
+  N91 --> N80
+  N93 ---|相关| N23
+  N93 ---|相关| N2
+  N93 -->|深入| N82
+  N94 -->|前置| N93
+  N94 --> N95
+  N94 --> N93
+  N95 ---|相关| N81
   N98 ---|相关| N96
-  N99 ---|相关| N37
-  N99 ---|相关| N32
-  N104 -->|前置| N10
-  N108 ---|相关| N107
+  N98 ---|相关| N97
+  N99 ---|相关| N97
+  N100 ---|相关| N37
+  N100 ---|相关| N32
+  N105 -->|前置| N10
+  N109 ---|相关| N108
 ```
 
 ## 按标签检索
 
-### React（23）
+### React（24）
 
-[react-imvc 原理](React-imvc/原理.md) · [react-imvc vs Next.js](React-imvc/对比-Next.js.md) · [Class-VS-Function-component](React/Class-VS-Function-component.md) · [ConcurrentMode](React/ConcurrentMode.md) · [Diff](React/Diff.md) · [Fiber](React/Fiber.md) · [Hooks](React/Hooks.md) · [React key](React/key.md) · [React 原理：Hooks 与 HOC](React/react原理.md) · [Redux](React/Redux.md) · [React render 阶段（beforeMutation / mutation）](React/render.md) · [setState](React/setState.md) · [React 中的 this](React/this.md) · [VirtualDOM](React/VirtualDOM.md) · [React 事件机制](React/事件机制.md) · [React 单页路由](React/单页路由.md) · [React 原理：render 与 diff](React/原理.md) · [React 性能优化](React/性能优化.md) · [React 服务端渲染](React/服务端渲染.md) · [React 生命周期](React/生命周期.md) · [React 组件通信](React/组件通信.md) · [React 调度](React/调度.md) · [React 高阶组件（HOC）](React/高阶组件.md)
+[Slate 原理](React-imvc/slate.md) · [react-imvc 原理](React-imvc/原理.md) · [react-imvc vs Next.js](React-imvc/对比-Next.js.md) · [Class-VS-Function-component](React/Class-VS-Function-component.md) · [ConcurrentMode](React/ConcurrentMode.md) · [Diff](React/Diff.md) · [Fiber](React/Fiber.md) · [Hooks](React/Hooks.md) · [React key](React/key.md) · [React 原理：Hooks 与 HOC](React/react原理.md) · [Redux](React/Redux.md) · [React render 阶段（beforeMutation / mutation）](React/render.md) · [setState](React/setState.md) · [React 中的 this](React/this.md) · [VirtualDOM](React/VirtualDOM.md) · [React 事件机制](React/事件机制.md) · [React 单页路由](React/单页路由.md) · [React 原理：render 与 diff](React/原理.md) · [React 性能优化](React/性能优化.md) · [React 服务端渲染](React/服务端渲染.md) · [React 生命周期](React/生命周期.md) · [React 组件通信](React/组件通信.md) · [React 调度](React/调度.md) · [React 高阶组件（HOC）](React/高阶组件.md)
 
 ### JavaScript（21）
 
@@ -373,6 +379,10 @@ graph LR
 
 [Class 与 Function 的区别](ES6/Class-Function.md) · [Promise](ES6/Promise.md) · [ES6 方法汇总](ES6/方法汇总.md)
 
+### 后端（3）
+
+[InnoDB 四大件：索引 / MVCC / 锁 / Buffer Pool](java/InnoDB.md) · [MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md) · [MySQL / Redis / MongoDB 对比](java/数据库.md)
+
 ### 架构（3）
 
 [SPA 与路由切换原理](微前端/SPA路由原理.md) · [微前端 原理](微前端/原理.md) · [高级前后端能力地图（AI 时代）](成长路线/高级前后端能力地图.md)
@@ -389,9 +399,9 @@ graph LR
 
 [TypeScript 类型守卫 / 抽象类 / 泛型](Typescript/index.md) · [TypeScript 常用语法速查](Typescript/InterfaceVStype.md)
 
-### 后端（2）
+### MySQL（2）
 
-[MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md) · [MySQL / Redis / MongoDB 对比](java/数据库.md)
+[InnoDB 四大件：索引 / MVCC / 锁 / Buffer Pool](java/InnoDB.md) · [MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md)
 
 ### 微前端（2）
 
@@ -409,13 +419,13 @@ graph LR
 
 [JS 模块化](模块化/模块化.md) · [运行时动态执行 JS 代码](模块化/运行时动态执行代码.md)
 
+### 富文本（1）
+
+[Slate 原理](React-imvc/slate.md)
+
 ### 正则（1）
 
 [正则](Regex/正则.md)
-
-### MySQL（1）
-
-[MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md)
 
 ### 成长路线（1）
 
@@ -436,10 +446,9 @@ graph LR
 
 ## 待连接（还没有任何关联）
 
-10 篇。每次挑几篇，在 frontmatter 里补 `related` / `prereq` / `deep`，再跑一次 build。
+9 篇。每次挑几篇，在 frontmatter 里补 `related` / `prereq` / `deep`，再跑一次 build。
 
 - **Git**：[Git](Git/Git.md)、[VSCode 使用与配置](Git/vscode.md)
 - **Javascript**：[视区](Javascript/视区.md)
-- **React-imvc**：[slate](React-imvc/slate.md)
 - **操作系统**：[Docker](操作系统/Docker.md)
 - **面试题**：[baidu](面试题/baidu.md)、[头条](面试题/头条.md)、[小红书](面试题/小红书.md)、[网易](面试题/网易.md)、[腾讯](面试题/腾讯.md)
