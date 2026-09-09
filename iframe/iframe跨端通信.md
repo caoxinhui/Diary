@@ -1,3 +1,13 @@
+---
+title: "iframe跨端通信"
+tags: [浏览器]
+prereq: []
+related:
+  - 微前端/原理.md
+deep: []
+dup: []
+---
+
 父页面
 ```tsx
 const  handleClick = () => {
@@ -38,3 +48,8 @@ const handleClick = () => {
 }
 <button onClick={handleClick}>iframe子页面按钮</button>
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[跨域](../Javascript/跨域.md)、[微前端 原理](../微前端/原理.md)
+<!-- KG:AUTO-END -->

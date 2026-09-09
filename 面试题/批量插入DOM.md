@@ -1,3 +1,13 @@
+---
+title: "批量插入 DOM"
+tags: [面试题]
+prereq:
+  - CSS/重排重绘.md
+related: []
+deep: []
+dup: []
+---
+
 [原文链接](https://github.com/dwqs/blog/issues/70)
 ## 页面中插入几万条DOM
 ```html
@@ -238,3 +248,8 @@ export default class VirtualizedList extends Component {
   }
 }
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[重排重绘](../CSS/重排重绘.md)
+<!-- KG:AUTO-END -->

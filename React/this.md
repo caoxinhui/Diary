@@ -1,3 +1,13 @@
+---
+title: "React 中的 this"
+tags: [React]
+prereq:
+  - Javascript/call,bind,apply.md
+related: []
+deep: []
+dup: []
+---
+
 ### 箭头函数
 ```js
 const obj = {
@@ -252,3 +262,9 @@ Button.prototype.bindEvent = () => {
 };
 ```
 由于箭头函数没有 `this`，所以会向外层查找 `this` 的值，即 `bindEvent` 中的 `this`，此时 `this` 指向实例对象，所以可以正确的调用 `this.setBgColor` 方法， 而 `this.setBgColor` 中的 `this` 也会正确指向实例对象。
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[call,bind,apply](../Javascript/call,bind,apply.md)
+- **相关**：[Class-VS-Function-component](./Class-VS-Function-component.md)
+<!-- KG:AUTO-END -->

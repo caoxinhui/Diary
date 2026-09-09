@@ -1,3 +1,12 @@
+---
+title: "React render 阶段（beforeMutation / mutation）"
+tags: [React]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ## beforeMutation
 在rootFiber.firstEffect上保存了一条需要执行副作用的Fiber节点的单向链表effectList，这些Fiber节点的updateQueue中保存了变化的props。
 
@@ -38,3 +47,9 @@ commitMutationEffects会遍历effectList
 1. 根据ContentReset effectTag重置文字节点
 2. 更新ref
 3. 根据effectTag分别处理，其中effectTag包括(Placement | Update | Deletion | Hydrating)
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[setState](./setState.md)
+- **被引用**：[Fiber](./Fiber.md)
+<!-- KG:AUTO-END -->

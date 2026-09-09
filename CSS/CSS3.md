@@ -1,3 +1,14 @@
+---
+title: "CSS3"
+tags: [CSS]
+prereq: []
+related:
+  - CSS/三角形.md
+  - CSS/检测兼容性.md
+deep: []
+dup: []
+---
+
 CSS3新增特性
 ### 选择器
 具体的支持情况，请查看:CSS选择器的浏览器支持.
@@ -84,3 +95,8 @@ Transforms
     -webkit-animation-timing-function: ease-in-out; 
  }
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[CSS 画三角形](./三角形.md)、[CSS 兼容性检测](./检测兼容性.md)、[CSS 基础](./基础.md)
+<!-- KG:AUTO-END -->

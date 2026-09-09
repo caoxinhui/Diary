@@ -1,3 +1,12 @@
+---
+title: "Babel 原理"
+tags: [构建, 工程化]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 # Babel 原理
 
 ### 抽象语法树（AST）
@@ -71,3 +80,8 @@ presets: [['@babel/preset-env', { modules: false }]]  // 必须
 #### 同类对照
 
 `sass-loader` / `less-loader` 是同一个模式的另一个样本：主流程都只有几十行，真正的编译在外部包里。差异在于 Babel 不需要「解析桥接」（webpack 自己会再 parse 一遍找依赖），而 Sass / Less 的 `@import` webpack 看不懂，必须把 enhanced-resolve 桥接进编译器的 import 钩子。见 [CSS预处理器与loader原理.md](CSS预处理器与loader原理.md)。
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **被引用**：[Webpack 原理](./webpack原理.md)、[CSS 预处理器与 loader 原理](./CSS预处理器与loader原理.md)、[打包工具对比（webpack / Rollup / esbuild / Vite / Rspack / Rolldown / Turbopack）](./打包工具对比.md)
+<!-- KG:AUTO-END -->

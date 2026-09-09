@@ -1,3 +1,12 @@
+---
+title: "baidu"
+tags: [面试题]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### const 和 var 区别
 
 ### tree shaking 如何处理副作用，window对象上挂载方法，并不想要摇树

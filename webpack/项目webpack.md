@@ -1,3 +1,13 @@
+---
+title: "项目webpack"
+tags: [构建, 工程化]
+prereq: []
+related:
+  - webpack/imvc的webpack配置.md
+deep: []
+dup: []
+---
+
 ### 优化 Webpack 的打包体积
 ```
 terser-webpack-plugin 
@@ -63,3 +73,7 @@ new TerserPlugin(
 
 [学习文档](https://wangtunan.github.io/blog/webpack/core.html#entry%E5%92%8Coutput%E7%9A%84%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE)
 
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[Webpack 原理](./webpack原理.md)、[imvc的webpack配置](./imvc的webpack配置.md)
+<!-- KG:AUTO-END -->

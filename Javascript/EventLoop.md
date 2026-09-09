@@ -1,3 +1,17 @@
+---
+title: "EventLoop"
+tags: [JavaScript]
+prereq:
+  - Javascript/作用域、执行上下文.md
+  - 操作系统/纤程.md
+related:
+  - ES6/Promise.md
+  - 面试题/计时器.md
+deep:
+  - 性能/浏览器.md
+dup: []
+---
+
 ![浏览器内核（渲染进程）.png](http://ww1.sinaimg.cn/large/92babc53gy1giulcnjkurj21pv0ilq6s.jpg)
 
 ### why EventLoop
@@ -102,3 +116,11 @@ new Promise(function(resolve) {
   console.log('promisec')
 })
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[作用域、执行上下文](./作用域、执行上下文.md)、[进程、线程、纤程](../操作系统/纤程.md)
+- **深入**：[浏览器的进程、线程与事件循环全景](../性能/浏览器.md)
+- **相关**：[Promise](../ES6/Promise.md)、[计时器](../面试题/计时器.md)
+- **被引用**：[React 调度](../React/调度.md)、[高并发：Node.js 与 Java 的两条路](../性能/高并发.md)、[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+<!-- KG:AUTO-END -->

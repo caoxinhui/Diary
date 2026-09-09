@@ -1,3 +1,12 @@
+---
+title: "DOM 树是如何生成的"
+tags: [CSS]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### DOM
 在渲染引擎中，DOM 有三个层面的作用
 
@@ -51,4 +60,8 @@ async 和 defer 虽然都是异步的，不过还有一些差异，使用 async 
 在接收到 HTML 数据之后的预解析过程中，HTML 预解析器识别出来了有 CSS 文件和 JavaScript 文件需要下载，然后就同时发起这两个文件的下载请求，需要注意的是，这两个文件的下载过程是重叠的，所以下载时间按照最久的那个文件来算。
 不管 CSS 文件和 JavaScript 文件谁先到达，都要先等到 CSS 文件下载完成并生成 CSSOM，然后再执行 JavaScript 脚本，最后再继续构建 DOM，构建布局树，绘制页面。
 
-
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[事件代理](../Javascript/事件代理.md)、[浏览器引擎与渲染原理](../浏览器/浏览器.md)
+- **被引用**：[重排重绘](./重排重绘.md)
+<!-- KG:AUTO-END -->

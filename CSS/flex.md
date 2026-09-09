@@ -1,3 +1,12 @@
+---
+title: "flex 布局"
+tags: [CSS]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 布局的传统解决方案，基于盒状模型，依赖`display`+`position` + `float`属性
 Flex是Flexible Box的缩写，意为弹性布局
 ### 容器属性
@@ -85,3 +94,9 @@ align-self属性允许单个项目有与其他项目不一样的对齐方式，�
 align-self: auto | flex-start | flex-end | center | baseline | stretch;
 
 ![align-self](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071016.png)
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[CSS 布局](./布局.md)
+- **被引用**：[水平垂直居中](./水平垂直居中.md)
+<!-- KG:AUTO-END -->

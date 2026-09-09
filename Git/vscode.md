@@ -1,3 +1,12 @@
+---
+title: "VSCode 使用与配置"
+tags: [工程化, Git]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 折叠行
 `Command+ Option + [`
 展开行

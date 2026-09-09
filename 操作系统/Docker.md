@@ -1,3 +1,12 @@
+---
+title: "Docker"
+tags: [操作系统]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 # Docker
 
 ## 一张图看懂：服务器 / 资源 / Docker / 镜像 / 容器 / nginx / 前端代码 / 后端代码

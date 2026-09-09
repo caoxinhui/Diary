@@ -1,3 +1,13 @@
+---
+title: "Diff"
+tags: [React]
+prereq: []
+related:
+  - React/key.md
+deep: []
+dup: []
+---
+
 ### 为什么需要 VDOM
 在 MVVM 开发方式中，页面的变化都是用数据去驱动的，而数据更新后，到底要去改那一块的 DOM 哪？ 虽然可以先删除那个部分再按照当前新的数据去重新生成一个新的页面或生成那一个部分（jQuery 做法），但是这样肯定非常耗费性能的。 而且 JS 操作 DOM 是非常复杂，JS 操作 DOM 越多，控制与页面的耦合度就越高，代码越难以维护。
 
@@ -756,3 +766,9 @@ function reorderChildren(domNode, moves) {
   }
 }
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[React key](./key.md)、[React 性能优化](./性能优化.md)
+- **被引用**：[VirtualDOM](./VirtualDOM.md)
+<!-- KG:AUTO-END -->

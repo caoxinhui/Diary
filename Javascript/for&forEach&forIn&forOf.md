@@ -1,3 +1,12 @@
+---
+title: "for&forEach&forIn&forOf"
+tags: [JavaScript]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### for、 forEach 、 for/in、 for/of
 
 
@@ -107,3 +116,8 @@ for, for/in, and for/of 的 this 和外部作用域的值保持一致，forEach�
 
 ### Generator的遍历
 for...of循环可以自动遍历Generator函数运行时生成的Iterator对象。除了for...of外，扩展运算符、解构赋值、Array.from方法内部调用的，都是遍历器接口
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[数组扁平化](./数组扁平化.md)
+<!-- KG:AUTO-END -->

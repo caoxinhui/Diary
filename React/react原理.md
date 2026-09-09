@@ -1,3 +1,12 @@
+---
+title: "React 原理：Hooks 与 HOC"
+tags: [React]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### Hooks 
 赋予函数组件类组件的能力
 useImperativeHandle
@@ -74,3 +83,10 @@ If (child._mountIndex < lastIndex)
 
 
 dangerouslySetInnerHTML 是 React 为浏览器 DOM 提供 innerHTML 的替换方案。通常来讲，使用代码直接设置 HTML 存在风险，因为很容易无意中使用户暴露于跨站脚本（XSS）的攻击。因此，你可以直接在 React 中设置 HTML
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[Hooks](./Hooks.md)
+- **内容重叠（待合并）**：[React 原理：render 与 diff](./原理.md)
+- **被引用**：[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+<!-- KG:AUTO-END -->

@@ -1,3 +1,16 @@
+---
+title: "HTTP"
+tags: [网络]
+prereq:
+  - HTTP/TCP&UDP.md
+related:
+  - HTTP/网络安全.md
+deep:
+  - HTTP/HTTP2.md
+  - HTTP/HTTP头部.md
+dup: []
+---
+
 [HTTP面试题](https://juejin.im/post/5e91d85ce51d4546c82d9d99#heading-32)
 [参考文献](https://github.com/semlinker/awesome-http)
 [大白话三次握手](https://github.com/jawil/blog/issues/14)
@@ -310,3 +323,11 @@ unsafe-url
 在http早期，每个http请求都要求打开一个tpc socket连接，并且使用一次之后就断开这个tcp连接。
 使用keep-alive可以改善这种状态，即在一次TCP连接中可以持续发送多份数据而不会断开连接。通过使用keep-alive机制，可以减少tcp连接建立次数，也意味着可以减少TIME_WAIT状态连接，以此提高性能和提高httpd服务器的吞吐率(更少的tcp连接意味着更少的系统内核调用,socket的accept()和close()调用)。
 但是，keep-alive并不是免费的午餐,长时间的tcp连接容易导致系统资源无效占用。配置不当的keep-alive，有时比重复利用连接带来的损失还更大。所以，正确地设置keep-alive timeout时间非常重要。
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[TCP&UDP](./TCP&UDP.md)
+- **深入**：[HTTP2](./HTTP2.md)、[HTTP头部](./HTTP头部.md)
+- **相关**：[网络安全](./网络安全.md)、[页面渲染过程](./页面渲染过程.md)
+- **被引用**：[跨域](../Javascript/跨域.md)、[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+<!-- KG:AUTO-END -->

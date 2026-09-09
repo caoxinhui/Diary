@@ -1,3 +1,15 @@
+---
+title: "Class-VS-Function-component"
+tags: [React]
+prereq: []
+related:
+  - React/this.md
+  - ES6/Class-Function.md
+  - React/生命周期.md
+deep: []
+dup: []
+---
+
 [参考文献](https://overreacted.io/zh-hans/how-are-function-components-different-from-classes/)
 React 中 props 是不可变的，但是，this 是可变的
 React本身会随着时间的推移而改变，以便你可以在渲染方法以及生命周期方法中得到最新的实例
@@ -171,3 +183,9 @@ class 组件中，我们从 this 获取到 props.count。this固定指向同一�
 
 ### class component劣势
 以前class组件的生命周期处理副作用要么混在一起写，要么高阶组件拆分出来组合，但有多个高阶组件包裹的时候写法不优雅
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[React 中的 this](./this.md)、[Class 与 Function 的区别](../ES6/Class-Function.md)、[React 生命周期](./生命周期.md)
+- **被引用**：[Hooks](./Hooks.md)
+<!-- KG:AUTO-END -->

@@ -1,0 +1,2163 @@
+{
+  "nodes": [
+    {
+      "id": "CSS/BFC.md",
+      "title": "BFC",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/CSS3.md",
+      "title": "CSS3",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/DOM.md",
+      "title": "DOM 树是如何生成的",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/flex.md",
+      "title": "flex 布局",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/三角形.md",
+      "title": "CSS 画三角形",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/基础.md",
+      "title": "CSS 基础",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/布局.md",
+      "title": "CSS 布局",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/检测兼容性.md",
+      "title": "CSS 兼容性检测",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/水平垂直居中.md",
+      "title": "水平垂直居中",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/清除浮动.md",
+      "title": "清除浮动",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "CSS/重排重绘.md",
+      "title": "重排重绘",
+      "tags": [
+        "CSS"
+      ],
+      "dir": "CSS"
+    },
+    {
+      "id": "ES6/Class-Function.md",
+      "title": "Class 与 Function 的区别",
+      "tags": [
+        "JavaScript",
+        "ES6"
+      ],
+      "dir": "ES6"
+    },
+    {
+      "id": "ES6/Promise.md",
+      "title": "Promise",
+      "tags": [
+        "JavaScript",
+        "ES6"
+      ],
+      "dir": "ES6"
+    },
+    {
+      "id": "ES6/方法汇总.md",
+      "title": "ES6 方法汇总",
+      "tags": [
+        "JavaScript",
+        "ES6"
+      ],
+      "dir": "ES6"
+    },
+    {
+      "id": "Git/Git.md",
+      "title": "Git",
+      "tags": [
+        "工程化",
+        "Git"
+      ],
+      "dir": "Git"
+    },
+    {
+      "id": "Git/vscode.md",
+      "title": "VSCode 使用与配置",
+      "tags": [
+        "工程化",
+        "Git"
+      ],
+      "dir": "Git"
+    },
+    {
+      "id": "HTTP/HTTP.md",
+      "title": "HTTP",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/HTTP2.md",
+      "title": "HTTP2",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/HTTP头部.md",
+      "title": "HTTP头部",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/TCP&UDP.md",
+      "title": "TCP&UDP",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/三次握手四次挥手.md",
+      "title": "三次握手四次挥手",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/前端缓存.md",
+      "title": "前端缓存",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/网络安全.md",
+      "title": "网络安全",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "HTTP/页面渲染过程.md",
+      "title": "页面渲染过程",
+      "tags": [
+        "网络"
+      ],
+      "dir": "HTTP"
+    },
+    {
+      "id": "Javascript/EventLoop.md",
+      "title": "EventLoop",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/call,bind,apply.md",
+      "title": "call,bind,apply",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/for&forEach&forIn&forOf.md",
+      "title": "for&forEach&forIn&forOf",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/let,const,var区别.md",
+      "title": "let,const,var区别",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/事件代理.md",
+      "title": "事件代理",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/作用域、执行上下文.md",
+      "title": "作用域、执行上下文",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/数组扁平化.md",
+      "title": "数组扁平化",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/深浅拷贝.md",
+      "title": "深浅拷贝",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/源码实现.md",
+      "title": "手写源码实现合集",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/继承.md",
+      "title": "继承",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/缓存对比.md",
+      "title": "缓存对比",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/表单.md",
+      "title": "表单",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/视区.md",
+      "title": "视区",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/设计模式.md",
+      "title": "设计模式",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/跨域.md",
+      "title": "跨域",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/防抖节流.md",
+      "title": "防抖节流",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "Javascript/面向对象.md",
+      "title": "面向对象",
+      "tags": [
+        "JavaScript"
+      ],
+      "dir": "Javascript"
+    },
+    {
+      "id": "React-imvc/原理.md",
+      "title": "react-imvc 原理",
+      "tags": [
+        "React",
+        "同构"
+      ],
+      "dir": "React-imvc"
+    },
+    {
+      "id": "React-imvc/对比-Next.js.md",
+      "title": "react-imvc vs Next.js",
+      "tags": [
+        "React",
+        "同构"
+      ],
+      "dir": "React-imvc"
+    },
+    {
+      "id": "React/Class-VS-Function-component.md",
+      "title": "Class-VS-Function-component",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/ConcurrentMode.md",
+      "title": "ConcurrentMode",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/Diff.md",
+      "title": "Diff",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/Fiber.md",
+      "title": "Fiber",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/Hooks.md",
+      "title": "Hooks",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/Redux.md",
+      "title": "Redux",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/VirtualDOM.md",
+      "title": "VirtualDOM",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/key.md",
+      "title": "React key",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/react原理.md",
+      "title": "React 原理：Hooks 与 HOC",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/render.md",
+      "title": "React render 阶段（beforeMutation / mutation）",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/setState.md",
+      "title": "setState",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/this.md",
+      "title": "React 中的 this",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/事件机制.md",
+      "title": "React 事件机制",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/单页路由.md",
+      "title": "React 单页路由",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/原理.md",
+      "title": "React 原理：render 与 diff",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/性能优化.md",
+      "title": "React 性能优化",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/服务端渲染.md",
+      "title": "React 服务端渲染",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/生命周期.md",
+      "title": "React 生命周期",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/组件通信.md",
+      "title": "React 组件通信",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/调度.md",
+      "title": "React 调度",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "React/高阶组件.md",
+      "title": "React 高阶组件（HOC）",
+      "tags": [
+        "React"
+      ],
+      "dir": "React"
+    },
+    {
+      "id": "Regex/正则.md",
+      "title": "正则",
+      "tags": [
+        "JavaScript",
+        "正则"
+      ],
+      "dir": "Regex"
+    },
+    {
+      "id": "Typescript/InterfaceVStype.md",
+      "title": "TypeScript 常用语法速查",
+      "tags": [
+        "TypeScript"
+      ],
+      "dir": "Typescript"
+    },
+    {
+      "id": "Typescript/index.md",
+      "title": "TypeScript 类型守卫 / 抽象类 / 泛型",
+      "tags": [
+        "TypeScript"
+      ],
+      "dir": "Typescript"
+    },
+    {
+      "id": "iframe/iframe跨端通信.md",
+      "title": "iframe跨端通信",
+      "tags": [
+        "浏览器"
+      ],
+      "dir": "iframe"
+    },
+    {
+      "id": "java/数据库.md",
+      "title": "MySQL / Redis / MongoDB 对比",
+      "tags": [
+        "后端"
+      ],
+      "dir": "java"
+    },
+    {
+      "id": "webpack/CSS预处理器与loader原理.md",
+      "title": "CSS 预处理器与 loader 原理",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "webpack/TreeShaking.md",
+      "title": "TreeShaking",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "webpack/babel原理.md",
+      "title": "Babel 原理",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "webpack/imvc的webpack配置.md",
+      "title": "imvc的webpack配置",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "webpack/webpack原理.md",
+      "title": "Webpack 原理",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "webpack/打包工具对比.md",
+      "title": "打包工具对比（webpack / Rollup / esbuild / Vite / Rspack / Rolldown / Turbopack）",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "webpack/项目webpack.md",
+      "title": "项目webpack",
+      "tags": [
+        "构建",
+        "工程化"
+      ],
+      "dir": "webpack"
+    },
+    {
+      "id": "微前端/SPA路由原理.md",
+      "title": "SPA 与路由切换原理",
+      "tags": [
+        "微前端",
+        "架构"
+      ],
+      "dir": "微前端"
+    },
+    {
+      "id": "微前端/原理.md",
+      "title": "微前端 原理",
+      "tags": [
+        "微前端",
+        "架构"
+      ],
+      "dir": "微前端"
+    },
+    {
+      "id": "性能/性能时间.md",
+      "title": "性能指标与 Performance Timing",
+      "tags": [
+        "性能"
+      ],
+      "dir": "性能"
+    },
+    {
+      "id": "性能/浏览器.md",
+      "title": "浏览器的进程、线程与事件循环全景",
+      "tags": [
+        "性能"
+      ],
+      "dir": "性能"
+    },
+    {
+      "id": "性能/项目介绍.md",
+      "title": "项目介绍",
+      "tags": [
+        "性能"
+      ],
+      "dir": "性能"
+    },
+    {
+      "id": "性能/项目性能优化.md",
+      "title": "项目性能优化",
+      "tags": [
+        "性能"
+      ],
+      "dir": "性能"
+    },
+    {
+      "id": "性能/高并发.md",
+      "title": "高并发：Node.js 与 Java 的两条路",
+      "tags": [
+        "性能"
+      ],
+      "dir": "性能"
+    },
+    {
+      "id": "成长路线/高级前后端能力地图.md",
+      "title": "高级前后端能力地图（AI 时代）",
+      "tags": [
+        "成长路线",
+        "架构",
+        "AI"
+      ],
+      "dir": "成长路线"
+    },
+    {
+      "id": "操作系统/Docker.md",
+      "title": "Docker",
+      "tags": [
+        "操作系统"
+      ],
+      "dir": "操作系统"
+    },
+    {
+      "id": "操作系统/纤程.md",
+      "title": "进程、线程、纤程",
+      "tags": [
+        "操作系统"
+      ],
+      "dir": "操作系统"
+    },
+    {
+      "id": "数据结构/ArrayList&LinkList.md",
+      "title": "ArrayList&LinkList",
+      "tags": [
+        "数据结构"
+      ],
+      "dir": "数据结构"
+    },
+    {
+      "id": "数据结构/数据结构.md",
+      "title": "数据结构：前缀树 Trie",
+      "tags": [
+        "数据结构"
+      ],
+      "dir": "数据结构"
+    },
+    {
+      "id": "模块化/模块化.md",
+      "title": "JS 模块化",
+      "tags": [
+        "模块化",
+        "工程化"
+      ],
+      "dir": "模块化"
+    },
+    {
+      "id": "模块化/运行时动态执行代码.md",
+      "title": "运行时动态执行 JS 代码",
+      "tags": [
+        "模块化",
+        "工程化"
+      ],
+      "dir": "模块化"
+    },
+    {
+      "id": "浏览器/浏览器.md",
+      "title": "浏览器引擎与渲染原理",
+      "tags": [
+        "浏览器"
+      ],
+      "dir": "浏览器"
+    },
+    {
+      "id": "浏览器/浏览器插件与CDP.md",
+      "title": "浏览器插件与 CDP：两种「操纵浏览器」的方式",
+      "tags": [
+        "浏览器"
+      ],
+      "dir": "浏览器"
+    },
+    {
+      "id": "浏览器/浏览器调试.md",
+      "title": "浏览器调试",
+      "tags": [
+        "浏览器"
+      ],
+      "dir": "浏览器"
+    },
+    {
+      "id": "算法/堆.md",
+      "title": "堆",
+      "tags": [
+        "算法"
+      ],
+      "dir": "算法"
+    },
+    {
+      "id": "算法/左程云.md",
+      "title": "算法题合集（左程云）",
+      "tags": [
+        "算法"
+      ],
+      "dir": "算法"
+    },
+    {
+      "id": "算法/排序.md",
+      "title": "排序算法",
+      "tags": [
+        "算法"
+      ],
+      "dir": "算法"
+    },
+    {
+      "id": "算法/深度广度优先.md",
+      "title": "深度广度优先",
+      "tags": [
+        "算法"
+      ],
+      "dir": "算法"
+    },
+    {
+      "id": "编程范式/函数式编程.md",
+      "title": "函数式编程",
+      "tags": [
+        "编程范式"
+      ],
+      "dir": "编程范式"
+    },
+    {
+      "id": "面试题/baidu.md",
+      "title": "baidu",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/h5与APP通信.md",
+      "title": "h5与APP通信",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/头条.md",
+      "title": "头条",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/小红书.md",
+      "title": "小红书",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/批量插入DOM.md",
+      "title": "批量插入 DOM",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/网易.md",
+      "title": "网易",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/腾讯.md",
+      "title": "腾讯",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/计时器.md",
+      "title": "计时器",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    },
+    {
+      "id": "面试题/计算服务器的时间戳对应中国时区的今天、明天还是其他.md",
+      "title": "计算服务器的时间戳对应中国时区的今天、明天还是其他",
+      "tags": [
+        "面试题"
+      ],
+      "dir": "面试题"
+    }
+  ],
+  "edges": [
+    {
+      "from": "CSS/BFC.md",
+      "to": "CSS/清除浮动.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/清除浮动.md",
+      "to": "CSS/BFC.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/CSS3.md",
+      "to": "CSS/三角形.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/三角形.md",
+      "to": "CSS/CSS3.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/CSS3.md",
+      "to": "CSS/检测兼容性.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/检测兼容性.md",
+      "to": "CSS/CSS3.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/基础.md",
+      "to": "CSS/CSS3.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/CSS3.md",
+      "to": "CSS/基础.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/基础.md",
+      "to": "CSS/布局.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/布局.md",
+      "to": "CSS/基础.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/布局.md",
+      "to": "CSS/flex.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/flex.md",
+      "to": "CSS/布局.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/布局.md",
+      "to": "CSS/水平垂直居中.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/水平垂直居中.md",
+      "to": "CSS/布局.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/布局.md",
+      "to": "CSS/BFC.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/BFC.md",
+      "to": "CSS/布局.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/水平垂直居中.md",
+      "to": "CSS/flex.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "CSS/重排重绘.md",
+      "to": "CSS/DOM.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "CSS/重排重绘.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "CSS/重排重绘.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/Promise.md",
+      "to": "Javascript/源码实现.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/源码实现.md",
+      "to": "ES6/Promise.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/Promise.md",
+      "to": "ES6/方法汇总.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/方法汇总.md",
+      "to": "ES6/Promise.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/HTTP.md",
+      "to": "HTTP/TCP&UDP.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "HTTP/HTTP.md",
+      "to": "HTTP/网络安全.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/网络安全.md",
+      "to": "HTTP/HTTP.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/HTTP.md",
+      "to": "HTTP/HTTP2.md",
+      "kind": "deep"
+    },
+    {
+      "from": "HTTP/HTTP.md",
+      "to": "HTTP/HTTP头部.md",
+      "kind": "deep"
+    },
+    {
+      "from": "HTTP/TCP&UDP.md",
+      "to": "HTTP/三次握手四次挥手.md",
+      "kind": "deep"
+    },
+    {
+      "from": "HTTP/前端缓存.md",
+      "to": "HTTP/HTTP头部.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "HTTP/前端缓存.md",
+      "to": "Javascript/缓存对比.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/缓存对比.md",
+      "to": "HTTP/前端缓存.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/前端缓存.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "HTTP/前端缓存.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/网络安全.md",
+      "to": "Javascript/跨域.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/跨域.md",
+      "to": "HTTP/网络安全.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/页面渲染过程.md",
+      "to": "HTTP/HTTP.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/HTTP.md",
+      "to": "HTTP/页面渲染过程.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/EventLoop.md",
+      "to": "Javascript/作用域、执行上下文.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "Javascript/EventLoop.md",
+      "to": "操作系统/纤程.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "Javascript/EventLoop.md",
+      "to": "ES6/Promise.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/Promise.md",
+      "to": "Javascript/EventLoop.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/EventLoop.md",
+      "to": "面试题/计时器.md",
+      "kind": "related"
+    },
+    {
+      "from": "面试题/计时器.md",
+      "to": "Javascript/EventLoop.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/EventLoop.md",
+      "to": "性能/浏览器.md",
+      "kind": "deep"
+    },
+    {
+      "from": "Javascript/事件代理.md",
+      "to": "CSS/DOM.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/DOM.md",
+      "to": "Javascript/事件代理.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/作用域、执行上下文.md",
+      "to": "Javascript/let,const,var区别.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/let,const,var区别.md",
+      "to": "Javascript/作用域、执行上下文.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/作用域、执行上下文.md",
+      "to": "Javascript/call,bind,apply.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/call,bind,apply.md",
+      "to": "Javascript/作用域、执行上下文.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/数组扁平化.md",
+      "to": "Javascript/for&forEach&forIn&forOf.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/for&forEach&forIn&forOf.md",
+      "to": "Javascript/数组扁平化.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/数组扁平化.md",
+      "to": "ES6/方法汇总.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/方法汇总.md",
+      "to": "Javascript/数组扁平化.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/深浅拷贝.md",
+      "to": "Javascript/源码实现.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/源码实现.md",
+      "to": "Javascript/深浅拷贝.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/继承.md",
+      "to": "Javascript/源码实现.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/源码实现.md",
+      "to": "Javascript/继承.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/表单.md",
+      "to": "Regex/正则.md",
+      "kind": "related"
+    },
+    {
+      "from": "Regex/正则.md",
+      "to": "Javascript/表单.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/跨域.md",
+      "to": "HTTP/HTTP.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "Javascript/跨域.md",
+      "to": "iframe/iframe跨端通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "iframe/iframe跨端通信.md",
+      "to": "Javascript/跨域.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/跨域.md",
+      "to": "面试题/h5与APP通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "面试题/h5与APP通信.md",
+      "to": "Javascript/跨域.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/防抖节流.md",
+      "to": "Javascript/源码实现.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/源码实现.md",
+      "to": "Javascript/防抖节流.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/防抖节流.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "Javascript/防抖节流.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/面向对象.md",
+      "to": "ES6/Class-Function.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/Class-Function.md",
+      "to": "Javascript/面向对象.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/面向对象.md",
+      "to": "Javascript/继承.md",
+      "kind": "deep"
+    },
+    {
+      "from": "React-imvc/原理.md",
+      "to": "React-imvc/对比-Next.js.md",
+      "kind": "related"
+    },
+    {
+      "from": "React-imvc/对比-Next.js.md",
+      "to": "React-imvc/原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "React-imvc/原理.md",
+      "to": "React-imvc/对比-Next.js.md",
+      "kind": "link"
+    },
+    {
+      "from": "React-imvc/原理.md",
+      "to": "React/服务端渲染.md",
+      "kind": "link"
+    },
+    {
+      "from": "React-imvc/原理.md",
+      "to": "React/单页路由.md",
+      "kind": "link"
+    },
+    {
+      "from": "React-imvc/对比-Next.js.md",
+      "to": "React-imvc/原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "React-imvc/对比-Next.js.md",
+      "to": "React/服务端渲染.md",
+      "kind": "link"
+    },
+    {
+      "from": "React-imvc/对比-Next.js.md",
+      "to": "React/单页路由.md",
+      "kind": "link"
+    },
+    {
+      "from": "React/Class-VS-Function-component.md",
+      "to": "React/this.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/this.md",
+      "to": "React/Class-VS-Function-component.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Class-VS-Function-component.md",
+      "to": "ES6/Class-Function.md",
+      "kind": "related"
+    },
+    {
+      "from": "ES6/Class-Function.md",
+      "to": "React/Class-VS-Function-component.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Class-VS-Function-component.md",
+      "to": "React/生命周期.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/生命周期.md",
+      "to": "React/Class-VS-Function-component.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Diff.md",
+      "to": "React/key.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/key.md",
+      "to": "React/Diff.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Fiber.md",
+      "to": "React/VirtualDOM.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "React/Fiber.md",
+      "to": "React/ConcurrentMode.md",
+      "kind": "deep"
+    },
+    {
+      "from": "React/Fiber.md",
+      "to": "React/调度.md",
+      "kind": "deep"
+    },
+    {
+      "from": "React/Fiber.md",
+      "to": "React/render.md",
+      "kind": "deep"
+    },
+    {
+      "from": "React/Hooks.md",
+      "to": "React/Class-VS-Function-component.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "React/Hooks.md",
+      "to": "React/生命周期.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/生命周期.md",
+      "to": "React/Hooks.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Hooks.md",
+      "to": "React/高阶组件.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/高阶组件.md",
+      "to": "React/Hooks.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Hooks.md",
+      "to": "React/react原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/react原理.md",
+      "to": "React/Hooks.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/VirtualDOM.md",
+      "to": "React/key.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/key.md",
+      "to": "React/VirtualDOM.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/VirtualDOM.md",
+      "to": "React/Diff.md",
+      "kind": "deep"
+    },
+    {
+      "from": "React/setState.md",
+      "to": "React/生命周期.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "React/setState.md",
+      "to": "React/调度.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/调度.md",
+      "to": "React/setState.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/setState.md",
+      "to": "React/render.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/render.md",
+      "to": "React/setState.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/this.md",
+      "to": "Javascript/call,bind,apply.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "React/事件机制.md",
+      "to": "Javascript/事件代理.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "React/单页路由.md",
+      "to": "微前端/SPA路由原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "微前端/SPA路由原理.md",
+      "to": "React/单页路由.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/原理.md",
+      "to": "React/VirtualDOM.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/VirtualDOM.md",
+      "to": "React/原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/原理.md",
+      "to": "React/react原理.md",
+      "kind": "dup"
+    },
+    {
+      "from": "React/react原理.md",
+      "to": "React/原理.md",
+      "kind": "dup"
+    },
+    {
+      "from": "React/性能优化.md",
+      "to": "React/Diff.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Diff.md",
+      "to": "React/性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/性能优化.md",
+      "to": "React/key.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/key.md",
+      "to": "React/性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/性能优化.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "React/性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/服务端渲染.md",
+      "to": "React-imvc/原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "React-imvc/原理.md",
+      "to": "React/服务端渲染.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/服务端渲染.md",
+      "to": "HTTP/页面渲染过程.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/页面渲染过程.md",
+      "to": "React/服务端渲染.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/组件通信.md",
+      "to": "React/Redux.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Redux.md",
+      "to": "React/组件通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/组件通信.md",
+      "to": "React/高阶组件.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/高阶组件.md",
+      "to": "React/组件通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/调度.md",
+      "to": "Javascript/EventLoop.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "Typescript/index.md",
+      "to": "Typescript/InterfaceVStype.md",
+      "kind": "related"
+    },
+    {
+      "from": "Typescript/InterfaceVStype.md",
+      "to": "Typescript/index.md",
+      "kind": "related"
+    },
+    {
+      "from": "iframe/iframe跨端通信.md",
+      "to": "微前端/原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "微前端/原理.md",
+      "to": "iframe/iframe跨端通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/CSS预处理器与loader原理.md",
+      "to": "CSS/基础.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/基础.md",
+      "to": "webpack/CSS预处理器与loader原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/CSS预处理器与loader原理.md",
+      "to": "webpack/babel原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/CSS预处理器与loader原理.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/TreeShaking.md",
+      "to": "模块化/模块化.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "webpack/babel原理.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/babel原理.md",
+      "to": "webpack/TreeShaking.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/babel原理.md",
+      "to": "webpack/CSS预处理器与loader原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/imvc的webpack配置.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "webpack/imvc的webpack配置.md",
+      "to": "React-imvc/原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "React-imvc/原理.md",
+      "to": "webpack/imvc的webpack配置.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "模块化/模块化.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/打包工具对比.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/打包工具对比.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/项目webpack.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/项目webpack.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/babel原理.md",
+      "kind": "deep"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/TreeShaking.md",
+      "kind": "deep"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/CSS预处理器与loader原理.md",
+      "kind": "deep"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/打包工具对比.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "webpack/TreeShaking.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/打包工具对比.md",
+      "to": "webpack/babel原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/打包工具对比.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/打包工具对比.md",
+      "to": "webpack/TreeShaking.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/打包工具对比.md",
+      "to": "webpack/CSS预处理器与loader原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "webpack/项目webpack.md",
+      "to": "webpack/imvc的webpack配置.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/imvc的webpack配置.md",
+      "to": "webpack/项目webpack.md",
+      "kind": "related"
+    },
+    {
+      "from": "微前端/SPA路由原理.md",
+      "to": "微前端/原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "微前端/原理.md",
+      "to": "微前端/SPA路由原理.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "微前端/原理.md",
+      "to": "模块化/运行时动态执行代码.md",
+      "kind": "related"
+    },
+    {
+      "from": "模块化/运行时动态执行代码.md",
+      "to": "微前端/原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "微前端/原理.md",
+      "to": "微前端/SPA路由原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "微前端/原理.md",
+      "to": "模块化/运行时动态执行代码.md",
+      "kind": "link"
+    },
+    {
+      "from": "性能/浏览器.md",
+      "to": "HTTP/页面渲染过程.md",
+      "kind": "dup"
+    },
+    {
+      "from": "HTTP/页面渲染过程.md",
+      "to": "性能/浏览器.md",
+      "kind": "dup"
+    },
+    {
+      "from": "性能/浏览器.md",
+      "to": "性能/高并发.md",
+      "kind": "link"
+    },
+    {
+      "from": "性能/浏览器.md",
+      "to": "浏览器/浏览器调试.md",
+      "kind": "link"
+    },
+    {
+      "from": "性能/浏览器.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "link"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "性能/性能时间.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "webpack/TreeShaking.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/TreeShaking.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/项目性能优化.md",
+      "to": "性能/项目介绍.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/项目介绍.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/高并发.md",
+      "to": "Javascript/EventLoop.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "性能/高并发.md",
+      "to": "java/数据库.md",
+      "kind": "related"
+    },
+    {
+      "from": "java/数据库.md",
+      "to": "性能/高并发.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/高并发.md",
+      "to": "操作系统/纤程.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "related"
+    },
+    {
+      "from": "浏览器/浏览器.md",
+      "to": "成长路线/高级前后端能力地图.md",
+      "kind": "related"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "React/Fiber.md",
+      "kind": "related"
+    },
+    {
+      "from": "React/Fiber.md",
+      "to": "成长路线/高级前后端能力地图.md",
+      "kind": "related"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "性能/高并发.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/高并发.md",
+      "to": "成长路线/高级前后端能力地图.md",
+      "kind": "related"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "java/数据库.md",
+      "kind": "related"
+    },
+    {
+      "from": "java/数据库.md",
+      "to": "成长路线/高级前后端能力地图.md",
+      "kind": "related"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "related"
+    },
+    {
+      "from": "webpack/webpack原理.md",
+      "to": "成长路线/高级前后端能力地图.md",
+      "kind": "related"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "Javascript/EventLoop.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "Javascript/作用域、执行上下文.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "ES6/Promise.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "Typescript/index.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "HTTP/页面渲染过程.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "CSS/重排重绘.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "面试题/计时器.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "React/Fiber.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "React/调度.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "React/react原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "React/性能优化.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "webpack/webpack原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "webpack/TreeShaking.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "webpack/打包工具对比.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "模块化/模块化.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "性能/性能时间.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "性能/浏览器.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "性能/项目性能优化.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "浏览器/浏览器插件与CDP.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "HTTP/HTTP.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "HTTP/网络安全.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "HTTP/前端缓存.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "HTTP/TCP&UDP.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "微前端/原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "Javascript/设计模式.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "模块化/运行时动态执行代码.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "性能/高并发.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "java/数据库.md",
+      "kind": "link"
+    },
+    {
+      "from": "成长路线/高级前后端能力地图.md",
+      "to": "Javascript/缓存对比.md",
+      "kind": "link"
+    },
+    {
+      "from": "操作系统/纤程.md",
+      "to": "性能/浏览器.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/浏览器.md",
+      "to": "操作系统/纤程.md",
+      "kind": "related"
+    },
+    {
+      "from": "数据结构/数据结构.md",
+      "to": "数据结构/ArrayList&LinkList.md",
+      "kind": "related"
+    },
+    {
+      "from": "数据结构/ArrayList&LinkList.md",
+      "to": "数据结构/数据结构.md",
+      "kind": "related"
+    },
+    {
+      "from": "数据结构/数据结构.md",
+      "to": "算法/深度广度优先.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/深度广度优先.md",
+      "to": "数据结构/数据结构.md",
+      "kind": "related"
+    },
+    {
+      "from": "模块化/模块化.md",
+      "to": "模块化/运行时动态执行代码.md",
+      "kind": "deep"
+    },
+    {
+      "from": "模块化/模块化.md",
+      "to": "模块化/运行时动态执行代码.md",
+      "kind": "link"
+    },
+    {
+      "from": "模块化/模块化.md",
+      "to": "微前端/原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "模块化/运行时动态执行代码.md",
+      "to": "微前端/原理.md",
+      "kind": "link"
+    },
+    {
+      "from": "浏览器/浏览器.md",
+      "to": "HTTP/页面渲染过程.md",
+      "kind": "related"
+    },
+    {
+      "from": "HTTP/页面渲染过程.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "related"
+    },
+    {
+      "from": "浏览器/浏览器.md",
+      "to": "CSS/DOM.md",
+      "kind": "related"
+    },
+    {
+      "from": "CSS/DOM.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "related"
+    },
+    {
+      "from": "浏览器/浏览器.md",
+      "to": "性能/浏览器.md",
+      "kind": "deep"
+    },
+    {
+      "from": "浏览器/浏览器插件与CDP.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "浏览器/浏览器插件与CDP.md",
+      "to": "浏览器/浏览器调试.md",
+      "kind": "link"
+    },
+    {
+      "from": "浏览器/浏览器插件与CDP.md",
+      "to": "浏览器/浏览器.md",
+      "kind": "link"
+    },
+    {
+      "from": "浏览器/浏览器调试.md",
+      "to": "性能/性能时间.md",
+      "kind": "related"
+    },
+    {
+      "from": "性能/性能时间.md",
+      "to": "浏览器/浏览器调试.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/排序.md",
+      "to": "算法/堆.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/堆.md",
+      "to": "算法/排序.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/排序.md",
+      "to": "算法/左程云.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/左程云.md",
+      "to": "算法/排序.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/深度广度优先.md",
+      "to": "算法/左程云.md",
+      "kind": "related"
+    },
+    {
+      "from": "算法/左程云.md",
+      "to": "算法/深度广度优先.md",
+      "kind": "related"
+    },
+    {
+      "from": "编程范式/函数式编程.md",
+      "to": "Javascript/设计模式.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/设计模式.md",
+      "to": "编程范式/函数式编程.md",
+      "kind": "related"
+    },
+    {
+      "from": "编程范式/函数式编程.md",
+      "to": "Javascript/源码实现.md",
+      "kind": "related"
+    },
+    {
+      "from": "Javascript/源码实现.md",
+      "to": "编程范式/函数式编程.md",
+      "kind": "related"
+    },
+    {
+      "from": "面试题/批量插入DOM.md",
+      "to": "CSS/重排重绘.md",
+      "kind": "prereq"
+    },
+    {
+      "from": "面试题/计算服务器的时间戳对应中国时区的今天、明天还是其他.md",
+      "to": "面试题/计时器.md",
+      "kind": "related"
+    },
+    {
+      "from": "面试题/计时器.md",
+      "to": "面试题/计算服务器的时间戳对应中国时区的今天、明天还是其他.md",
+      "kind": "related"
+    }
+  ]
+}

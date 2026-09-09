@@ -1,3 +1,18 @@
+---
+title: "Webpack 原理"
+tags: [构建, 工程化]
+prereq:
+  - 模块化/模块化.md
+related:
+  - webpack/打包工具对比.md
+  - webpack/项目webpack.md
+deep:
+  - webpack/babel原理.md
+  - webpack/TreeShaking.md
+  - webpack/CSS预处理器与loader原理.md
+dup: []
+---
+
 # Webpack 原理
 
 ### Webpack 是什么
@@ -312,3 +327,11 @@ const getModuleInfo = (file)=>{
     return moduleInfo
 }
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[JS 模块化](../模块化/模块化.md)
+- **深入**：[Babel 原理](./babel原理.md)、[TreeShaking](./TreeShaking.md)、[CSS 预处理器与 loader 原理](./CSS预处理器与loader原理.md)
+- **相关**：[打包工具对比（webpack / Rollup / esbuild / Vite / Rspack / Rolldown / Turbopack）](./打包工具对比.md)、[项目webpack](./项目webpack.md)、[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+- **被引用**：[imvc的webpack配置](./imvc的webpack配置.md)
+<!-- KG:AUTO-END -->

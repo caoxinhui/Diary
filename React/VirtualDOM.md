@@ -1,3 +1,14 @@
+---
+title: "VirtualDOM"
+tags: [React]
+prereq: []
+related:
+  - React/key.md
+deep:
+  - React/Diff.md
+dup: []
+---
+
 [如何实现一个 Virtual DOM 算法](https://github.com/livoras/blog/issues/13)
 ```js
 function Element(tagName, props, children) {
@@ -99,3 +110,10 @@ function applyPatches(node, currentPatches) {
 ### 虚拟DOM的遍历采用深度遍历算法
 深度遍历需要栈结构，可以通过递归（内核维护调用栈）的方式实现，也可以采用人为构造栈，然后循环栈完成深度遍历
 广度遍历则采用队列的方式实现，由于广度优先是按照树的层级来遍历的，在遍历某层的时候需要将下一层的数据推进队列里面，所以队列的长度通常会比树的宽度还要宽。
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **深入**：[Diff](./Diff.md)
+- **相关**：[React key](./key.md)、[React 原理：render 与 diff](./原理.md)
+- **被引用**：[Fiber](./Fiber.md)
+<!-- KG:AUTO-END -->

@@ -1,3 +1,12 @@
+---
+title: "Redux"
+tags: [React]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 [深入理解 react/redux 数据流并基于其优化前端性能](https://github.com/shaozj/blog/issues/36)
 context创建全局store，全局状态更新，会引起组件内部不必要的更新
 
@@ -527,3 +536,8 @@ let state = {
 }
 
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[React 组件通信](./组件通信.md)
+<!-- KG:AUTO-END -->

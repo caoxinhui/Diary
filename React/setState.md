@@ -1,3 +1,15 @@
+---
+title: "setState"
+tags: [React]
+prereq:
+  - React/生命周期.md
+related:
+  - React/调度.md
+  - React/render.md
+deep: []
+dup: []
+---
+
 ## setState 使用方式
 
 ### 通过setState第二个参数，设置count值
@@ -226,3 +238,9 @@ var FLUSH_BATCHED_UPDATES = {
 var TRANSACTION_WRAPPERS = [FLUSH_BATCHED_UPDATES, RESET_BATCHED_UPDATES];
 ````
 这两个wrapper的initialize都没有做什么事情，但是在callback执行完之后，RESET_BATCHED_UPDATES 的作用是将isBatchingUpdates置为false, FLUSH_BATCHED_UPDATES 的作用是执行flushBatchedUpdates,然后里面会循环所有dirtyComponent,调用updateComponent来执行所有的生命周期方法，componentWillReceiveProps, shouldComponentUpdate, componentWillUpdate, render, componentDidUpdate 最后实现组件的更新。
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[React 生命周期](./生命周期.md)
+- **相关**：[React 调度](./调度.md)、[React render 阶段（beforeMutation / mutation）](./render.md)
+<!-- KG:AUTO-END -->

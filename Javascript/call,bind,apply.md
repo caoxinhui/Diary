@@ -1,3 +1,12 @@
+---
+title: "call,bind,apply"
+tags: [JavaScript]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ## 常见问题
 - 怎么利用call、apply来求一个数组中最大或者最小值
 - 如何利用call、apply来做继承
@@ -71,3 +80,8 @@ let obj4 = {
 console.log(Array.prototype.slice.call(obj4)); // [1, "thomas", 13]
 ```
 
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[作用域、执行上下文](./作用域、执行上下文.md)
+- **被引用**：[React 中的 this](../React/this.md)
+<!-- KG:AUTO-END -->

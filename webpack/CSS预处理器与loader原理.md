@@ -1,3 +1,13 @@
+---
+title: "CSS 预处理器与 loader 原理"
+tags: [构建, 工程化]
+prereq: []
+related:
+  - CSS/基础.md
+deep: []
+dup: []
+---
+
 # CSS 预处理器与 loader 原理
 
 > 代码摘录来自实际安装的 `sass-loader@12.1.0` / `less-loader@10.2.0`，新版本差异见文末「版本演进」。
@@ -389,3 +399,8 @@ sass-loader 主流程只有 77 行，剩下 500 行全在处理「两套解析�
 - 为什么 loader 从右到左 → 本质是 `a(b(c(source)))`
 - 预处理器变量和 CSS 变量的区别 → 编译期求值 vs 运行时求值
 
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[CSS 基础](../CSS/基础.md)
+- **被引用**：[Webpack 原理](./webpack原理.md)、[Babel 原理](./babel原理.md)、[打包工具对比（webpack / Rollup / esbuild / Vite / Rspack / Rolldown / Turbopack）](./打包工具对比.md)
+<!-- KG:AUTO-END -->

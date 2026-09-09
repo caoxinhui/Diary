@@ -81,7 +81,19 @@
       "Bash(grep -c '^```' 浏览器插件与CDP.md)",
       "Bash(echo \"fences: $\\(grep -c '^```' 浏览器插件与CDP.md\\)\")",
       "Bash(awk 'NR>=78 && NR<=112' 浏览器插件与CDP.md)",
-      "Bash(pkill -f \"user-data-dir=/tmp/cdptest/profile\")"
+      "Bash(pkill -f \"user-data-dir=/tmp/cdptest/profile\")",
+      "Bash(grep -roh '\\\\[[^]]*\\\\]\\(\\\\.\\\\{0,2\\\\}/[^\\)]*\\\\.md[^\\)]*\\)' --include='*.md' .)",
+      "Bash(grep -rl ']\\(\\\\.\\\\{0,2\\\\}/[^\\)]*\\\\.md' --include='*.md' .)",
+      "Bash(grep -rn ']\\(\\\\.\\\\{0,2\\\\}/[^\\)]*\\\\.md' --include='*.md' .)",
+      "Bash(git mv *)",
+      "Bash(node scripts/kg.mjs init)",
+      "Bash(node scripts/kg.mjs build)",
+      "Bash(node /tmp/seed.mjs)",
+      "Bash(awk '/^```mermaid/,/^```$/' GRAPH.md)",
+      "Bash(./node_modules/.bin/mmdc -i /tmp/g.mmd -o /tmp/g.svg)",
+      "Bash(perl -0pi -e 's/const \\(degree|deg\\) = id => edges\\\\.filter\\\\\\(e => e\\\\.from === id \\\\|\\\\| e\\\\.to === id\\\\\\)\\\\.length;/const $1 = id => neighbors\\(edges, id\\).size;/g' scripts/kg.mjs)",
+      "Bash(perl -0pi -e 's/\\\\$\\\\{edges\\\\.length\\\\} 条边，更新了/\\\\${pairCount\\(edges\\)} 条关联，更新了/; s/共 \\\\$\\\\{docs\\\\.size\\\\} 篇，\\\\$\\\\{edges\\\\.length\\\\} 条关联。/共 \\\\${docs.size} 篇，\\\\${pairCount\\(edges\\)} 条关联。/; s/`- 关联：\\\\$\\\\{edges\\\\.length\\\\} 条`/`- 关联：\\\\${pairCount\\(edges\\)} 对`/; s/\\\\$\\\\{edges\\\\.length\\\\} 条边 \\\\/ 孤立/\\\\${pairCount\\(edges\\)} 条关联 \\\\/ 孤立/' scripts/kg.mjs)",
+      "Bash(node scripts/kg.mjs check)"
     ]
   }
 }

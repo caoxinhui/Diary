@@ -1,3 +1,12 @@
+---
+title: "Class 与 Function 的区别"
+tags: [JavaScript, ES6]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### ES5/6继承的差别
 ```js
 // ES6
@@ -297,3 +306,8 @@ var Child = function (_Parent) {
 可见默认的构造函数中会主动调用父类构造函数，并默认把当前constructor传递的参数传给了父类。
 所以当我们声明了constructor后必须主动调用super(),否则无法调用父构造函数，无法完成继承。
 典型的例子就是Reatc的Component中，我们声明constructor后必须调用super(props)，因为父类要在构造函数中对props做一些初始化操作。
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[面向对象](../Javascript/面向对象.md)、[Class-VS-Function-component](../React/Class-VS-Function-component.md)
+<!-- KG:AUTO-END -->

@@ -1,3 +1,12 @@
+---
+title: "h5与APP通信"
+tags: [面试题]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### app 调用 h5 的代码
 因为 app 是宿主，可以直接访问 h5，所以这种调用比较简单，就是在 h5 中曝露一些全局对象（包括方法），然后在原生 app 中调用这些对象。
 
@@ -9,3 +18,8 @@
 3. 由 h5 发起一个自定义协议请求，比如 location.href = 'sdk://double?value=10'
 4. app 拦截这个请求后，进行相应的操作，获取返回值
 5. 由 app 调用 h5 中的回调函数，比如 window.bridge.getDouble(20);
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[跨域](../Javascript/跨域.md)
+<!-- KG:AUTO-END -->

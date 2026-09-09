@@ -1,3 +1,12 @@
+---
+title: "Git"
+tags: [工程化, Git]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### git rebase 和 merge 区别
 主要的区别在于是否保留分支的 commit 提交节点，rebase 会给你一个简洁的线性历史树
 

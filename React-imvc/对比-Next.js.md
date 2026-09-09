@@ -1,3 +1,12 @@
+---
+title: "react-imvc vs Next.js"
+tags: [React, 同构]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 # react-imvc vs Next.js
 
 两者都在解决「首屏由服务端出 HTML，之后由浏览器接管成单页应用」。但它们对**同构**这个词的理解完全不同，这一点决定了后面所有的流程差异：
@@ -391,3 +400,8 @@ Next.js 更合适的场景：
 | 什么情况下仍该选 imvc | 移动端强依赖「返回如初」的列表/详情流转，以及需要完全掌控 express 服务端的场景 |
 
 相关：[原理.md](原理.md)、[React/服务端渲染.md](../React/服务端渲染.md)、[React/单页路由.md](../React/单页路由.md)
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[react-imvc 原理](./原理.md)
+<!-- KG:AUTO-END -->

@@ -1,3 +1,12 @@
+---
+title: "ConcurrentMode"
+tags: [React]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### 底层架构 —— Fiber架构
 `Concurrent（并发） Mode`，最关键的一点是：实现异步可中断的更新。
 基于这个前提，React花费2年时间重构完成了Fiber架构。
@@ -117,3 +126,8 @@ Scheduler存在两个队列：
 取出taskQueue中最早过期的任务并执行他。
 
 为了能在O(1)复杂度找到两个队列中时间最早的那个任务，Scheduler使用小顶堆
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **被引用**：[Fiber](./Fiber.md)
+<!-- KG:AUTO-END -->

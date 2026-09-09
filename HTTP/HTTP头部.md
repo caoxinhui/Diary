@@ -1,3 +1,12 @@
+---
+title: "HTTP头部"
+tags: [网络]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ## HTTP报文头部
 1. Accept：告诉服务器自己能接收什么媒体类型，*/*表示能接收任何类型，type/*表示接收该类型下的所有子类型
 2. Accept-Charset: 浏览器接收内容的字符集，通常是utf-8
@@ -52,3 +61,8 @@ ETag: "<etag_value>"
 28. Server: Web服务器通过此头域表明自己是什么软件及版本信息
 29. User-Agent：浏览器的代理名称。
 30. Transfer-Encoding
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **被引用**：[前端缓存](./前端缓存.md)、[HTTP](./HTTP.md)
+<!-- KG:AUTO-END -->

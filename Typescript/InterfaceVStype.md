@@ -1,3 +1,12 @@
+---
+title: "TypeScript 常用语法速查"
+tags: [TypeScript]
+prereq: []
+related: []
+deep: []
+dup: []
+---
+
 ### 共同点
 #### 都可以描述一个对象或者函数
 
@@ -848,10 +857,7 @@ new SubBuilder().add('a').done()   // 因为是 this 类型，链式调用后仍
 | 5.2 | `using` / `await using` |
 | 5.4 | `NoInfer<T>`（工具类型，非关键字） |
 
-
-
-
-
-
-
-
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[TypeScript 类型守卫 / 抽象类 / 泛型](./index.md)
+<!-- KG:AUTO-END -->

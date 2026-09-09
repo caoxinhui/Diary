@@ -1,3 +1,13 @@
+---
+title: "浏览器插件与 CDP：两种「操纵浏览器」的方式"
+tags: [浏览器]
+prereq:
+  - 浏览器/浏览器.md
+related: []
+deep: []
+dup: []
+---
+
 # 浏览器插件与 CDP：两种「操纵浏览器」的方式
 
 ### 先把两者的定位分清
@@ -554,3 +564,8 @@ chrome.debugger.onDetach.addListener((source, reason) => {
 - [CDP 官方协议文档](https://chromedevtools.github.io/devtools-protocol/)
 - 本机随时可查的权威协议定义：`curl localhost:9222/json/protocol`
 
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[浏览器引擎与渲染原理](./浏览器.md)
+- **被引用**：[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+<!-- KG:AUTO-END -->

@@ -1,3 +1,13 @@
+---
+title: "SPA 与路由切换原理"
+tags: [微前端, 架构]
+prereq: []
+related:
+  - React/单页路由.md
+deep: []
+dup: []
+---
+
 # SPA 与路由切换原理
 
 ### 什么叫 SPA
@@ -242,5 +252,8 @@ export function Link({ to, children }) {
 - **`popstate` 的坑**：只有前进后退和 `history.go` 会触发，`pushState` / `replaceState` 不会，首次进入也不会。
 - **哪些 URL 操作不刷新**：只有两类算同文档导航 —— 只改 `#` 后面的 fragment（`location.hash`、锚点 `<a>`），以及 `pushState` / `replaceState`（含随后的前进后退）。给 `location.pathname` / `search` / `href` 赋值、`assign` / `replace` / `reload`、点普通链接和表单提交都会跨文档重载。所以想改 path 或 query 又不刷新，只有 `pushState` / `replaceState` 一条路。
 
-
-
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[React 单页路由](../React/单页路由.md)
+- **被引用**：[微前端 原理](./原理.md)、[微前端 原理](./原理.md)
+<!-- KG:AUTO-END -->

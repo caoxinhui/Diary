@@ -1,3 +1,16 @@
+---
+title: "Hooks"
+tags: [React]
+prereq:
+  - React/Class-VS-Function-component.md
+related:
+  - React/生命周期.md
+  - React/高阶组件.md
+  - React/react原理.md
+deep: []
+dup: []
+---
+
 ### 前言
 
 [参考文章](https://github.com/brickspert/blog/issues/26)
@@ -106,3 +119,8 @@ side effect的相关逻辑可能被分散到 `componentDidMount, componentWillMo
 生命周期函数不适合side effect
 由于JS本身的原因，在Class Component中你要手动为注册的event listener绑定this
 
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[Class-VS-Function-component](./Class-VS-Function-component.md)
+- **相关**：[React 生命周期](./生命周期.md)、[React 高阶组件（HOC）](./高阶组件.md)、[React 原理：Hooks 与 HOC](./react原理.md)
+<!-- KG:AUTO-END -->

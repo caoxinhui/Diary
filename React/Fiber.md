@@ -1,3 +1,16 @@
+---
+title: "Fiber"
+tags: [React]
+prereq:
+  - React/VirtualDOM.md
+related: []
+deep:
+  - React/ConcurrentMode.md
+  - React/调度.md
+  - React/render.md
+dup: []
+---
+
 ### 为什么需要 Fiber
 
 一句话：**React 15 的更新过程是「一个不可中断的同步长任务」，它会长时间霸占渲染进程主线程，导致这期间的输入、动画、绘制全部停摆。Fiber 的目的不是让计算变快，而是让这个长任务变得「可以被打断」，从而把主线程及时还给浏览器。**
@@ -608,3 +621,10 @@ function commitLifeCycles(
 
 ### 调用链路
 ![调用链路](https://p1.music.126.net/VU37zHp-6hAUfNaZbu3HRw==/109951165071751567.jpg)
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **前置**：[VirtualDOM](./VirtualDOM.md)
+- **深入**：[ConcurrentMode](./ConcurrentMode.md)、[React 调度](./调度.md)、[React render 阶段（beforeMutation / mutation）](./render.md)
+- **相关**：[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+<!-- KG:AUTO-END -->

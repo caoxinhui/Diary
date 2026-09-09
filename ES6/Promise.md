@@ -1,3 +1,14 @@
+---
+title: "Promise"
+tags: [JavaScript, ES6]
+prereq: []
+related:
+  - Javascript/源码实现.md
+  - ES6/方法汇总.md
+deep: []
+dup: []
+---
+
 ES6 规定，Promise对象是一个构造函数，用来生成Promise实例。
 
 一个异步操作的结果是返回另一个异步操作,由于p2返回的是另一个 Promise，导致p2自己的状态无效了，由p1的状态决定p2的状态。所以，后面的then语句都变成针对后者（p1）。又过了 2 秒，p1变为rejected，导致触发catch方法指定的回调函数。
@@ -146,3 +157,9 @@ function promiseAll(promises) {
 
 }
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[手写源码实现合集](../Javascript/源码实现.md)、[ES6 方法汇总](./方法汇总.md)、[EventLoop](../Javascript/EventLoop.md)
+- **被引用**：[高级前后端能力地图（AI 时代）](../成长路线/高级前后端能力地图.md)
+<!-- KG:AUTO-END -->

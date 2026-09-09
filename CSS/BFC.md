@@ -1,3 +1,13 @@
+---
+title: "BFC"
+tags: [CSS]
+prereq: []
+related:
+  - CSS/清除浮动.md
+deep: []
+dup: []
+---
+
 [参考文献](http://47.98.159.95/my_blog/css/008.html)
 ### 什么是BFC
 > W3C对BFC的定义如下： 浮动元素和绝对定位元素，非块级盒子的块级容器（例如 inline-blocks, table-cells, 和 table-captions），以及overflow值不为"visiable"的块级盒子，都会为他们的内容创建新的BFC（Block Fromatting Context， 即块级格式上下文）
@@ -78,3 +88,8 @@
   overflow: hidden;
 }
 ```
+
+<!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
+### 相关内容
+- **相关**：[清除浮动](./清除浮动.md)、[CSS 布局](./布局.md)
+<!-- KG:AUTO-END -->
