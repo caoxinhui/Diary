@@ -10,7 +10,7 @@
 <!-- KG:AUTO-START 由 scripts/kg.mjs build 生成，请勿手改；关系维护在 frontmatter -->
 ## 目录索引
 
-共 107 篇，154 条关联。
+共 109 篇，155 条关联。
 按标签检索、关系图、待连接清单见 [GRAPH.md](GRAPH.md)。
 
 > 维护方式：关系写在每个文件的 frontmatter（`prereq` 前置 / `related` 相关 / `deep` 深入 / `dup` 待合并，值用仓库根目录相对路径），
@@ -108,8 +108,9 @@
 
 </details>
 
-<details><summary><b>React-imvc</b>（2）</summary>
+<details><summary><b>React-imvc</b>（3）</summary>
 
+- [slate](React-imvc/slate.md)
 - [react-imvc 原理](React-imvc/原理.md) <sub>· 4 关联</sub>
 - [react-imvc vs Next.js](React-imvc/对比-Next.js.md) <sub>· 3 关联</sub>
 
@@ -134,9 +135,10 @@
 
 </details>
 
-<details><summary><b>java</b>（1）</summary>
+<details><summary><b>java</b>（2）</summary>
 
-- [MySQL / Redis / MongoDB 对比](java/数据库.md) <sub>· 2 关联</sub>
+- [MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数](java/SQL.md) <sub>· 1 关联</sub>
+- [MySQL / Redis / MongoDB 对比](java/数据库.md) <sub>· 3 关联</sub>
 
 </details>
 

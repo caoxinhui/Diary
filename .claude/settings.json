@@ -95,7 +95,14 @@
       "Bash(perl -0pi -e 's/\\\\$\\\\{edges\\\\.length\\\\} 条边，更新了/\\\\${pairCount\\(edges\\)} 条关联，更新了/; s/共 \\\\$\\\\{docs\\\\.size\\\\} 篇，\\\\$\\\\{edges\\\\.length\\\\} 条关联。/共 \\\\${docs.size} 篇，\\\\${pairCount\\(edges\\)} 条关联。/; s/`- 关联：\\\\$\\\\{edges\\\\.length\\\\} 条`/`- 关联：\\\\${pairCount\\(edges\\)} 对`/; s/\\\\$\\\\{edges\\\\.length\\\\} 条边 \\\\/ 孤立/\\\\${pairCount\\(edges\\)} 条关联 \\\\/ 孤立/' scripts/kg.mjs)",
       "Bash(node scripts/kg.mjs check)",
       "Bash(gh auth *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(curl -s --max-time 12 -o /tmp/upstream-editable.tsx -w \"%{http_code}\\\\n\" https://raw.githubusercontent.com/ianstormtaylor/slate/main/packages/slate-react/src/components/editable.tsx)",
+      "Bash(curl -s --max-time 20 \"https://api.github.com/repos/ianstormtaylor/slate/git/trees/main?recursive=1\" -o slate-tree.json)",
+      "Bash(rm -rf slate-src)",
+      "Bash(mkdir -p slate-src)",
+      "Bash(xargs -P 24 -I{} sh -c 'mkdir -p /tmp/slate-src/$\\(dirname {}\\) && curl -s --max-time 30 -o /tmp/slate-src/{} https://raw.githubusercontent.com/ianstormtaylor/slate/main/{}')",
+      "Bash(git -C /tmp/slate-src log --oneline -3)",
+      "Bash(awk 'NR>=1 && /export const \\(targetRange|verifyDiffState\\)/,/^}/' packages/slate-dom/src/utils/diff-text.ts)"
     ]
   }
 }

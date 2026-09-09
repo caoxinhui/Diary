@@ -334,6 +334,12 @@
       "dir": "Javascript"
     },
     {
+      "id": "React-imvc/slate.md",
+      "title": "slate",
+      "tags": [],
+      "dir": "React-imvc"
+    },
+    {
       "id": "React-imvc/原理.md",
       "title": "react-imvc 原理",
       "tags": [
@@ -551,6 +557,15 @@
         "浏览器"
       ],
       "dir": "iframe"
+    },
+    {
+      "id": "java/SQL.md",
+      "title": "MySQL SQL 速查：DML / JOIN / 分组 / 子查询 / 窗口函数",
+      "tags": [
+        "后端",
+        "MySQL"
+      ],
+      "dir": "java"
     },
     {
       "id": "java/数据库.md",
@@ -1557,6 +1572,16 @@
     {
       "from": "微前端/原理.md",
       "to": "iframe/iframe跨端通信.md",
+      "kind": "related"
+    },
+    {
+      "from": "java/SQL.md",
+      "to": "java/数据库.md",
+      "kind": "related"
+    },
+    {
+      "from": "java/数据库.md",
+      "to": "java/SQL.md",
       "kind": "related"
     },
     {
